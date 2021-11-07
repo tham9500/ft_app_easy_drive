@@ -12,7 +12,10 @@ class _Home_pageState extends State<Home_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Home"),
+      ),
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(30),
@@ -41,7 +44,7 @@ class _Home_pageState extends State<Home_page> {
             onPressed: () {
               print("games click");
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Hoem_game()));
+                  MaterialPageRoute(builder: (context) => Home_game()));
             }));
   }
 
