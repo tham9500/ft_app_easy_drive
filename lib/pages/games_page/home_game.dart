@@ -38,14 +38,20 @@ class _Home_gameState extends State<Home_game> {
     return Container(
         height: MediaQuery.of(context).size.height * 0.18,
         width: MediaQuery.of(context).size.width,
+
         // color: Colors.amber.shade200,
-        child: RaisedButton(
-            color: Colors.amber.shade300,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: Text("เกมส์ทดสอบสายตายทางลึก"),
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Text("เกมส์ทดสอบสายตาทางลึก"),
             onPressed: () {
-              print("games click");
+              print("games colors click");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Example_distance()));
             }));
@@ -80,13 +86,18 @@ class _Home_gameState extends State<Home_game> {
         width: MediaQuery.of(context).size.width,
 
         // color: Colors.amber.shade200,
-        child: RaisedButton(
-            color: Colors.amber.shade300,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: Text("เกมส์ทกสอบปฏิกริยา"),
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Text("เกมส์ทดสอบปฏิกริยา"),
             onPressed: () {
-              print("games click");
+              print("games colors click");
             }));
   }
 }

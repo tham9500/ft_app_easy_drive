@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:ft_app_easy_drive/widget/dialog.dart';
 
 class Example_distance extends StatefulWidget {
@@ -188,9 +189,10 @@ class _Example_distanceState extends State<Example_distance> {
             if ((default_H >= 260) && (default_H <= 340)) {
               print("PASS");
               // ignore: void_checks
-              _showMyDialog("sss");
+              _showMyDialogPass("ผ่าน");
             } else {
               print("Don't pass");
+              _showMyDialogFail("ไม่ผ่าน");
             }
           });
         },
@@ -202,12 +204,13 @@ class _Example_distanceState extends State<Example_distance> {
     );
   }
 
-  Future<void> _showMyDialog(content) async {
+  Future<void> _showMyDialogPass(content) async {
     return showDialog<void>(
       context: this.context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.green.shade200,
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -217,12 +220,68 @@ class _Example_distanceState extends State<Example_distance> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('ปิด'),
+              child: const Text('ออก'),
               onPressed: () {
-                int count = 0;
-                Navigator.popUntil(context, (route) {
-                  return count++ == 3;
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home_game()));
+              },
+            ),
+            TextButton(
+              child: const Text('เล่นใหม่'),
+              onPressed: () {
+                setState(() {
+                  default_H = 150;
+                  default_W = 24;
+                  print(default_H);
+                  print(default_W);
                 });
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Example_distance()));
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showMyDialogFail(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.green.shade200,
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("$content"),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            MaterialButton(
+              child: const Text('ออก'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home_game()));
+              },
+            ),
+            MaterialButton(
+              child: const Text('เล่นใหม่'),
+              onPressed: () {
+                setState(() {
+                  default_H = 150;
+                  default_W = 24;
+                  print(default_H);
+                  print(default_W);
+                });
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Example_distance()));
               },
             ),
           ],
