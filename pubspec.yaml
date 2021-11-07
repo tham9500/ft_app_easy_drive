@@ -37,6 +37,7 @@ dependencies:
   flutter_form_builder: ^7.0.0
   splash_screen_view: ^3.0.0
   awesome_dialog: ^2.1.1
+  shared_preferences: ^2.0.8
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +58,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/load/
+    - assets/Example_Colors/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

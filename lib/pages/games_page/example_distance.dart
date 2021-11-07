@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
+// import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:ft_app_easy_drive/widget/dialog.dart';
 
 class Example_distance extends StatefulWidget {
   Example_distance({Key? key}) : super(key: key);
@@ -10,8 +11,8 @@ class Example_distance extends StatefulWidget {
 }
 
 class _Example_distanceState extends State<Example_distance> {
-  double default_W = 18;
-  double default_H = 100;
+  double default_W = 24;
+  double default_H = 150;
   Color _color = Colors.green;
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
 
@@ -20,7 +21,10 @@ class _Example_distanceState extends State<Example_distance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("เกมส์ทดสอบสายตาทางลึก"),
+      ),
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(30),
@@ -99,19 +103,20 @@ class _Example_distanceState extends State<Example_distance> {
 
   Widget Btn_up() {
     return Container(
-      color: Colors.blue.shade700,
-      child: MaterialButton(
+      child: RaisedButton(
+        color: Colors.blueGrey.shade400,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: () {
           setState(() {
-            if ((default_H > 100) && (default_H < 380)) {
-              default_H = default_H + 20;
-              default_W = default_W + 3;
+            if ((default_H >= 100) && (default_H < 380)) {
+              default_H = default_H + 10;
+              default_W = default_W + 1.5;
               print(default_H);
               print(default_W);
               print("Zoom enable");
-            } else if (default_H > 380) {
-              default_H = default_H - 20;
-              default_W = default_W - 3;
+            } else if (default_H >= 380) {
+              default_H = 370;
+              default_W = 58;
               print("max");
             }
           });
@@ -126,20 +131,21 @@ class _Example_distanceState extends State<Example_distance> {
 
   Widget Btn_down() {
     return Container(
-      color: Colors.blue.shade700,
-      child: MaterialButton(
+      child: RaisedButton(
+        color: Colors.blueGrey.shade400,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: () {
           setState(() {
             if ((default_H > 100) && (default_H < 380)) {
-              default_H = default_H - 20;
-              default_W = default_W - 3;
+              default_H = default_H - 10;
+              default_W = default_W - 1.5;
               print(default_H);
               print(default_W);
               print("Zoom enable");
             } else if (default_H <= 100) {
-              default_H = default_H + 20;
-              default_W = default_W + 3;
-              print("max");
+              default_H = 100;
+              default_W = 17.5;
+              print("max down");
             }
           });
         },
@@ -153,8 +159,9 @@ class _Example_distanceState extends State<Example_distance> {
 
   Widget Btn_reset() {
     return Container(
-      color: Colors.blue.shade700,
-      child: MaterialButton(
+      child: RaisedButton(
+        color: Colors.orangeAccent.shade400,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: () {
           setState(() {
             default_H = 150;
@@ -173,13 +180,15 @@ class _Example_distanceState extends State<Example_distance> {
 
   Widget Btn_submit() {
     return Container(
-      color: Colors.blue.shade700,
-      child: MaterialButton(
+      child: RaisedButton(
+        color: Colors.green.shade400,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: () {
           setState(() {
             if ((default_H >= 260) && (default_H <= 340)) {
-              //print("PASS");
-
+              print("PASS");
+              // ignore: void_checks
+              _showMyDialog("sss");
             } else {
               print("Don't pass");
             }
@@ -193,7 +202,34 @@ class _Example_distanceState extends State<Example_distance> {
     );
   }
 
-  void Pass_dialog() {
-    
+  Future<void> _showMyDialog(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("$content"),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('ปิด'),
+              onPressed: () {
+                int count = 0;
+                Navigator.popUntil(context, (route) {
+                  return count++ == 3;
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
+
+  void Pass_dialog() {}
 }

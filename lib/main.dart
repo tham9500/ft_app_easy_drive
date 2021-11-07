@@ -2,6 +2,7 @@ import 'package:ft_app_easy_drive/pages/load_pages/load.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
