@@ -1,5 +1,6 @@
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:flutter/material.dart';
+import '../pages/test_page/time_countdown.dart';
 
 class Home_page extends StatefulWidget {
   Home_page({Key? key}) : super(key: key);
@@ -24,6 +25,8 @@ class _Home_pageState extends State<Home_page> {
               Games_Page(),
               SizedBox(height: 20),
               Article_Page(),
+              SizedBox(height: 20),
+              Timer_count(),
             ],
           ),
         ),
@@ -71,5 +74,28 @@ class _Home_pageState extends State<Home_page> {
                 ))),
             child: Text("บทความเกี่ยวกับใบขับขี่"),
             onPressed: () {}));
+  }
+
+  Widget Timer_count() {
+    return Container(
+        height: MediaQuery.of(context).size.height * 0.18,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Text("ทดสอบนับถอยหลัง"),
+            onPressed: () {
+              print("games colors click");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Time_countdown()));
+            }));
   }
 }
