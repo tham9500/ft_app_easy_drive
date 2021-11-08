@@ -214,7 +214,11 @@ class _Example_distanceState extends State<Example_distance> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text("$content"),
+                Container(
+                  child: Center(
+                    child: Text("$content"),
+                  ),
+                ),
               ],
             ),
           ),
@@ -257,7 +261,11 @@ class _Example_distanceState extends State<Example_distance> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text("$content"),
+                Container(
+                  child: Center(
+                    child: Text("$content"),
+                  ),
+                ),
               ],
             ),
           ),
