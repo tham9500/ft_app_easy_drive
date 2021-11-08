@@ -1,3 +1,4 @@
+import 'package:ft_app_easy_drive/pages/games_page/example_action.dart';
 import 'package:ft_app_easy_drive/pages/games_page/example_distance.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/games_page/example_eyecolor.dart';
@@ -97,7 +98,9 @@ class _Home_gameState extends State<Home_game> {
                 ))),
             child: Text("เกมส์ทดสอบปฏิกริยา"),
             onPressed: () {
-              print("games colors click");
+              print("games action click");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Example_action()));
             }));
   }
 }
