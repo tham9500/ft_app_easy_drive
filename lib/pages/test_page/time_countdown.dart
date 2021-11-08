@@ -40,11 +40,13 @@ class _Time_countdownState extends State<Time_countdown> {
             ),
             ElevatedButton(
                 onPressed: () {
+                  print('start counter');
                   startTimer();
                 },
                 child: Text('Start timer')),
             ElevatedButton(
                 onPressed: () {
+                  print('pause');
                   setState(() {
                     _timer.cancel();
                     Counter = 20;
@@ -53,6 +55,7 @@ class _Time_countdownState extends State<Time_countdown> {
                 child: Text('Pause')),
             ElevatedButton(
                 onPressed: () {
+                  print('reset');
                   setState(() {
                     _timer.cancel();
                     Counter = 20;
