@@ -93,7 +93,7 @@ class _Home_pageState extends State<Home_page> {
                 ))),
             child: Text("ทดสอบนับถอยหลัง"),
             onPressed: () {
-              print("games colors click");
+              print("timer countdown click");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Time_countdown()));
             }));
