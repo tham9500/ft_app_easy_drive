@@ -82,9 +82,7 @@ class _Example_actionState extends State<Example_action> {
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-
-                    ],
+                    children: [],
                   ),
                 ),
               )
@@ -119,7 +117,7 @@ class _Example_actionState extends State<Example_action> {
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.yellow),
+                    MaterialStateProperty.all<Color>(Colors.yellow.shade700),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
@@ -143,5 +141,4 @@ class _Example_actionState extends State<Example_action> {
             child: Text("Green"),
             onPressed: () {}));
   }
-  
 }
