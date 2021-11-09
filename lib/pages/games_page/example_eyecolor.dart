@@ -57,6 +57,13 @@ class _example_eyecoloState extends State<example_eyecolo> {
       }
     }
     print("Realexam = ${idExam}");
+    print(idExam.length);
+    if (idExam.length == 2) {
+      for (var i = 0; i < idExam.length; i++) {
+        idExam.removeAt(i);
+        print("remove complete");
+      }
+    }
     var result;
     //print(quiz_id);
     /*  var prefs = await SharedPreferences.getInstance();
@@ -173,7 +180,9 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                   setState(() {
                                     if (idExam.isNotEmpty) {
                                       quizData();
-                                    } else {}
+                                    } else {
+                                      
+                                    }
                                   });
                                 })),
                         // color: Colors.amber.shade200,
