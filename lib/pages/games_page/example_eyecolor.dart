@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:ft_app_easy_drive/models/eyecolor_quiz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,33 +14,109 @@ class example_eyecolo extends StatefulWidget {
 
 class _example_eyecoloState extends State<example_eyecolo> {
   Quizeye_data formData = Quizeye_data();
+  /*  var ImageQuiz; */
   @override
   void initState() {
     super.initState();
+    examtotal();
     quizData();
   }
 
-  quizData() async {
+  examtotal() {
+    var aaa = Question().questions;
+    for (var i = 0; i < Question().questions.length; i++) {
+      print(aaa[i]["ID"]);
+      idExam.add(aaa[i]["ID"]);
+    }
+    print(idExam);
+  }
+
+  var test;
+  List<dynamic> choice = [];
+  List<dynamic> idExam = [];
+
+  quizData() {
+    print(" id  = ${idExam}");
+    print("idExam = $idExam");
+    choice.clear();
     late int totalexam = Question().questions.length;
     Random random = Random();
-    int quiz_id = random.nextInt(totalexam);
-    //print(quiz_id);
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setInt('id_user', quiz_id);
-    var result = Question().questions[quiz_id];
-    print(result);
-    print("result = ${result["ID"]}");
-    var test = result["ID"];
+    print("totalexam = ${totalexam}");
+    //int quiz_id = random.nextInt(totalexam);
 
-    print(test.runtimeType);
+    var quiz_id = (idExam..shuffle()).first;
+
+    print("quiz_id = ${quiz_id}");
+
+    for (var i = 0; i < idExam.length; i++) {
+      if (idExam[i] == quiz_id) {
+        idExam.removeAt(i);
+        break;
+      } else {
+        continue;
+      }
+    }
+    print("Realexam = ${idExam}");
+    var result;
+    //print(quiz_id);
+    /*  var prefs = await SharedPreferences.getInstance();
+    prefs.setInt('QUIZ_ID', quiz_id); */
+    for (var i = 0; i < Question().questions.length; i++) {
+      if (quiz_id == Question().questions[i]["ID"]) {
+        result = Question().questions[i];
+      }
+    }
+    print("result = ${result}");
+    /* var user_id = (prefs.getInt('QUIZ_ID') ?? 0); */
+    /*  print(user_id); */
+
+    // print(result.runtimeType);
+    // print("result = ${result["ID"].runtimeType}");
+    //var test = result["ID"];
+
+    //print(test.runtimeType);
     formData.ID = result["ID"].toString();
+    print(result["image"].toString());
     formData.image = result["image"].toString();
     formData.Answer = result["answers"];
-    print(formData.Answer);
+
+    test = result["image"].toString();
+
+    setState(() {
+      test = result["image"].toString();
+    });
+
+    for (var i = 0; i < formData.Answer.length; i++) {
+      choice.add(formData.Answer[i]);
+    }
+
+    choice.shuffle();
+
+    print("a = $choice");
+
+    /* print(result["answers"].runtimeType);
+    print(formData.Answer.runtimeType); */
+    /*  var r = [1, 2, 3];
+    r.shuffle(); */
+    /*  print(r); */
+
+    /*  print(formData.image); */
+    // print(formData.Answer);
+    /*  print(formData.image); */
+    /* ImageQuiz = formData.image; */
   }
+
+  /*  Future<String> tests() async {
+    if (test != null) {
+      return test;
+    } else {
+      return "false";
+    }
+  } */
 
   @override
   Widget build(BuildContext context) {
+    print("test = $test");
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -50,13 +127,25 @@ class _example_eyecoloState extends State<example_eyecolo> {
           child: Column(
             children: [
               Container(
-                child: Image.asset('assets/Example_Colors/plat1.png'),
+                /*  child: FutureBuilder(
+                future: tests(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.data == "false") {
+                    return CircularProgressIndicator();
+                  } else {
+                    return Image.asset(snapshot.data);
+                  }
+                },
+              ) */
+                child: test != null
+                    ? Image.asset(test)
+                    : CircularProgressIndicator(),
               ),
               Container(
                 child: ListView.builder(
                   scrollDirection: Axis.vertical, //defualt
                   shrinkWrap: true, //defualt
-                  itemCount: 4,
+                  itemCount: choice.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: Padding(
@@ -77,9 +166,15 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                         RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18.0),
                                     ))),
-                                child: Text("เกมส์ทดสอบตาบอดสี"),
+                                child: Text("${choice[index]["text"]}"),
                                 onPressed: () {
+                                  //a[index]["text"];
                                   print("games colors click");
+                                  setState(() {
+                                    if (idExam.isNotEmpty) {
+                                      quizData();
+                                    } else {}
+                                  });
                                 })),
                         // color: Colors.amber.shade200,
                       ),
