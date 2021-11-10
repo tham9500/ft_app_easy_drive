@@ -1,5 +1,6 @@
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/widget/custom_shape.dart';
 import '../pages/test_page/time_countdown.dart';
 
 class Home_page extends StatefulWidget {
@@ -14,8 +15,59 @@ class _Home_pageState extends State<Home_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("Home"),
+        toolbarHeight: 150,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        flexibleSpace: ClipPath(
+          clipper: Customshape(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                child: Container(
+                  height: 220,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.red,
+                  child: Center(
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Text(
+                              "ยินดีต้อนรับ",
+                              style: TextStyle(fontSize: 26),
+                            ),
+                          ),
+                          SizedBox(height: 25),
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Registor_Page(),
+                                SizedBox(width: 20),
+                                Login_Page(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              // Container(
+              //   child: Row(
+              //     children: <Widget>[
+              //       Registor_Page(),
+              //       Login_Page(),
+              //     ],
+              //   ),
+              // ),
+            ],
+          ),
+        ),
       ),
       body: Container(
         child: Padding(
@@ -97,5 +149,43 @@ class _Home_pageState extends State<Home_page> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Time_countdown()));
             }));
+  }
+
+  Widget Registor_Page() {
+    return Container(
+        height: 30,
+        width: 110,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Text("สมัครสมาชิก"),
+            onPressed: () {}));
+  }
+
+  Widget Login_Page() {
+    return Container(
+        height: 30,
+        width: 110,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Text("เข้าสู่ระบบ"),
+            onPressed: () {}));
   }
 }
