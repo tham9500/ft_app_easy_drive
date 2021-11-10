@@ -1,5 +1,7 @@
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/pages/login.dart';
+import 'package:ft_app_easy_drive/pages/registor.dart';
 import 'package:ft_app_easy_drive/widget/custom_shape.dart';
 import '../pages/test_page/time_countdown.dart';
 
@@ -15,7 +17,7 @@ class _Home_pageState extends State<Home_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 150,
+        toolbarHeight: MediaQuery.of(context).size.height / 4.68,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         flexibleSpace: ClipPath(
@@ -25,18 +27,21 @@ class _Home_pageState extends State<Home_page> {
             children: <Widget>[
               Container(
                 child: Container(
-                  height: 220,
+                  height: 200,
                   width: MediaQuery.of(context).size.width,
-                  color: Colors.red,
+                  color: Colors.green.shade700,
                   child: Center(
                     child: Container(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
                             child: Text(
                               "ยินดีต้อนรับ",
-                              style: TextStyle(fontSize: 26),
+                              style: TextStyle(
+                                  fontSize: 26,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           SizedBox(height: 25),
@@ -44,9 +49,9 @@ class _Home_pageState extends State<Home_page> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Registor_Page(),
+                                Btn_Login(),
                                 SizedBox(width: 20),
-                                Login_Page(),
+                                Btn_registor(),
                               ],
                             ),
                           ),
@@ -151,41 +156,54 @@ class _Home_pageState extends State<Home_page> {
             }));
   }
 
-  Widget Registor_Page() {
+  Widget Btn_registor() {
     return Container(
-        height: 30,
-        width: 110,
+        height: 40,
+        width: 130,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
-            child: Text("สมัครสมาชิก"),
-            onPressed: () {}));
+            child: Text(
+              "ลงทะเบียน",
+              style: TextStyle(fontSize: 16, color: Colors.orange.shade800),
+            ),
+            onPressed: () {
+              print("registor click");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Registor_page()));
+            }));
   }
 
-  Widget Login_Page() {
+  Widget Btn_Login() {
     return Container(
-        height: 30,
-        width: 110,
+        height: 40,
+        width: 130,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                    MaterialStateProperty.all<Color>(Colors.orange.shade800),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
-            child: Text("เข้าสู่ระบบ"),
-            onPressed: () {}));
+            child: Text(
+              "เข้าสู่ระบบ",
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
+            onPressed: () {
+              print("login click");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Login_page()));
+            }));
   }
 }
