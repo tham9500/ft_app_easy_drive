@@ -89,11 +89,11 @@ class _Home_pageState extends State<Home_page> {
           padding: const EdgeInsets.all(30),
           child: Column(
             children: <Widget>[
-              Games_Page(),
-              SizedBox(height: 20),
-              Article_Page(),
-              SizedBox(height: 20),
-              Timer_count(),
+              Scroll_Article_horizon(),
+              SizedBox(
+                height: 20,
+              ),
+              Scroll_menu()
             ],
           ),
         ),
@@ -101,10 +101,44 @@ class _Home_pageState extends State<Home_page> {
     );
   }
 
+  Widget Scroll_menu() {
+    return Container(
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Article_Page(),
+                  SizedBox(width: 20),
+                  Games_Page()
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget Scroll_Article_horizon() {
+    return Container(
+      height: 130,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Article_Page_scroll(),
+          SizedBox(width: 12),
+          Article_Page_scroll2(),
+        ],
+      ),
+    );
+  }
+
   Widget Games_Page() {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.18,
-        width: MediaQuery.of(context).size.width,
+        height: 120,
+        width: 150,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -126,8 +160,8 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Article_Page() {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.18,
-        width: MediaQuery.of(context).size.width,
+        height: 120,
+        width: 150,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -141,6 +175,87 @@ class _Home_pageState extends State<Home_page> {
                 ))),
             child: Text("บทความเกี่ยวกับใบขับขี่"),
             onPressed: () {}));
+  }
+
+  Widget Article_Page_scroll() {
+    return Card(
+      shadowColor: Colors.black,
+      elevation: 8,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Container(
+        width: 300,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/scrolls/articlescroll.jpg"),
+                fit: BoxFit.cover)),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              child: Row(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 40,
+                    child: Image(
+                      image: AssetImage("assets/images/logo/logo.png"),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      "easy drive",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget Article_Page_scroll2() {
+    return Card(
+      shadowColor: Colors.black,
+      elevation: 8,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Container(
+        width: 300,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/scrolls/scroll2.jpg"),
+                fit: BoxFit.cover)),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              child: Row(
+                children: [
+                  Container(
+                    child: MaterialButton(
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget Timer_count() {

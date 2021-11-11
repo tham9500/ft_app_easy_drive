@@ -219,8 +219,6 @@ class _Registor_pageState extends State<Registor_page> {
   }
 
   Widget Check_verify() {
-    return Container(
-      
-    )
+    return Container();
   }
 }
