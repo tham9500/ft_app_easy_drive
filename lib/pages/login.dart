@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ft_app_easy_drive/pages/registor.dart';
 import '../widget/custom_shape.dart';
 
 class Login_page extends StatefulWidget {
@@ -52,10 +53,10 @@ class _Login_pageState extends State<Login_page> {
               ),
             ),
           ),
-          title: Text(
-            "ลงทะเบียนเข้าใช้งาน",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
+          // title: Text(
+          //   "ลงทะเบียนเข้าใช้งาน",
+          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          // ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -67,7 +68,23 @@ class _Login_pageState extends State<Login_page> {
         child: Padding(
           padding: const EdgeInsets.all(30),
           child: Column(
-            children: <Widget>[Form_username(), Form_password()],
+            children: <Widget>[
+              Form_username(),
+              Form_password(),
+              Container(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Column(
+                    children: <Widget>[
+                      Btn_ForgetPassword(),
+                    ],
+                  ),
+                ),
+              ),
+              Btn_StateLogin(),
+              SizedBox(height: 20),
+              Btn_registor(),
+            ],
           ),
         ),
       ),
@@ -156,5 +173,74 @@ class _Login_pageState extends State<Login_page> {
             : null;
       },
     );
+  }
+
+  Widget Btn_registor() {
+    return Container(
+        height: 50,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ))),
+            child: Text(
+              "ลงทะเบียน",
+              style: TextStyle(fontSize: 18, color: Colors.orange.shade800),
+            ),
+            onPressed: () {
+              print("registor click");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Registor_page()));
+            }));
+  }
+
+  Widget Btn_ForgetPassword() {
+    return Container(
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: Colors.black45,
+          textStyle: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        onPressed: () {},
+        child: Text(
+          'ลืมรหัสผ่าน ?',
+          textAlign: TextAlign.right,
+        ),
+      ),
+    );
+  }
+
+  Widget Btn_StateLogin() {
+    return Container(
+        height: 50,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.orange.shade700),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ))),
+            child: Text(
+              "เข้าสู่ระบบ",
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+            onPressed: () {
+              print("registor click");
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => Registor_page()));
+            }));
   }
 }

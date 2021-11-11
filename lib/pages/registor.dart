@@ -13,42 +13,41 @@ class _Registor_pageState extends State<Registor_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(200.0),
+        preferredSize: Size.fromHeight(270.0),
         child: AppBar(
-          backgroundColor: Colors.green.shade800,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(50),
-            ),
-          ),
-          automaticallyImplyLeading: false, // hides leading widget
-          flexibleSpace: Container(
-            child: Center(
+          centerTitle: true,
+          flexibleSpace: ClipRRect(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50)),
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/appbars/appbar.png"),
+                    fit: BoxFit.fill),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    child: Text(
-                      "ICON APP",
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Container(
-                    child: Text(
-                      "ลงทะเบียนสมัครสมาชิก",
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal),
+                    child: Center(
+                      child: Column(
+                        children: [SizedBox(height: 30), Title_appbar()],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+          ),
+          title: Text(
+            "ลงทะเบียนเข้าใช้งาน",
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50)),
           ),
         ),
       ),
@@ -66,6 +65,33 @@ class _Registor_pageState extends State<Registor_page> {
               Btn_Submit()
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget Title_appbar() {
+    return Container(
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 30),
+            Container(
+              child: Image(
+                image: AssetImage("assets/images/logo/logo.png"),
+              ),
+            ),
+            SizedBox(height: 25),
+            Container(
+              child: Text(
+                "ลงทะเบียนสมาชิก",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -112,7 +138,7 @@ class _Registor_pageState extends State<Registor_page> {
   Widget Form_email() {
     return TextFormField(
       decoration: const InputDecoration(
-        icon: Icon(Icons.person),
+        icon: Icon(Icons.mail),
         hintText: 'username@mail.com',
         labelText: 'E-mail *',
       ),
@@ -131,7 +157,7 @@ class _Registor_pageState extends State<Registor_page> {
   Widget Form_password() {
     return TextFormField(
       decoration: const InputDecoration(
-        icon: Icon(Icons.person),
+        icon: Icon(Icons.vpn_key),
         hintText: 'Password',
         labelText: 'Password *',
       ),
@@ -150,7 +176,7 @@ class _Registor_pageState extends State<Registor_page> {
   Widget Form_confirm() {
     return TextFormField(
       decoration: const InputDecoration(
-        icon: Icon(Icons.person),
+        icon: Icon(Icons.vpn_key_outlined),
         hintText: 'Comform password',
         labelText: 'Confirm Password *',
       ),
@@ -190,5 +216,11 @@ class _Registor_pageState extends State<Registor_page> {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Login_page()));
             }));
+  }
+
+  Widget Check_verify() {
+    return Container(
+      
+    )
   }
 }
