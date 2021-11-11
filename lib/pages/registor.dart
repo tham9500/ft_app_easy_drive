@@ -220,14 +220,7 @@ class _Registor_pageState extends State<Registor_page> {
 
   Widget Check_verify() {
     return Container(
-      child: Checkbox(checkColor: Colors.white,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
-        ),
+      
     )
   }
 }
