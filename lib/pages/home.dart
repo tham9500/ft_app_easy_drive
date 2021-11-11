@@ -16,42 +16,52 @@ class _Home_pageState extends State<Home_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: MediaQuery.of(context).size.height / 4.68,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        flexibleSpace: ClipPath(
-          clipper: Customshape(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                child: Container(
-                  height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.green.shade700,
-                  child: Center(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(220.0),
+        child: AppBar(
+          centerTitle: true,
+          flexibleSpace: ClipRRect(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50)),
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/appbars/appbar.png"),
+                    fit: BoxFit.fill),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
                     child: Container(
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            child: Text(
-                              "ยินดีต้อนรับ",
-                              style: TextStyle(
-                                  fontSize: 26,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                            child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    "ยินดีต้อนรับ",
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 25),
+                          SizedBox(height: 30),
                           Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: <Widget>[
                                 Btn_Login(),
-                                SizedBox(width: 20),
-                                Btn_registor(),
+                                SizedBox(width: 25),
+                                Btn_registor()
                               ],
                             ),
                           ),
@@ -59,18 +69,18 @@ class _Home_pageState extends State<Home_page> {
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-
-              // Container(
-              //   child: Row(
-              //     children: <Widget>[
-              //       Registor_Page(),
-              //       Login_Page(),
-              //     ],
-              //   ),
-              // ),
-            ],
+            ),
+          ),
+          // title: Text(
+          //   "ลงทะเบียนเข้าใช้งาน",
+          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          // ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50)),
           ),
         ),
       ),

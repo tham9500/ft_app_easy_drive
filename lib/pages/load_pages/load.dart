@@ -15,9 +15,9 @@ class _LoadApp_pageState extends State<LoadApp_page> {
     return SplashScreenView(
       navigateRoute: Home_page(),
       duration: 3000,
-      imageSize: 130,
-      imageSrc: "assets/images/load/load.gif",
-      backgroundColor: Colors.white,
+      imageSize: 300,
+      imageSrc: "assets/images/load/load.png",
+      backgroundColor: Color.fromRGBO(230, 238, 246, 1),
     );
   }
 }
