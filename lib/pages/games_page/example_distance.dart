@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:ft_app_easy_drive/pages/games_page/end_game/end_distance/fail_distance.dart';
+import 'package:ft_app_easy_drive/pages/games_page/end_game/end_distance/success_distance.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:ft_app_easy_drive/widget/dialog.dart';
 
@@ -189,10 +191,14 @@ class _Example_distanceState extends State<Example_distance> {
             if ((default_H >= 260) && (default_H <= 340)) {
               print("PASS");
               // ignore: void_checks
-              _showMyDialogPass("ผ่าน");
+              // _showMyDialogPass("ผ่าน");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Success_distance()));
             } else {
               print("Don't pass");
-              _showMyDialogFail("ไม่ผ่าน");
+              // _showMyDialogFail("ไม่ผ่าน");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Fail_distance()));
             }
           });
         },
