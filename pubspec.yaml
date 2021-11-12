@@ -63,6 +63,7 @@ flutter:
     - assets/images/logo/
     - assets/images/scrolls/
     - assets/images/game_icon/
+    - assets/animation/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
