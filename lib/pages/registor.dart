@@ -51,19 +51,21 @@ class _Registor_pageState extends State<Registor_page> {
           ),
         ),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Form_firstname(),
-              Form_lastname(),
-              Form_email(),
-              Form_password(),
-              Form_confirm(),
-              SizedBox(height: 50),
-              Btn_Submit()
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: <Widget>[
+                Form_firstname(),
+                Form_lastname(),
+                Form_email(),
+                Form_password(),
+                Form_confirm(),
+                SizedBox(height: 50),
+                Btn_Submit()
+              ],
+            ),
           ),
         ),
       ),

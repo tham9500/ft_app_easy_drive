@@ -1,3 +1,4 @@
+import 'package:ft_app_easy_drive/pages/article/home_article.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
@@ -109,9 +110,9 @@ class _Home_pageState extends State<Home_page> {
             Container(
               child: Row(
                 children: <Widget>[
-                  Article_Page(),
+                  Games_Page(),
                   SizedBox(width: 20),
-                  Games_Page()
+                  Article_Page(),
                 ],
               ),
             ),
@@ -144,13 +145,34 @@ class _Home_pageState extends State<Home_page> {
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(255, 88, 59, 1)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
-            child: Text("เกมส์ทดสอบสมรรถภาพการขับรถ"),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 20),
+                Container(
+                  height: 40,
+                  width: 40,
+                  child: Center(
+                    child: Image(
+                      image: AssetImage("assets/images/logo/game.png"),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  child: Text(
+                    "เกมทดสอบสมรรถภาพ",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
             onPressed: () {
               print("games colors click");
               Navigator.push(context,
@@ -167,14 +189,38 @@ class _Home_pageState extends State<Home_page> {
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(13, 59, 102, 1)),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
-            child: Text("บทความเกี่ยวกับใบขับขี่"),
-            onPressed: () {}));
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 20),
+                Container(
+                  height: 40,
+                  width: 40,
+                  child: Center(
+                    child: Image(
+                      image: AssetImage("assets/images/logo/article.png"),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  child: Text(
+                    "เกี่ยวกับใบขับขี่",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Home_article()));
+            }));
   }
 
   Widget Article_Page_scroll() {
@@ -283,52 +329,60 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Btn_registor() {
     return Container(
-        height: 40,
-        width: 130,
+      height: 40,
+      width: 130,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Text(
-              "ลงทะเบียน",
-              style: TextStyle(fontSize: 16, color: Colors.orange.shade800),
+      // color: Colors.amber.shade200,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
             ),
-            onPressed: () {
-              print("registor click");
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Registor_page()));
-            }));
+          ),
+        ),
+        child: Text(
+          "ลงทะเบียน",
+          style: TextStyle(fontSize: 16, color: Colors.orange.shade800),
+        ),
+        onPressed: () {
+          print("registor click");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Registor_page()));
+        },
+      ),
+    );
   }
 
   Widget Btn_Login() {
     return Container(
-        height: 40,
-        width: 130,
+      height: 40,
+      width: 130,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.orange.shade800),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Text(
-              "เข้าสู่ระบบ",
-              style: TextStyle(fontSize: 16, color: Colors.white),
+      // color: Colors.amber.shade200,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.orange.shade800),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
             ),
-            onPressed: () {
-              print("login click");
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Login_page()));
-            }));
+          ),
+        ),
+        child: Text(
+          "เข้าสู่ระบบ",
+          style: TextStyle(fontSize: 16, color: Colors.white),
+        ),
+        onPressed: () {
+          print("login click");
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Login_page()));
+        },
+      ),
+    );
   }
 }
