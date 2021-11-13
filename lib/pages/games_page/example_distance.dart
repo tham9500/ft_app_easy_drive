@@ -24,15 +24,22 @@ class _Example_distanceState extends State<Example_distance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("เกมส์ทดสอบสายตาทางลึก"),
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text("เกมส์ทดสอบสายตาทางลึก"),
+      // ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(15),
           child: Column(
             children: [
+              SizedBox(height: 20),
+              Container(
+                child: Row(
+                  children: <Widget>[Btn_exit()],
+                ),
+              ),
+              SizedBox(height: 20),
               Container(
                 height: 400,
                 width: 350,
@@ -216,40 +223,69 @@ class _Example_distanceState extends State<Example_distance> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.green.shade200,
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Container(
-                  child: Center(
-                    child: Text("$content"),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          backgroundColor: Colors.white,
+          // content: SingleChildScrollView(
+          //   child: ListBody(
+          //     children: <Widget>[
+          //       Container(
+          //           // child: Center(
+          //           //   child: Text("$content"),
+          //           // ),
+          //           ),
+          //     ],
+          //   ),
+          // ),
           actions: <Widget>[
-            TextButton(
-              child: const Text('ออก'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Home_game()));
-              },
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Image(
+                        image: AssetImage("assets/images/game_icon/exit.png")),
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    child: Text(
+                      "หากกดออกหรือปอดแอพพลิเคชัน\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            TextButton(
-              child: const Text('เล่นใหม่'),
-              onPressed: () {
-                setState(() {
-                  default_H = 150;
-                  default_W = 24;
-                  print(default_H);
-                  print(default_W);
-                });
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Example_distance()));
-              },
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'DISAGREE',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      onPressed: () => Navigator.pop(context, true),
+                    ),
+                  ),
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'AGREE',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         );
@@ -304,5 +340,16 @@ class _Example_distanceState extends State<Example_distance> {
     );
   }
 
-  void Pass_dialog() {}
+  Widget Btn_exit() {
+    return Container(
+      child: IconButton(
+        onPressed: () {
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => Home_game()));
+          _showMyDialogPass("ออก");
+        },
+        icon: Icon(Icons.exit_to_app),
+      ),
+    );
+  }
 }
