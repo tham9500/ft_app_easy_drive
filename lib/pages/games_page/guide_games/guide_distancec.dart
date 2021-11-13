@@ -76,78 +76,80 @@ class _Guide_distanceState extends State<Guide_distance> {
           ),
         ),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(230, 238, 246, 1),
-                  shape: BoxShape.circle,
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/game_icon/length.png"),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(230, 238, 246, 1),
+                    shape: BoxShape.circle,
+                    image: const DecorationImage(
+                      image: AssetImage("assets/images/game_icon/length.png"),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 25),
-              Container(
-                child: Center(
+                SizedBox(height: 25),
+                Container(
+                  child: Center(
+                    child: Text(
+                      "ทดสอบสายตาทางลึก",
+                      style: TextStyle(
+                          fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 35),
+                Btn_Start(),
+                SizedBox(height: 20),
+                Container(
+                  alignment: Alignment.centerLeft,
                   child: Text(
-                    "ทดสอบสายตาทางลึก",
-                    style: TextStyle(
-                        fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
+                    "ข้อกำหนดก่อนเริ่มทำแบบทดสอบ",
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
-              ),
-              SizedBox(height: 35),
-              Btn_Start(),
-              SizedBox(height: 20),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "ข้อกำหนดก่อนเริ่มทำแบบทดสอบ",
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        //color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              "assets/images/game_icon/notification1.png"),
+                SizedBox(height: 20),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          //color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          image: const DecorationImage(
+                            image: AssetImage(
+                                "assets/images/game_icon/notification1.png"),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "ใช้ลูกศรเลื่อนแท่ง A สีเขียวให้ตรง\nกับแท่ง B สีแดงให้ได้มากที่สุด",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "ใช้ลูกศรเลื่อนแท่ง A สีเขียวให้ตรง\nกับแท่ง B สีแดงให้ได้มากที่สุด",
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                height: 240,
-                width: 200,
-                decoration: BoxDecoration(
-                  color: Colors.green.shade600,
-                  borderRadius: BorderRadius.circular(12),
+                SizedBox(height: 20),
+                Container(
+                  height: 240,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade600,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
