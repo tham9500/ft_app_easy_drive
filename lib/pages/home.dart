@@ -1,4 +1,5 @@
 import 'package:ft_app_easy_drive/pages/article/home_article.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
@@ -31,6 +32,7 @@ class _Home_pageState extends State<Home_page> {
                     image: AssetImage("assets/images/appbars/appbar.png"),
                     fit: BoxFit.fill),
               ),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -43,6 +45,7 @@ class _Home_pageState extends State<Home_page> {
                               // mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
+                                  alignment: Alignment.centerLeft,
                                   child: Text(
                                     "ยินดีต้อนรับ",
                                     style: TextStyle(
@@ -224,81 +227,83 @@ class _Home_pageState extends State<Home_page> {
   }
 
   Widget Article_Page_scroll() {
-    return Card(
-      shadowColor: Colors.black,
-      elevation: 8,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Container(
-        width: 300,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/scrolls/articlescroll.jpg"),
-                fit: BoxFit.cover)),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: Row(
-                children: [
-                  Container(
-                    height: 40,
-                    width: 40,
-                    child: Image(
-                      image: AssetImage("assets/images/logo/logo.png"),
+    return GestureDetector(
+      onTap: () {
+        print("click");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Sub_article()));
+      },
+      child: Card(
+        shadowColor: Colors.black,
+        elevation: 8,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Container(
+          width: 300,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/scrolls/articlescroll.jpg"),
+                  fit: BoxFit.cover)),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                child: Row(
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 40,
+                      child: Image(
+                        image: AssetImage("assets/images/logo/logo.png"),
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: Text(
-                      "easy drive",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                    Container(
+                      child: Text(
+                        "easy drive",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 25),
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "บทความการขับขี่",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget Article_Page_scroll2() {
-    return Card(
-      shadowColor: Colors.black,
-      elevation: 8,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Container(
-        width: 300,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/scrolls/scroll2.jpg"),
-                fit: BoxFit.cover)),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: Row(
-                children: [
-                  Container(
-                    child: MaterialButton(
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return GestureDetector(
+      onTap: () {},
+      child: Card(
+        shadowColor: Colors.black,
+        elevation: 8,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Container(
+          width: 300,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/scrolls/scroll2.jpg"),
+                  fit: BoxFit.cover)),
+          padding: const EdgeInsets.all(16),
         ),
       ),
     );
