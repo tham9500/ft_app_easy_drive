@@ -281,7 +281,12 @@ class _Example_distanceState extends State<Example_distance> {
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Home_game()));
+                      },
                     ),
                   ),
                 ],
