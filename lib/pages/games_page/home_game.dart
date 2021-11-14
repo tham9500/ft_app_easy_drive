@@ -18,6 +18,12 @@ class _Home_gameState extends State<Home_game> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(130.0),
         child: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
           centerTitle: true,
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(

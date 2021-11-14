@@ -16,6 +16,12 @@ class _Guide_distanceState extends State<Guide_distance> {
         preferredSize: Size.fromHeight(130.0),
         child: AppBar(
           centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
