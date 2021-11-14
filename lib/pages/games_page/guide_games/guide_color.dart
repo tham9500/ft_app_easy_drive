@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:ft_app_easy_drive/pages/load_pages/load_game/loading_distance.dart';
+import 'package:ft_app_easy_drive/pages/load_pages/load_game/loading_color.dart';
 
-class Guide_distance extends StatefulWidget {
-  Guide_distance({Key? key}) : super(key: key);
+class Guide_color extends StatefulWidget {
+  Guide_color({Key? key}) : super(key: key);
 
   @override
-  _Guide_distanceState createState() => _Guide_distanceState();
+  _Guide_colorState createState() => _Guide_colorState();
 }
 
-class _Guide_distanceState extends State<Guide_distance> {
+class _Guide_colorState extends State<Guide_color> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +95,7 @@ class _Guide_distanceState extends State<Guide_distance> {
                     color: Color.fromRGBO(230, 238, 246, 1),
                     shape: BoxShape.circle,
                     image: const DecorationImage(
-                      image: AssetImage("assets/images/game_icon/length.png"),
+                      image: AssetImage("assets/images/game_icon/color.png"),
                     ),
                   ),
                 ),
@@ -103,7 +103,16 @@ class _Guide_distanceState extends State<Guide_distance> {
                 Container(
                   child: Center(
                     child: Text(
-                      "ทดสอบสายตาทางลึก",
+                      "ทดสอบการมองเห็นสี",
+                      style: TextStyle(
+                          fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Center(
+                    child: Text(
+                      "สำหรับการขับรถ",
                       style: TextStyle(
                           fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
                     ),
@@ -131,7 +140,7 @@ class _Guide_distanceState extends State<Guide_distance> {
                           borderRadius: BorderRadius.circular(12),
                           image: const DecorationImage(
                             image: AssetImage(
-                                "assets/images/game_icon/notification1.png"),
+                                "assets/images/game_icon/notification2.png"),
                           ),
                         ),
                       ),
@@ -139,7 +148,7 @@ class _Guide_distanceState extends State<Guide_distance> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "ใช้ลูกศรเลื่อนแท่ง A สีเขียวให้ตรง\nกับแท่ง B สีแดงให้ได้มากที่สุด",
+                          "ตรวจสอบการตั้งค่าสีหน้าจอ\nให้เป็นโหมดปกติ",
                           style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ),
@@ -148,11 +157,29 @@ class _Guide_distanceState extends State<Guide_distance> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  height: 240,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade600,
-                    borderRadius: BorderRadius.circular(12),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          //color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          image: const DecorationImage(
+                            image: AssetImage(
+                                "assets/images/game_icon/notification3.png"),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "สามารถเลือกคำตอบได้เพียว\nครั้งเดียวเท่านั้น",
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -185,7 +212,7 @@ class _Guide_distanceState extends State<Guide_distance> {
             onPressed: () {
               print("Submit click");
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Loading_distance()));
+                  MaterialPageRoute(builder: (context) => Loading_color()));
             }));
   }
 }

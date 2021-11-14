@@ -10,8 +10,8 @@ class Question {
       'image': 'assets/Example_Colors/plat1.png',
       'answers': [
         {'ID': 1, 'text': 'อ่านได้หมายเลข 12', 'score': 0},
-        {'ID': 2, 'text': 'อ่านได้หมายเลข 72', 'score': 1},
-        {'ID': 3, 'text': 'ไม่สามารถอ่านได้', 'score': 1},
+        {'ID': 2, 'text': 'อ่านได้หมายเลข 72', 'score': 2},
+        {'ID': 3, 'text': 'ไม่สามารถอ่านได้', 'score': 3},
       ],
     },
     {
