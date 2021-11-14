@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class Registor_page extends StatefulWidget {
   Registor_page({Key? key}) : super(key: key);
@@ -8,14 +9,26 @@ class Registor_page extends StatefulWidget {
 }
 
 class _Registor_pageState extends State<Registor_page> {
+  String firstname = "",
+      lastname = "",
+      email = "",
+      password = "",
+      confirmpassword = "";
   bool isChecked = false;
+  final form_key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(270.0),
+        preferredSize: Size.fromHeight(200.0),
         child: AppBar(
           centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -52,19 +65,22 @@ class _Registor_pageState extends State<Registor_page> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              children: <Widget>[
-                Form_firstname(),
-                Form_lastname(),
-                Form_email(),
-                Form_password(),
-                Form_confirm(),
-                SizedBox(height: 50),
-                Btn_Submit()
-              ],
+        child: Form(
+          key: form_key,
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                children: <Widget>[
+                  Form_firstname(),
+                  Form_lastname(),
+                  Form_email(),
+                  Form_password(),
+                  Form_confirm(),
+                  SizedBox(height: 50),
+                  Btn_Submit()
+                ],
+              ),
             ),
           ),
         ),
@@ -106,15 +122,12 @@ class _Registor_pageState extends State<Registor_page> {
         hintText: 'กรุณากรอกชื่อ',
         labelText: 'ชื่อ *',
       ),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
-      validator: (String? value) {
-        return (value != null && value.contains('@'))
-            ? 'Do not use the @ char.'
-            : null;
-      },
+      onChanged: (value) => setState(() {
+        firstname = value;
+      }),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(context, errorText: "กรุณากรอกชื่อ")
+      ]),
     );
   }
 
@@ -125,15 +138,12 @@ class _Registor_pageState extends State<Registor_page> {
         hintText: 'กรุณากรอกนามสกุล',
         labelText: 'นามสกุล *',
       ),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
-      validator: (String? value) {
-        return (value != null && value.contains('@'))
-            ? 'Do not use the @ char.'
-            : null;
-      },
+      onChanged: (value) => setState(() {
+        lastname = value;
+      }),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(context, errorText: "กรุณากรอกนามสกุล")
+      ]),
     );
   }
 
@@ -144,15 +154,14 @@ class _Registor_pageState extends State<Registor_page> {
         hintText: 'username@mail.com',
         labelText: 'E-mail *',
       ),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
-      validator: (String? value) {
-        return (value != null && value.contains('@'))
-            ? 'Do not use the @ char.'
-            : null;
-      },
+      onChanged: (value) => setState(() {
+        email = value;
+      }),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(context, errorText: "กรุณากรอก Email"),
+        FormBuilderValidators.email(context,
+            errorText: "Email ไม่ถูกต้องตัวอย่างเช่น name@mail.com")
+      ]),
     );
   }
 
@@ -163,15 +172,16 @@ class _Registor_pageState extends State<Registor_page> {
         hintText: 'Password',
         labelText: 'Password *',
       ),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
-      validator: (String? value) {
-        return (value != null && value.contains('@'))
-            ? 'Do not use the @ char.'
-            : null;
-      },
+      onChanged: (value) => setState(() {
+        password = value;
+      }),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(context, errorText: "กรุณากรอกรหัสผ่าน"),
+        FormBuilderValidators.minLength(context, 8,
+            errorText: "กรุณากรอกอย่างน้อย 8 ตัวอักษร"),
+        FormBuilderValidators.match(context, confirmpassword,
+            errorText: "รหัสไม่ถูกต้อง")
+      ]),
     );
   }
 
@@ -182,15 +192,16 @@ class _Registor_pageState extends State<Registor_page> {
         hintText: 'Comform password',
         labelText: 'Confirm Password *',
       ),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
-      validator: (String? value) {
-        return (value != null && value.contains('@'))
-            ? 'Do not use the @ char.'
-            : null;
-      },
+      onChanged: (value) => setState(() {
+        confirmpassword = value;
+      }),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(context, errorText: "กรุณากรอกรหัสผ่าน"),
+        FormBuilderValidators.minLength(context, 8,
+            errorText: "กรุณากรอกอย่างน้อย 8 ตัวอักษร"),
+        FormBuilderValidators.match(context, password,
+            errorText: "รหัสไม่ถูกต้อง")
+      ]),
     );
   }
 
@@ -215,6 +226,12 @@ class _Registor_pageState extends State<Registor_page> {
             ),
             onPressed: () {
               print("Submit click");
+              form_key.currentState!.save();
+
+              if (form_key.currentState!.validate()) {
+                // postdataUser();
+
+              }
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Login_page()));
             }));

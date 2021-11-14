@@ -51,7 +51,8 @@ class _Home_pageState extends State<Home_page> {
                                     style: TextStyle(
                                         fontSize: 28,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                        color: Colors.white,
+                                        fontFamily: "Prompt"),
                                     textAlign: TextAlign.left,
                                   ),
                                 ),

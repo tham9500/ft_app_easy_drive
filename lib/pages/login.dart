@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
 import '../widget/custom_shape.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class Login_page extends StatefulWidget {
   Login_page({Key? key}) : super(key: key);
@@ -11,6 +12,8 @@ class Login_page extends StatefulWidget {
 }
 
 class _Login_pageState extends State<Login_page> {
+  String username = "", password = "";
+  final form_key = GlobalKey<FormState>();
   bool _isVisible = false;
 
   void updateStatus() {
@@ -26,6 +29,12 @@ class _Login_pageState extends State<Login_page> {
         preferredSize: Size.fromHeight(270.0),
         child: AppBar(
           centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -65,26 +74,29 @@ class _Login_pageState extends State<Login_page> {
         ),
       ),
       body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Form_username(),
-              Form_password(),
-              Container(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Column(
-                    children: <Widget>[
-                      Btn_ForgetPassword(),
-                    ],
+        child: Form(
+          key: form_key,
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: <Widget>[
+                Form_username(),
+                Form_password(),
+                Container(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Column(
+                      children: <Widget>[
+                        Btn_ForgetPassword(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Btn_StateLogin(),
-              SizedBox(height: 20),
-              Btn_registor(),
-            ],
+                Btn_StateLogin(),
+                SizedBox(height: 20),
+                Btn_registor(),
+              ],
+            ),
           ),
         ),
       ),
@@ -143,15 +155,14 @@ class _Login_pageState extends State<Login_page> {
         hintText: 'username@mail.com',
         labelText: 'Username *',
       ),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
-      validator: (String? value) {
-        return (value != null && value.contains('@'))
-            ? 'Do not use the @ char.'
-            : null;
-      },
+      onChanged: (value) => setState(() {
+        username = value;
+      }),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(context, errorText: "กรุณากรอก Email"),
+        FormBuilderValidators.email(context,
+            errorText: "Email ไม่ถูกต้องตัวอย่างเช่น name@mail.com")
+      ]),
     );
   }
 
@@ -239,6 +250,12 @@ class _Login_pageState extends State<Login_page> {
             ),
             onPressed: () {
               print("registor click");
+              form_key.currentState!.save();
+
+              if (form_key.currentState!.validate()) {
+                // postdataUser();
+
+              }
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Registor_page()));
             }));
