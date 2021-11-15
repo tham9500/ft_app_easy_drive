@@ -2,6 +2,8 @@ import 'dart:convert';
 // import 'dart:html';
 import 'dart:math';
 import 'package:ft_app_easy_drive/models/eyecolor_quiz.dart';
+import 'package:ft_app_easy_drive/pages/games_page/end_game/end_color/color_fail2.dart';
+import 'package:ft_app_easy_drive/pages/games_page/end_game/end_color/color_firstfail.dart';
 import 'package:ft_app_easy_drive/pages/games_page/end_game/end_color/color_pass.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,6 +41,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
   List<dynamic> idExam = [];
   List<dynamic> answer = [];
   int count = 1;
+  int condition = 0;
 
   quizData() {
     print(" id  = ${idExam}");
@@ -75,6 +78,28 @@ class _example_eyecoloState extends State<example_eyecolo> {
         print("remove complete");
       }
     }
+    if (condition == 0) {
+      print("ตาปกติ");
+    } else if (condition == 2) {
+      print("บอดสีแดงเขียว");
+    } else {
+      print("บอดทุกสี");
+    }
+    for (int selection = 0; selection < answer.length; selection++) {
+      print("list ans");
+      print(answer[selection]);
+      if ((answer[selection] == 0) && (condition != 2)) {
+        this.condition = 0;
+        print("ไม่บอด");
+      } else if ((answer[selection] == 2) && (condition != 3)) {
+        print('บอดสีแดงเขียว');
+        this.condition = 2;
+      } else {
+        print('บอดทุกสี');
+        this.condition = 3;
+      }
+    }
+
     var result;
     //print(quiz_id);
     /*  var prefs = await SharedPreferences.getInstance();
@@ -209,23 +234,35 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                   answer.add(choice[index]["score"]);
                                   print("answer = ${answer}");
                                   print("games colors click");
-
+                                  print(condition);
                                   setState(() {
                                     if (idExam.isNotEmpty) {
                                       quizData();
                                     } else {
-                                      for (int selection = 0;
-                                          selection < answer.length;
-                                          selection++) {
-                                        print(answer[selection]);
-                                        if (answer[selection] == 0) {
-                                          print('ไม่บอด');
-                                        } else if (answer[selection] == 2) {
-                                          print('บอดสีแดงเขียว');
+                                      if (answer.length == 3) {
+                                        if (condition == 0) {
+                                          print("pass");
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Color_pass()));
+                                        } else if (condition == 2) {
+                                          print("fail");
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Fail_Color()));
                                         } else {
-                                          print('บอดทุกสี');
+                                          print("fail");
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Color_fail2()));
                                         }
-                                      }
+                                      } else {}
                                     }
                                   });
                                 })),
