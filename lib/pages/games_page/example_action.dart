@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Example_action extends StatefulWidget {
@@ -11,8 +13,61 @@ class _Example_actionState extends State<Example_action> {
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
   Color _color = Colors.black;
   Color _color2 = Colors.grey;
+  int showarea = 0;
+  int showcolor = 0;
+
+  void initState() {
+    super.initState();
+    show_area();
+  }
+
+  show_area() {
+    final random_area = Random().nextInt(3);
+    if (random_area == 0) {
+      print("container 1");
+      showarea = 1;
+      show_color();
+    } else if (random_area == 1) {
+      print("container 2");
+      showarea = 2;
+      show_color();
+    } else if (random_area == 2) {
+      print("container 3");
+      showarea = 3;
+      show_color();
+    }
+  }
+
+  show_color() {
+    final random_color = Random().nextInt(3);
+    if (random_color == 0) {
+      showcolor = 1;
+      print("red");
+    } else if (random_color == 1) {
+      showcolor = 2;
+      print("yellow");
+    } else if (random_color == 2) {
+      showcolor = 3;
+      print("green");
+    }
+  }
+
+  // Color() {
+  //   if (showcolor == 0) {
+  //     return Colors.grey;
+  //   } else if (showcolor == 1) {
+  //     return Colors.red;
+  //   } else if (showcolor == 2) {
+  //     return Colors.yellow;
+  //   } else if (showcolor == 3) {
+  //     return Colors.green;
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
+    void show_color() {}
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -32,12 +87,13 @@ class _Example_actionState extends State<Example_action> {
                       color: _color,
                       borderRadius: _borderRadius,
                     ),
-                    child: Row(
-                      children: <Widget>[
-                        Container(),
-                        Container(),
-                        Container(),
-                      ],
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -82,7 +138,9 @@ class _Example_actionState extends State<Example_action> {
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [],
+                    children: <Widget>[
+                      Container(),
+                    ],
                   ),
                 ),
               )
@@ -106,7 +164,9 @@ class _Example_actionState extends State<Example_action> {
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
             child: Text("Red"),
-            onPressed: () {}));
+            onPressed: () {
+              show_area();
+            }));
   }
 
   Widget Btn_2() {
@@ -123,7 +183,9 @@ class _Example_actionState extends State<Example_action> {
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
             child: Text("Yellow"),
-            onPressed: () {}));
+            onPressed: () {
+              show_area();
+            }));
   }
 
   Widget Btn_3() {
@@ -139,6 +201,8 @@ class _Example_actionState extends State<Example_action> {
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
             child: Text("Green"),
-            onPressed: () {}));
+            onPressed: () {
+              show_area();
+            }));
   }
 }
