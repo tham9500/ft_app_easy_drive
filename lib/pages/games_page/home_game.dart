@@ -17,7 +17,7 @@ class _Home_gameState extends State<Home_game> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130.0),
+        preferredSize: Size.fromHeight(150.0),
         child: AppBar(
           leading: IconButton(
             onPressed: () {

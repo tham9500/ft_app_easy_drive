@@ -93,13 +93,13 @@ class _Registor_pageState extends State<Registor_page> {
       child: Center(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 30),
+            SizedBox(height: 50),
             Container(
               child: Image(
                 image: AssetImage("assets/images/logo/logo.png"),
               ),
             ),
-            SizedBox(height: 25),
+            SizedBox(height: 20),
             Container(
               child: Text(
                 "ลงทะเบียนสมาชิก",
