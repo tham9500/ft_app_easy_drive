@@ -146,7 +146,7 @@ class _Example_distanceState extends State<Example_distance> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: () {
           setState(() {
-            if ((default_H > 100) && (default_H < 380)) {
+            if ((default_H > 100) && (default_H <= 380)) {
               default_H = default_H - 10;
               default_W = default_W - 1.5;
               print(default_H);

@@ -40,6 +40,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
   List<dynamic> choice = [];
   List<dynamic> idExam = [];
   List<dynamic> answer = [];
+  List<bool> _selections = List.generate(3, (_) => false);
   int count = 1;
   int condition = 0;
 
@@ -206,6 +207,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
                   scrollDirection: Axis.vertical, //defualt
                   shrinkWrap: true, //defualt
                   itemCount: choice.length,
+
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: Padding(
@@ -228,14 +230,21 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                     ))),
                                 child: Text("${choice[index]["text"]}"),
                                 onPressed: () {
-                                  count++;
+                                  if (count == 3) {
+                                    count + 0;
+                                  } else {
+                                    count++;
+                                  }
                                   print(index);
                                   print(choice[index]["score"]);
                                   answer.add(choice[index]["score"]);
                                   print("answer = ${answer}");
                                   print("games colors click");
                                   print(condition);
+
                                   setState(() {
+                                    _selections[index] = !_selections[index];
+                                    print("SELECT=${_selections[index]}");
                                     if (idExam.isNotEmpty) {
                                       quizData();
                                     } else {
