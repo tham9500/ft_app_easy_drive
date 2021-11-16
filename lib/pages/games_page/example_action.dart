@@ -15,6 +15,14 @@ class _Example_actionState extends State<Example_action> {
   Color _color2 = Colors.grey;
   int showarea = 0;
   int showcolor = 0;
+  var area1 = false;
+  var area2 = false;
+  var area3 = false;
+
+  var red = false;
+  var yellow = false;
+  var green = false;
+  var grey = true;
 
   void initState() {
     super.initState();
@@ -41,15 +49,12 @@ class _Example_actionState extends State<Example_action> {
   show_color() {
     final random_color = Random().nextInt(3);
     if (random_color == 0) {
-      showcolor = 1;
       print("red");
     } else if (random_color == 1) {
-      showcolor = 2;
       print("yellow");
     } else if (random_color == 2) {
-      showcolor = 3;
       print("green");
-    }
+    } else {}
   }
 
   // Color() {
@@ -88,10 +93,14 @@ class _Example_actionState extends State<Example_action> {
                       borderRadius: _borderRadius,
                     ),
                     child: Center(
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(),
+                          Container(
+                            child: Row(
+                              children: [],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -139,7 +148,9 @@ class _Example_actionState extends State<Example_action> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Container(),
+                      Container(
+                        child: Center(),
+                      ),
                     ],
                   ),
                 ),
@@ -204,5 +215,62 @@ class _Example_actionState extends State<Example_action> {
             onPressed: () {
               show_area();
             }));
+  }
+
+  Widget Light_red() {
+    return Center(
+      child: Container(
+        height: 100,
+        width: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(40),
+          ),
+          border: Border.all(
+            width: 3,
+            color: Colors.red,
+            style: BorderStyle.solid,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget Light_Yellow() {
+    return Center(
+      child: Container(
+        height: 100,
+        width: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(40),
+          ),
+          border: Border.all(
+            width: 3,
+            color: Colors.yellow,
+            style: BorderStyle.solid,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget Light_green() {
+    return Center(
+      child: Container(
+        height: 100,
+        width: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(40),
+          ),
+          border: Border.all(
+            width: 3,
+            color: Colors.green,
+            style: BorderStyle.solid,
+          ),
+        ),
+      ),
+    );
   }
 }
