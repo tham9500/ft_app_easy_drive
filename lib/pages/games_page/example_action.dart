@@ -29,7 +29,7 @@ class _Example_actionState extends State<Example_action> {
   void initState() {
     super.initState();
     show_area();
-    show_color();
+    // show_color();
   }
 
   show_area() {
@@ -190,8 +190,10 @@ class _Example_actionState extends State<Example_action> {
             child: Text("Red"),
             onPressed: () {
               print(colorList[showcolor]);
-              show_area();
-              // show_color();
+              setState(() {
+                show_area();
+                // show_color();
+              });
             }));
   }
 
@@ -211,8 +213,10 @@ class _Example_actionState extends State<Example_action> {
             child: Text("Yellow"),
             onPressed: () {
               print(colorList[showcolor]);
-              show_area();
-              // show_color();
+              setState(() {
+                show_area();
+                // show_color();
+              });
             }));
   }
 
@@ -230,7 +234,7 @@ class _Example_actionState extends State<Example_action> {
                 ))),
             child: Text("Green"),
             onPressed: () {
-              print(colorList[showcolor]);
+              print(colorList[showcolor].runtimeType);
               setState(() {
                 show_area();
                 // show_color();
@@ -249,9 +253,9 @@ class _Example_actionState extends State<Example_action> {
           shape: BoxShape.circle,
         ),
         // Define how long the animation should take.
-        duration: const Duration(seconds: 0),
+        duration: const Duration(seconds: 1),
         // Provide an optional curve to make the animation feel smoother.
-        curve: Curves.fastOutSlowIn,
+        curve: Curves.easeInOutCirc,
       ),
     );
   }
