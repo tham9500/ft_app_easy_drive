@@ -2,6 +2,7 @@ import 'package:ft_app_easy_drive/pages/games_page/example_action.dart';
 import 'package:ft_app_easy_drive/pages/games_page/example_distance.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/games_page/example_eyecolor.dart';
+import 'package:ft_app_easy_drive/pages/games_page/guide_games/guide_action.dart';
 import 'package:ft_app_easy_drive/pages/games_page/guide_games/guide_color.dart';
 import 'package:ft_app_easy_drive/pages/games_page/guide_games/guide_distancec.dart';
 
@@ -271,7 +272,7 @@ class _Home_gameState extends State<Home_game> {
             onPressed: () {
               print("games action click");
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Example_action()));
+                  MaterialPageRoute(builder: (context) => Guide_action()));
             }));
   }
 }
