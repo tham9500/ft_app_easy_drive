@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:ft_app_easy_drive/pages/games_page/example_eyecolor.dart';
+import 'package:ft_app_easy_drive/pages/games_page/example_action.dart';
 
-class Loading_color extends StatefulWidget {
-  Loading_color({Key? key}) : super(key: key);
+class Loading_action extends StatefulWidget {
+  Loading_action({Key? key}) : super(key: key);
 
   @override
-  _Loading_colorState createState() => _Loading_colorState();
+  _Loading_actionState createState() => _Loading_actionState();
 }
 
-class _Loading_colorState extends State<Loading_color> {
+class _Loading_actionState extends State<Loading_action> {
   int Counter = 3;
   late Timer _timer;
   void initState() {
@@ -27,7 +27,7 @@ class _Loading_colorState extends State<Loading_color> {
           if (Counter == 0) {
             print("time out");
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => example_eyecolo()));
+                MaterialPageRoute(builder: (context) => Example_action()));
           }
         });
       } else {
@@ -40,9 +40,10 @@ class _Loading_colorState extends State<Loading_color> {
     if (Counter == 0) {
       print("time out");
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => example_eyecolo()));
+          context, MaterialPageRoute(builder: (context) => Example_action()));
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
