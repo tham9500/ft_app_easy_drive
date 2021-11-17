@@ -267,21 +267,39 @@ class _Example_actionState extends State<Example_action> {
                   ),
                 ),
               ),
-              Spacer(),
+              SizedBox(height: 20),
               Container(
-                child: Center(
-                  child: Container(
-                    height: 30,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      color: _color2,
-                      borderRadius: _borderRadius,
+                padding: const EdgeInsets.all(8),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Image(
+                        image: AssetImage(
+                            "assets/images/game_icon/notification4.png"),
+                      ),
                     ),
-                    child: Text("${Counter}"),
-                  ),
+                    SizedBox(width: 15),
+                    Container(
+                      child: Text(
+                        ": ${Counter} วินาที",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Spacer(),
+              SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(8),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "ครั้งที่ : ${Num_quiz}/5",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: 20),
               Container(
                 child: Center(
                   child: Container(
