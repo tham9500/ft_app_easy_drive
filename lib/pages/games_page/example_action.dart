@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -14,7 +15,12 @@ class _Example_actionState extends State<Example_action> {
   Color _color = Colors.black;
   Color _color2 = Colors.grey;
   int showarea = 0;
-  int showcolor = 0;
+  int showcolor1 = 0;
+  int showcolor2 = 0;
+  int showcolor3 = 0;
+  int question = 0;
+  int answer = 0;
+  int score = 0;
 
   // var area1 = false;
   // var area2 = false;
@@ -24,11 +30,30 @@ class _Example_actionState extends State<Example_action> {
   // var yellow = false;
   // var green = false;
   // var grey = true;
-  List colorList = [Colors.grey, Colors.red, Colors.yellow, Colors.green];
+  List colorList_light1 = [
+    Colors.grey,
+    Colors.red,
+    Colors.yellow,
+    Colors.green
+  ];
+  List colorList_light2 = [
+    Colors.grey,
+    Colors.red,
+    Colors.yellow,
+    Colors.green
+  ];
+  List colorList_light3 = [
+    Colors.grey,
+    Colors.red,
+    Colors.yellow,
+    Colors.green
+  ];
 
   void initState() {
     super.initState();
     show_area();
+    startTimer();
+    // check_answer();
     // show_color();
   }
 
@@ -37,36 +62,134 @@ class _Example_actionState extends State<Example_action> {
     if (random_area == 0) {
       print("container 1");
       showarea = 0;
-      show_color();
+      show_color1();
     } else if (random_area == 1) {
       print("container 2");
       showarea = 1;
-      show_color();
+      show_color2();
     } else if (random_area == 2) {
       print("container 3");
       showarea = 2;
-      show_color();
+      show_color3();
     }
   }
 
-  show_color() {
+  show_color1() {
     final random_color = Random().nextInt(3);
+    showcolor2 = 0;
+    showcolor3 = 0;
     if (random_color == 0) {
-      showcolor = 1;
-      print("color = ${showcolor}");
+      question = 1;
+
+      showcolor1 = 1;
+      print("red 1");
+      print("condition = ${question}");
       return Container(color: Colors.red);
     } else if (random_color == 1) {
-      showcolor = 2;
-      print("color = ${showcolor}");
-      print("yellow");
+      question = 2;
+      showcolor1 = 2;
+
+      print("yellow 2");
+      print("condition = ${question}");
       return Container(color: Colors.yellow);
     } else if (random_color == 2) {
-      showcolor = 3;
-      print("color = ${showcolor}");
-      print("green");
+      question = 3;
+      showcolor1 = 3;
+
+      print("green 3");
+      print("condition = ${question}");
       return Container(color: Colors.green);
     } else {}
+    print("condition = ${question}");
   }
+
+  show_color2() {
+    final random_color = Random().nextInt(3);
+    showcolor1 = 0;
+    showcolor3 = 0;
+    if (random_color == 0) {
+      question = 1;
+      showcolor2 = 1;
+      print("condition = ${question}");
+      return Container(color: Colors.red);
+    } else if (random_color == 1) {
+      question = 2;
+      showcolor2 = 2;
+
+      print("yellow");
+      print("condition = ${question}");
+      return Container(color: Colors.yellow);
+    } else if (random_color == 2) {
+      question = 3;
+      showcolor2 = 3;
+      question = 3;
+      print("green");
+      print("condition = ${question}");
+      return Container(color: Colors.green);
+    } else {}
+    print("condition = ${question}");
+  }
+
+  show_color3() {
+    final random_color = Random().nextInt(3);
+    showcolor1 = 0;
+    showcolor2 = 0;
+    if (random_color == 0) {
+      showcolor3 = 1;
+      question = 1;
+      print("condition = ${question}");
+      return Container(color: Colors.red);
+    } else if (random_color == 1) {
+      showcolor3 = 2;
+      question = 2;
+      print("yellow");
+      print("condition = ${question}");
+      return Container(color: Colors.yellow);
+    } else if (random_color == 2) {
+      showcolor3 = 3;
+      question = 3;
+      print("green");
+      print("condition = ${question}");
+      return Container(color: Colors.green);
+    } else {}
+    print("condition = ${question}");
+  }
+
+  reset() {
+    answer = 0;
+    question = 0;
+    print("answer = ${answer}");
+    print("question = ${question}");
+  }
+
+  int Counter = 3;
+  late Timer _timer;
+
+  void startTimer() {
+    Counter = 3;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (Counter > -1) {
+        Counter--;
+        setState(() {
+          if (Counter < 0) {
+            reset();
+            show_area();
+            Counter = 3;
+          }
+        });
+      } else {
+        _timer.cancel();
+      }
+    });
+  }
+
+  // void time_out() {
+  //   if (Counter == 0) {
+  //     reset();
+  //     show_area();
+  //     startTimer();
+  //   }
+  // }
 
   // Color() {
   //   if (showcolor == 0) {
@@ -97,6 +220,17 @@ class _Example_actionState extends State<Example_action> {
               Container(
                 child: Center(
                   child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "${score}/5",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Center(
+                  child: Container(
                     height: 400,
                     width: 150,
                     decoration: BoxDecoration(
@@ -111,6 +245,10 @@ class _Example_actionState extends State<Example_action> {
                             child: Column(
                               children: [
                                 light_1(),
+                                SizedBox(height: 25),
+                                light_2(),
+                                SizedBox(height: 25),
+                                light_3(),
                               ],
                             ),
                           ),
@@ -130,6 +268,7 @@ class _Example_actionState extends State<Example_action> {
                       color: _color2,
                       borderRadius: _borderRadius,
                     ),
+                    child: Text("${Counter}"),
                   ),
                 ),
               ),
@@ -189,9 +328,21 @@ class _Example_actionState extends State<Example_action> {
                 ))),
             child: Text("Red"),
             onPressed: () {
-              print(colorList[showcolor]);
+              Counter = 3;
               setState(() {
-                show_area();
+                // show_area();
+                answer = 1;
+                if (question == answer) {
+                  score++;
+                  print("true");
+                  reset();
+                  show_area();
+                } else {
+                  print("false");
+                  reset();
+                  show_area();
+                }
+                // check_answer();
                 // show_color();
               });
             }));
@@ -212,9 +363,21 @@ class _Example_actionState extends State<Example_action> {
                 ))),
             child: Text("Yellow"),
             onPressed: () {
-              print(colorList[showcolor]);
+              Counter = 3;
               setState(() {
-                show_area();
+                // show_area();
+                answer = 2;
+                if (question == answer) {
+                  score++;
+                  print("true");
+                  reset();
+                  show_area();
+                } else {
+                  print("false");
+                  reset();
+                  show_area();
+                }
+                // check_answer();
                 // show_color();
               });
             }));
@@ -234,9 +397,21 @@ class _Example_actionState extends State<Example_action> {
                 ))),
             child: Text("Green"),
             onPressed: () {
-              print(colorList[showcolor].runtimeType);
+              Counter = 3;
               setState(() {
-                show_area();
+                // show_area();
+                answer = 3;
+                if (question == answer) {
+                  score++;
+                  print("true");
+                  reset();
+                  show_area();
+                } else {
+                  print("false");
+                  reset();
+                  show_area();
+                }
+                // check_answer();
                 // show_color();
               });
             }));
@@ -246,10 +421,46 @@ class _Example_actionState extends State<Example_action> {
     return Container(
       child: AnimatedContainer(
         // Use the properties stored in the State class.
-        width: 70,
-        height: 70,
+        width: 90,
+        height: 90,
         decoration: BoxDecoration(
-          color: colorList[showcolor],
+          color: colorList_light2[showcolor1],
+          shape: BoxShape.circle,
+        ),
+        // Define how long the animation should take.
+        duration: const Duration(seconds: 1),
+        // Provide an optional curve to make the animation feel smoother.
+        curve: Curves.easeInOutCirc,
+      ),
+    );
+  }
+
+  Widget light_2() {
+    return Container(
+      child: AnimatedContainer(
+        // Use the properties stored in the State class.
+        width: 90,
+        height: 90,
+        decoration: BoxDecoration(
+          color: colorList_light3[showcolor2],
+          shape: BoxShape.circle,
+        ),
+        // Define how long the animation should take.
+        duration: const Duration(seconds: 1),
+        // Provide an optional curve to make the animation feel smoother.
+        curve: Curves.easeInOutCirc,
+      ),
+    );
+  }
+
+  Widget light_3() {
+    return Container(
+      child: AnimatedContainer(
+        // Use the properties stored in the State class.
+        width: 90,
+        height: 90,
+        decoration: BoxDecoration(
+          color: colorList_light3[showcolor3],
           shape: BoxShape.circle,
         ),
         // Define how long the animation should take.
