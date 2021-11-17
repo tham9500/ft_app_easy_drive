@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/pages/games_page/end_game/end_action/fail_action.dart';
+import 'package:ft_app_easy_drive/pages/games_page/end_game/end_action/pass_action.dart';
+import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 
 class Example_action extends StatefulWidget {
   Example_action({Key? key}) : super(key: key);
@@ -14,6 +17,7 @@ class _Example_actionState extends State<Example_action> {
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
   Color _color = Colors.black;
   Color _color2 = Colors.grey;
+  int Num_quiz = 0;
   int showarea = 0;
   int showcolor1 = 0;
   int showcolor2 = 0;
@@ -53,6 +57,7 @@ class _Example_actionState extends State<Example_action> {
     super.initState();
     show_area();
     startTimer();
+    finish_test();
     // check_answer();
     // show_color();
   }
@@ -60,15 +65,15 @@ class _Example_actionState extends State<Example_action> {
   show_area() {
     final random_area = Random().nextInt(3);
     if (random_area == 0) {
-      print("container 1");
+      // print("container 1");
       showarea = 0;
       show_color1();
     } else if (random_area == 1) {
-      print("container 2");
+      // print("container 2");
       showarea = 1;
       show_color2();
     } else if (random_area == 2) {
-      print("container 3");
+      // print("container 3");
       showarea = 2;
       show_color3();
     }
@@ -82,22 +87,22 @@ class _Example_actionState extends State<Example_action> {
       question = 1;
 
       showcolor1 = 1;
-      print("red 1");
-      print("condition = ${question}");
+      // print("red 1");
+      // print("condition = ${question}");
       return Container(color: Colors.red);
     } else if (random_color == 1) {
       question = 2;
       showcolor1 = 2;
 
-      print("yellow 2");
-      print("condition = ${question}");
+      // print("yellow 2");
+      // print("condition = ${question}");
       return Container(color: Colors.yellow);
     } else if (random_color == 2) {
       question = 3;
       showcolor1 = 3;
 
-      print("green 3");
-      print("condition = ${question}");
+      // print("green 3");
+      // print("condition = ${question}");
       return Container(color: Colors.green);
     } else {}
     print("condition = ${question}");
@@ -110,21 +115,21 @@ class _Example_actionState extends State<Example_action> {
     if (random_color == 0) {
       question = 1;
       showcolor2 = 1;
-      print("condition = ${question}");
+      // print("condition = ${question}");
       return Container(color: Colors.red);
     } else if (random_color == 1) {
       question = 2;
       showcolor2 = 2;
 
-      print("yellow");
-      print("condition = ${question}");
+      // print("yellow");
+      // print("condition = ${question}");
       return Container(color: Colors.yellow);
     } else if (random_color == 2) {
       question = 3;
       showcolor2 = 3;
       question = 3;
-      print("green");
-      print("condition = ${question}");
+      // print("green");
+      // print("condition = ${question}");
       return Container(color: Colors.green);
     } else {}
     print("condition = ${question}");
@@ -137,19 +142,19 @@ class _Example_actionState extends State<Example_action> {
     if (random_color == 0) {
       showcolor3 = 1;
       question = 1;
-      print("condition = ${question}");
+      // print("condition = ${question}");
       return Container(color: Colors.red);
     } else if (random_color == 1) {
       showcolor3 = 2;
       question = 2;
-      print("yellow");
-      print("condition = ${question}");
+      // print("yellow");
+      // print("condition = ${question}");
       return Container(color: Colors.yellow);
     } else if (random_color == 2) {
       showcolor3 = 3;
       question = 3;
-      print("green");
-      print("condition = ${question}");
+      // print("green");
+      // print("condition = ${question}");
       return Container(color: Colors.green);
     } else {}
     print("condition = ${question}");
@@ -158,8 +163,8 @@ class _Example_actionState extends State<Example_action> {
   reset() {
     answer = 0;
     question = 0;
-    print("answer = ${answer}");
-    print("question = ${question}");
+    // print("answer = ${answer}");
+    // print("question = ${question}");
   }
 
   int Counter = 3;
@@ -170,8 +175,11 @@ class _Example_actionState extends State<Example_action> {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (Counter > -1) {
         Counter--;
+
         setState(() {
           if (Counter < 0) {
+            Num_quiz++;
+            finish_test();
             reset();
             show_area();
             Counter = 3;
@@ -183,46 +191,47 @@ class _Example_actionState extends State<Example_action> {
     });
   }
 
-  // void time_out() {
-  //   if (Counter == 0) {
-  //     reset();
-  //     show_area();
-  //     startTimer();
-  //   }
-  // }
-
-  // Color() {
-  //   if (showcolor == 0) {
-  //     return Colors.grey;
-  //   } else if (showcolor == 1) {
-  //     return Colors.red;
-  //   } else if (showcolor == 2) {
-  //     return Colors.yellow;
-  //   } else if (showcolor == 3) {
-  //     return Colors.green;
-  //   }
-  // }
+  finish_test() {
+    print("Number = ${Num_quiz}");
+    if (Num_quiz == 5) {
+      if (score < 3) {
+        _timer.cancel();
+        print("FAIL");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Fail_action()));
+      } else if (score >= 3) {
+        _timer.cancel();
+        print("SUCCESS");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Pass_action()));
+      }
+    } else {
+      print("continue");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     void show_color() {}
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("เกมส์ทดสอบสายตาทางลึก"),
-      ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(12),
           child: Column(
             children: [
+              SizedBox(height: 20),
+              Container(
+                child: Row(
+                  children: <Widget>[Btn_exit()],
+                ),
+              ),
               Container(
                 child: Center(
                   child: Container(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "${score}/5",
+                      "คะเเนน ${score}/5",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -329,21 +338,23 @@ class _Example_actionState extends State<Example_action> {
             child: Text("Red"),
             onPressed: () {
               Counter = 3;
+              Num_quiz++;
               setState(() {
                 // show_area();
                 answer = 1;
                 if (question == answer) {
                   score++;
-                  print("true");
+                  // print("true");
                   reset();
                   show_area();
                 } else {
-                  print("false");
+                  // print("false");
                   reset();
                   show_area();
                 }
                 // check_answer();
                 // show_color();
+                finish_test();
               });
             }));
   }
@@ -364,21 +375,23 @@ class _Example_actionState extends State<Example_action> {
             child: Text("Yellow"),
             onPressed: () {
               Counter = 3;
+              Num_quiz++;
               setState(() {
                 // show_area();
                 answer = 2;
                 if (question == answer) {
                   score++;
-                  print("true");
+                  // print("true");
                   reset();
                   show_area();
                 } else {
-                  print("false");
+                  // print("false");
                   reset();
                   show_area();
                 }
                 // check_answer();
                 // show_color();
+                finish_test();
               });
             }));
   }
@@ -398,21 +411,23 @@ class _Example_actionState extends State<Example_action> {
             child: Text("Green"),
             onPressed: () {
               Counter = 3;
+              Num_quiz++;
               setState(() {
                 // show_area();
                 answer = 3;
                 if (question == answer) {
                   score++;
-                  print("true");
+                  // print("true");
                   reset();
                   show_area();
                 } else {
-                  print("false");
+                  // print("false");
                   reset();
                   show_area();
                 }
                 // check_answer();
                 // show_color();
+                finish_test();
               });
             }));
   }
@@ -468,6 +483,100 @@ class _Example_actionState extends State<Example_action> {
         // Provide an optional curve to make the animation feel smoother.
         curve: Curves.easeInOutCirc,
       ),
+    );
+  }
+
+  Widget Btn_exit() {
+    return Container(
+      child: IconButton(
+        onPressed: () {
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => Home_game()));
+          _showMyDialogPass("ออก");
+        },
+        icon: Icon(Icons.exit_to_app),
+      ),
+    );
+  }
+
+  Future<void> _showMyDialogPass(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          // content: SingleChildScrollView(
+          //   child: ListBody(
+          //     children: <Widget>[
+          //       Container(
+          //           // child: Center(
+          //           //   child: Text("$content"),
+          //           // ),
+          //           ),
+          //     ],
+          //   ),
+          // ),
+          actions: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Image(
+                        image: AssetImage("assets/images/game_icon/exit.png")),
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    child: Text(
+                      "หากกดออกหรือปอดแอพพลิเคชัน\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'DISAGREE',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      onPressed: () => Navigator.pop(context, true),
+                    ),
+                  ),
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'AGREE',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Home_game()));
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
