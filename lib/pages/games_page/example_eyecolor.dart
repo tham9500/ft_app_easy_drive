@@ -182,7 +182,9 @@ class _example_eyecoloState extends State<example_eyecolo> {
                   child: Text(
                     "จงเลือกคำตอบให้ตรงกับภาพ",
                     style: TextStyle(
-                        fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
+                        fontSize: 18,
+                        color: Color.fromRGBO(13, 59, 102, 1),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -222,13 +224,16 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                             Colors.black),
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
-                                            Colors.amber.shade300),
+                                            Colors.white),
                                     shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18.0),
                                     ))),
-                                child: Text("${choice[index]["text"]}"),
+                                child: Text(
+                                  "${choice[index]["text"]}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
                                 onPressed: () {
                                   if (count == 3) {
                                     count + 0;
