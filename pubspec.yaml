@@ -65,6 +65,7 @@ flutter:
     - assets/images/scrolls/
     - assets/images/game_icon/
     - assets/animation/
+    - assets/images/charange/
 
   #   - images/a_dot_ham.jpeg
 
