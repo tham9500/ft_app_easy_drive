@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
+import 'package:ft_app_easy_drive/pages/home.dart';
 
 class Home_article extends StatefulWidget {
   Home_article({Key? key}) : super(key: key);
@@ -18,7 +19,8 @@ class _Home_articleState extends State<Home_article> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Home_page()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),

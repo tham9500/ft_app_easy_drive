@@ -5,6 +5,7 @@ import 'package:ft_app_easy_drive/pages/games_page/example_eyecolor.dart';
 import 'package:ft_app_easy_drive/pages/games_page/guide_games/guide_action.dart';
 import 'package:ft_app_easy_drive/pages/games_page/guide_games/guide_color.dart';
 import 'package:ft_app_easy_drive/pages/games_page/guide_games/guide_distancec.dart';
+import 'package:ft_app_easy_drive/pages/home.dart';
 
 class Home_game extends StatefulWidget {
   Home_game({Key? key}) : super(key: key);
@@ -22,7 +23,8 @@ class _Home_gameState extends State<Home_game> {
         child: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Home_page()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
