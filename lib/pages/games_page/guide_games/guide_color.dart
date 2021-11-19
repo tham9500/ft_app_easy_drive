@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:ft_app_easy_drive/pages/load_pages/load_game/loading_color.dart';
 
 class Guide_color extends StatefulWidget {
@@ -18,7 +19,8 @@ class _Guide_colorState extends State<Guide_color> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Home_game()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
