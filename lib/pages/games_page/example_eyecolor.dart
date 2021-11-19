@@ -182,7 +182,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
                   child: Text(
                     "จงเลือกคำตอบให้ตรงกับภาพ",
                     style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 22,
                         color: Color.fromRGBO(13, 59, 102, 1),
                         fontWeight: FontWeight.bold),
                   ),
@@ -204,6 +204,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
                     ? Image.asset(test)
                     : CircularProgressIndicator(),
               ),
+              SizedBox(height: 20),
               Container(
                 child: ListView.builder(
                   scrollDirection: Axis.vertical, //defualt
@@ -213,7 +214,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: Padding(
-                        padding: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(10),
                         child: Container(
                             height: MediaQuery.of(context).size.height * 0.08,
                             width: MediaQuery.of(context).size.width,
@@ -232,7 +233,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                     ))),
                                 child: Text(
                                   "${choice[index]["text"]}",
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(fontSize: 18),
                                 ),
                                 onPressed: () {
                                   if (count == 3) {

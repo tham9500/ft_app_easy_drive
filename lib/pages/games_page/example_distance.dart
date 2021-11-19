@@ -131,9 +131,10 @@ class _Example_distanceState extends State<Example_distance> {
             }
           });
         },
-        child: Text(
-          "UP",
-          style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+        child: Icon(
+          Icons.arrow_upward,
+          color: Colors.white,
+          size: 70,
         ),
       ),
     );
@@ -159,9 +160,10 @@ class _Example_distanceState extends State<Example_distance> {
             }
           });
         },
-        child: Text(
-          "DOWN",
-          style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+        child: Icon(
+          Icons.arrow_downward,
+          color: Colors.white,
+          size: 70,
         ),
       ),
     );
@@ -180,9 +182,10 @@ class _Example_distanceState extends State<Example_distance> {
             print(default_W);
           });
         },
-        child: Text(
-          "RESET",
-          style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+        child: Icon(
+          Icons.restart_alt,
+          color: Colors.white,
+          size: 70,
         ),
       ),
     );
@@ -209,9 +212,10 @@ class _Example_distanceState extends State<Example_distance> {
             }
           });
         },
-        child: Text(
-          "SUBMIT",
-          style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
+          size: 70,
         ),
       ),
     );
