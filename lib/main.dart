@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     // ignore: avoid_unnecessary_containers
     return Container(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false, //debug screen app
         theme: ThemeData(fontFamily: "Prompt"),
         title: 'easy drive',
         initialRoute: '/',
