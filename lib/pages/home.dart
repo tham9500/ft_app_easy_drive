@@ -22,6 +22,14 @@ class _Home_pageState extends State<Home_page> {
         preferredSize: Size.fromHeight(220.0),
         child: AppBar(
           centerTitle: true,
+          automaticallyImplyLeading: false, //move back button
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => Home_game()));
+          //   },
+          //   icon: Icon(Icons.arrow_back_ios),
+          // ),
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
