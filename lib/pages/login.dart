@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
 import '../widget/custom_shape.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -14,7 +15,7 @@ class Login_page extends StatefulWidget {
 class _Login_pageState extends State<Login_page> {
   String username = "", password = "";
   final form_key = GlobalKey<FormState>();
-  bool _isVisible = false;
+  bool _isVisible = true;
 
   void updateStatus() {
     setState(() {
@@ -73,29 +74,31 @@ class _Login_pageState extends State<Login_page> {
           ),
         ),
       ),
-      body: Container(
-        child: Form(
-          key: form_key,
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              children: <Widget>[
-                Form_username(),
-                Form_password(),
-                Container(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Column(
-                      children: <Widget>[
-                        Btn_ForgetPassword(),
-                      ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Form(
+            key: form_key,
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                children: <Widget>[
+                  Form_username(),
+                  Form_password(),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Column(
+                        children: <Widget>[
+                          Btn_ForgetPassword(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Btn_StateLogin(),
-                SizedBox(height: 20),
-                Btn_registor(),
-              ],
+                  Btn_StateLogin(),
+                  SizedBox(height: 20),
+                  Btn_registor(),
+                ],
+              ),
             ),
           ),
         ),
@@ -168,12 +171,19 @@ class _Login_pageState extends State<Login_page> {
 
   Widget Form_password() {
     return TextFormField(
-      obscureText: _isVisible ? false : true,
-      decoration: const InputDecoration(
-        icon: Icon(Icons.lock),
-        hintText: 'Password',
-        labelText: 'Password *',
-      ),
+      obscureText: _isVisible,
+      decoration: InputDecoration(
+          icon: Icon(Icons.lock),
+          hintText: 'Password',
+          labelText: 'Password *',
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  _isVisible = !_isVisible;
+                });
+              },
+              icon:
+                  Icon(_isVisible ? Icons.visibility_off : Icons.visibility))),
       onSaved: (String? value) {
         // This optional block of code can be used to run
         // code when the user saves the form.
@@ -249,10 +259,12 @@ class _Login_pageState extends State<Login_page> {
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onPressed: () {
-              print("registor click");
+              print("login click");
               form_key.currentState!.save();
 
               if (form_key.currentState!.validate()) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home_page()));
                 // postdataUser();
 
               }

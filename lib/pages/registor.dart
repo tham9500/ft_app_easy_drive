@@ -15,6 +15,8 @@ class _Registor_pageState extends State<Registor_page> {
       password = "",
       confirmpassword = "";
   bool isChecked = false;
+  bool _isVisible_password = true;
+  bool _isVisible_confirm = true;
   final form_key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -77,6 +79,7 @@ class _Registor_pageState extends State<Registor_page> {
                   Form_email(),
                   Form_password(),
                   Form_confirm(),
+                  Check_verify(),
                   SizedBox(height: 50),
                   Btn_Submit()
                 ],
@@ -167,11 +170,20 @@ class _Registor_pageState extends State<Registor_page> {
 
   Widget Form_password() {
     return TextFormField(
-      decoration: const InputDecoration(
-        icon: Icon(Icons.vpn_key),
-        hintText: 'Password',
-        labelText: 'Password *',
-      ),
+      obscureText: _isVisible_password,
+      decoration: InputDecoration(
+          icon: Icon(Icons.vpn_key),
+          hintText: 'Password',
+          labelText: 'Password *',
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  _isVisible_password = !_isVisible_password;
+                });
+              },
+              icon: Icon(_isVisible_password
+                  ? Icons.visibility_off
+                  : Icons.visibility))),
       onChanged: (value) => setState(() {
         password = value;
       }),
@@ -187,11 +199,20 @@ class _Registor_pageState extends State<Registor_page> {
 
   Widget Form_confirm() {
     return TextFormField(
-      decoration: const InputDecoration(
-        icon: Icon(Icons.vpn_key_outlined),
-        hintText: 'Comform password',
-        labelText: 'Confirm Password *',
-      ),
+      obscureText: _isVisible_confirm,
+      decoration: InputDecoration(
+          icon: Icon(Icons.vpn_key_outlined),
+          hintText: 'Comform password',
+          labelText: 'Confirm Password *',
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  _isVisible_confirm = !_isVisible_confirm;
+                });
+              },
+              icon: Icon(_isVisible_confirm
+                  ? Icons.visibility_off
+                  : Icons.visibility))),
       onChanged: (value) => setState(() {
         confirmpassword = value;
       }),
@@ -229,6 +250,15 @@ class _Registor_pageState extends State<Registor_page> {
               form_key.currentState!.save();
 
               if (form_key.currentState!.validate()) {
+                if (isChecked == false) {
+                  _showMyDialogVerify("confirm");
+                } else {
+                  print("verify register");
+                  print("firstname = ${firstname}");
+                  print("lastname = ${lastname}");
+                  print("email = ${email}");
+                  print("password = ${password}");
+                }
                 // postdataUser();
 
               }
@@ -238,6 +268,86 @@ class _Registor_pageState extends State<Registor_page> {
   }
 
   Widget Check_verify() {
-    return Container();
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Container(
+              child: Checkbox(
+                  value: isChecked,
+                  onChanged: (verify) {
+                    setState(() {
+                      isChecked = verify!;
+                    });
+                  })),
+          Container(
+            child: Text("data"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _showMyDialogVerify(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          // content: SingleChildScrollView(
+          //   child: ListBody(
+          //     children: <Widget>[
+          //       Container(
+          //           // child: Center(
+          //           //   child: Text("$content"),
+          //           // ),
+          //           ),
+          //     ],
+          //   ),
+          // ),
+          actions: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: <Widget>[
+                  // Container(
+                  //   padding: const EdgeInsets.all(12),
+                  //   child: Image(
+                  //       image: AssetImage("assets/images/game_icon/exit.png")),
+                  // ),
+                  SizedBox(width: 20),
+                  Container(
+                    child: Text(
+                      "กรุณาตกลงยอมรับเงื่อนไขการลงทะเบียน",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'ตกลง',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      onPressed: () => Navigator.pop(context, true),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

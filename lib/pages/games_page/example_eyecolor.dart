@@ -40,7 +40,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
   List<dynamic> choice = [];
   List<dynamic> idExam = [];
   List<dynamic> answer = [];
-  List<bool> _selections = List.generate(3, (_) => false);
+  List<dynamic> selecter = [];
   int count = 1;
   int condition = 0;
 
@@ -247,10 +247,9 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                   print("answer = ${answer}");
                                   print("games colors click");
                                   print(condition);
-
+                                  selecter.add(choice[index]["ID"]);
+                                  print("selecter = ${selecter}");
                                   setState(() {
-                                    _selections[index] = !_selections[index];
-                                    print("SELECT=${_selections[index]}");
                                     if (idExam.isNotEmpty) {
                                       quizData();
                                     } else {
