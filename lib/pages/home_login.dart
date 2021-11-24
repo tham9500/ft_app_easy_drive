@@ -5,6 +5,7 @@ import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/guide_charange.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
+import 'package:ft_app_easy_drive/pages/profile.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
 
 class Home_login extends StatefulWidget {
@@ -36,7 +37,12 @@ class _Home_loginState extends State<Home_login> {
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
-                    onPressed: null,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Profile_user()));
+                    },
                     icon: Icon(
                       Icons.person_outline,
                       color: Colors.orange.shade700,
@@ -429,23 +435,26 @@ class _Home_loginState extends State<Home_login> {
             }));
   }
 
-  Widget Btn_profile() {
-    return Container(
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(230, 238, 246, 1),
-        shape: BoxShape.circle,
-      ),
-      child: IconButton(
-        onPressed: null,
-        icon: Icon(
-          Icons.person_outline,
-          color: Colors.orange.shade700,
-        ),
-      ),
-    );
-  }
+  // Widget Btn_profile() {
+  //   return Container(
+  //     height: 40,
+  //     width: 40,
+  //     decoration: BoxDecoration(
+  //       color: Color.fromRGBO(230, 238, 246, 1),
+  //       shape: BoxShape.circle,
+  //     ),
+  //     child: IconButton(
+  //       onPressed: () {
+  //         Navigator.push(
+  //             context, MaterialPageRoute(builder: (context) => Profile_user()));
+  //       },
+  //       icon: Icon(
+  //         Icons.person_outline,
+  //         color: Colors.orange.shade700,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget Show_username() {
     return Container(
