@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/edit/edit_password.dart';
+import 'package:ft_app_easy_drive/pages/edit/edit_profile.dart';
 
 class Profile_user extends StatefulWidget {
   Profile_user({Key? key}) : super(key: key);
@@ -164,8 +165,8 @@ class _Profile_userState extends State<Profile_user> {
             ),
             onPressed: () {
               print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Edit_profile()));
             }));
   }
 
