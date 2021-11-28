@@ -1,35 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:ft_app_easy_drive/pages/forget_page.dart';
-import 'package:ft_app_easy_drive/pages/home.dart';
-import 'package:ft_app_easy_drive/pages/home_login.dart';
-import 'package:ft_app_easy_drive/pages/registor.dart';
-import '../widget/custom_shape.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class Login_page extends StatefulWidget {
-  Login_page({Key? key}) : super(key: key);
+class forget_page extends StatefulWidget {
+  forget_page({Key? key}) : super(key: key);
 
   @override
-  _Login_pageState createState() => _Login_pageState();
+  _forget_pageState createState() => _forget_pageState();
 }
 
-class _Login_pageState extends State<Login_page> {
-  String username = "", password = "";
+class _forget_pageState extends State<forget_page> {
+  String username = "";
   final form_key = GlobalKey<FormState>();
-  bool _isVisible = true;
-
-  void updateStatus() {
-    setState(() {
-      _isVisible = !_isVisible;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(270.0),
+        preferredSize: Size.fromHeight(140.0),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
@@ -45,8 +31,8 @@ class _Login_pageState extends State<Login_page> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.fill),
+                    image: AssetImage("assets/images/appbars/appbar1.png"),
+                    fit: BoxFit.cover),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -84,21 +70,47 @@ class _Login_pageState extends State<Login_page> {
               padding: const EdgeInsets.all(30),
               child: Column(
                 children: <Widget>[
-                  Form_username(),
-                  Form_password(),
                   Container(
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Column(
                         children: <Widget>[
-                          Btn_ForgetPassword(),
+                          Container(
+                            child: Center(
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(height: 20),
+                                  Container(
+                                    child: Text(
+                                      "กรุณากรอกอีเมลล์ที่ลงทะเบียนไว้กับเรา",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "ระบบจะส่งลิงค์ยืนยันการรีเซตรหัสผ่าน",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "ไปยังอีเมลของคุณ",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                  SizedBox(height: 25),
+                                  Form_username(),
+                                  SizedBox(height: 45),
+                                  Btn_sendEmail(),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Btn_StateLogin(),
                   SizedBox(height: 20),
-                  Btn_registor(),
                 ],
               ),
             ),
@@ -121,29 +133,10 @@ class _Login_pageState extends State<Login_page> {
             ),
             Container(
               child: Text(
-                "Welcome to",
+                "ลืมรหัสผ่าน",
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-            Container(
-              child: Text(
-                "Easy Drive",
-                style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              child: Text(
-                "Log in to continue",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal,
                     color: Colors.white),
               ),
             ),
@@ -171,80 +164,7 @@ class _Login_pageState extends State<Login_page> {
     );
   }
 
-  Widget Form_password() {
-    return TextFormField(
-      obscureText: _isVisible,
-      decoration: InputDecoration(
-          icon: Icon(Icons.lock),
-          hintText: 'Password',
-          labelText: 'Password *',
-          suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  _isVisible = !_isVisible;
-                });
-              },
-              icon:
-                  Icon(_isVisible ? Icons.visibility_off : Icons.visibility))),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
-      validator: (String? value) {
-        return (value != null && value.contains('@'))
-            ? 'Do not use the @ char.'
-            : null;
-      },
-    );
-  }
-
-  Widget Btn_registor() {
-    return Container(
-        height: 50,
-        width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ))),
-            child: Text(
-              "ลงทะเบียน",
-              style: TextStyle(fontSize: 18, color: Colors.orange.shade800),
-            ),
-            onPressed: () {
-              print("registor click");
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Registor_page()));
-            }));
-  }
-
-  Widget Btn_ForgetPassword() {
-    return Container(
-      child: TextButton(
-        style: TextButton.styleFrom(
-          primary: Colors.black45,
-          textStyle: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => forget_page()));
-        },
-        child: Text(
-          'ลืมรหัสผ่าน ?',
-          textAlign: TextAlign.right,
-        ),
-      ),
-    );
-  }
-
-  Widget Btn_StateLogin() {
+  Widget Btn_sendEmail() {
     return Container(
         height: 50,
         width: MediaQuery.of(context).size.width,
@@ -260,16 +180,17 @@ class _Login_pageState extends State<Login_page> {
                   borderRadius: BorderRadius.circular(30.0),
                 ))),
             child: Text(
-              "เข้าสู่ระบบ",
+              "ยืนยัน",
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onPressed: () {
               print("login click");
+              print("Email = ${username}");
               form_key.currentState!.save();
 
               if (form_key.currentState!.validate()) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Home_login()));
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => Home_login()));
                 // postdataUser();
 
               }
