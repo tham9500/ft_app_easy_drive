@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/article/home_article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/guide_charange.dart';
+import 'package:ft_app_easy_drive/pages/example_exam/home_sample.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/profile.dart';
@@ -59,7 +60,7 @@ class _Home_loginState extends State<Home_login> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
+                    image: AssetImage("assets/images/appbars/appbar1.png"),
                     fit: BoxFit.fill),
               ),
               padding: EdgeInsets.all(35),
@@ -357,17 +358,19 @@ class _Home_loginState extends State<Home_login> {
                 child: Row(
                   children: [
                     Container(
-                      height: 40,
-                      width: 40,
+                      height: 50,
+                      width: 50,
                       child: Image(
                         image: AssetImage("assets/images/logo/logo.png"),
+                        fit: BoxFit.cover,
                       ),
                     ),
+                    SizedBox(width: 15),
                     Container(
                       child: Text(
                         "easy drive",
                         style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -375,7 +378,7 @@ class _Home_loginState extends State<Home_login> {
                   ],
                 ),
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 15),
               Container(
                 alignment: Alignment.centerRight,
                 child: Text(
@@ -513,8 +516,8 @@ class _Home_loginState extends State<Home_login> {
             ),
             onPressed: () {
               print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => home_sample()));
             }));
   }
 

@@ -156,7 +156,10 @@ class _Home_articleState extends State<Home_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 210,
-                    child: Text("ค่าธรรมเนียบการสอบ"),
+                    child: Text(
+                      "ค่าธรรมเนียบการสอบ",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -206,7 +209,10 @@ class _Home_articleState extends State<Home_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 210,
-                    child: Text("วิธีการสอบและ\nเอกสารที่จำเป็น"),
+                    child: Text(
+                      "วิธีการสอบและ\nเอกสารที่จำเป็น",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -257,7 +263,10 @@ class _Home_articleState extends State<Home_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 210,
-                    child: Text("รอบรู้เรื่องการขับขี่"),
+                    child: Text(
+                      "รอบรู้เรื่องการขับขี่",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
