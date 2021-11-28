@@ -151,7 +151,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("กฏหมายว่าด้วยรถยนต์\nและจักยานยนต์"),
+                    child: Text(
+                      "กฏหมายว่าด้วยรถยนต์\nและจักยานยนต์",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -190,7 +193,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("กฏหมายจราจรทางบก"),
+                    child: Text(
+                      "กฏหมายจราจรทางบก",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -229,7 +235,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("เครื่องหมายจราจร"),
+                    child: Text(
+                      "เครื่องหมายจราจร",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -268,7 +277,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("มารยาทและจิตสำนึก"),
+                    child: Text(
+                      "มารยาทและจิตสำนึก",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -307,7 +319,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("การบำรุงรักษารถ"),
+                    child: Text(
+                      "การบำรุงรักษารถ",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
