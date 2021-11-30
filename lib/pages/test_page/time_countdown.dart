@@ -11,6 +11,7 @@ class Time_countdown extends StatefulWidget {
 
 class _Time_countdownState extends State<Time_countdown> {
   int Counter = 20;
+  int maxCount = 20;
   late Timer _timer;
 
   void startTimer() {
@@ -34,6 +35,18 @@ class _Time_countdownState extends State<Time_countdown> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 35,
+              child: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  LinearProgressIndicator(
+                    value: Counter / maxCount,
+                  ),
+                ],
+              ),
+            ),
             Text(
               '$Counter',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -64,6 +77,16 @@ class _Time_countdownState extends State<Time_countdown> {
                 child: Text('Reset')),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildTimer() {
+    return Container(
+      width: 200,
+      height: 200,
+      child: Stack(
+        fit: StackFit.expand,
       ),
     );
   }

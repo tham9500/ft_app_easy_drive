@@ -128,6 +128,8 @@ class _Home_pageState extends State<Home_page> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
+            Timer_count(),
           ],
         ),
       ),
@@ -320,9 +322,8 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Timer_count() {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.18,
-        width: MediaQuery.of(context).size.width,
-
+        height: 120,
+        width: 150,
         // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
