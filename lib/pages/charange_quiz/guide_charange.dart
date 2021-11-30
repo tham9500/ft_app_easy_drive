@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/pages/charange_quiz/load_example/load_example.dart';
 
 class Guide_charange extends StatefulWidget {
   Guide_charange({Key? key}) : super(key: key);
@@ -266,8 +267,8 @@ class _Guide_charangeState extends State<Guide_charange> {
             ),
             onPressed: () {
               print("Submit click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => Loading_color()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Load_example()));
             }));
   }
 
