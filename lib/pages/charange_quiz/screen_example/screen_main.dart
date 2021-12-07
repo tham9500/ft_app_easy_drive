@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 
@@ -9,6 +11,32 @@ class Screen_main extends StatefulWidget {
 }
 
 class _Screen_mainState extends State<Screen_main> {
+  final interval = const Duration(seconds: 1);
+
+  final int timerMaxSeconds = 0;
+  final int timerMaxMinute = 1;
+
+  int currentSeconds = 0;
+  int currentMinute = 0;
+  String get timerText =>
+      '${((timerMaxMinute - currentMinute) ~/ 60).toString().padLeft(2, '0')}:${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
+
+  startTimeout([int milliseconds = 0]) {
+    var duration = interval;
+    Timer.periodic(duration, (timer) {
+      setState(() {
+        print(timer.tick);
+        currentSeconds = timer.tick;
+        if (timer.tick >= timerMaxSeconds) timer.cancel();
+      });
+    });
+  }
+
+  void initState() {
+    startTimeout();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +52,32 @@ class _Screen_mainState extends State<Screen_main> {
               SizedBox(height: 20),
               Container(
                 child: Row(
-                  children: <Widget>[Btn_exit()],
+                  children: <Widget>[
+                    Btn_exit(),
+                    Expanded(child: SizedBox()),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            child: Image(
+                              image: AssetImage(
+                                  "assets/images/game_icon/notification4.png"),
+                            ),
+                          ),
+                          SizedBox(width: 15),
+                          Container(
+                            child: Text(
+                              "${timerText} ",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(

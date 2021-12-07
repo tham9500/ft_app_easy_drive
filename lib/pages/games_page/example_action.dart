@@ -224,7 +224,10 @@ class _Example_actionState extends State<Example_action> {
               SizedBox(height: 15),
               Container(
                 child: Row(
-                  children: <Widget>[Btn_exit()],
+                  children: <Widget>[
+                    Btn_exit(),
+                   
+                  ],
                 ),
               ),
               Container(
