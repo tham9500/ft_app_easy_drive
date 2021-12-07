@@ -30,10 +30,10 @@ class _example_eyecoloState extends State<example_eyecolo> {
   examtotal() {
     var aaa = Question().questions;
     for (var i = 0; i < Question().questions.length; i++) {
-      print(aaa[i]["ID"]);
+      //print(aaa[i]["ID"]);
       idExam.add(aaa[i]["ID"]);
     }
-    print(idExam);
+    //print(idExam);
   }
 
   var test;
@@ -45,19 +45,19 @@ class _example_eyecoloState extends State<example_eyecolo> {
   int condition = 0;
   //แก้ไขการสุ่มค่า SEED
   quizData() {
-    print(" id  = ${idExam}");
+    //print(" id  = ${idExam}");
     print("idExam = $idExam");
     choice.clear();
     idExam.shuffle();
     print("idExam SUFFLE = $idExam");
     late int totalexam = Question().questions.length;
     //Random random = Random(4);
-    print("totalexam = ${totalexam}");
+    //print("totalexam = ${totalexam}");
     //int quiz_id = random.nextInt(totalexam);
 
     var quiz_id = (idExam..shuffle()).first;
 
-    print("quiz_id = ${quiz_id}");
+    //print("quiz_id = ${quiz_id}");
 
     for (var i = 0; i < idExam.length; i++) {
       if (idExam[i] == quiz_id) {
@@ -73,8 +73,8 @@ class _example_eyecoloState extends State<example_eyecolo> {
         continue;
       }
     }
-    print("Realexam = ${idExam}");
-    print(idExam.length);
+    //print("Realexam = ${idExam}");
+    //print(idExam.length);
     if (idExam.length == 3) {
       for (var i = 0; i < idExam.length; i++) {
         idExam.removeAt(i);
@@ -89,8 +89,8 @@ class _example_eyecoloState extends State<example_eyecolo> {
       print("บอดทุกสี");
     }
     for (int selection = 0; selection < answer.length; selection++) {
-      print("list ans");
-      print(answer[selection]);
+      //print("list ans");
+      //print(answer[selection]);
       if ((answer[selection] == 0) && (condition != 2)) {
         this.condition = 0;
         print("ไม่บอด");
@@ -122,7 +122,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
 
     //print(test.runtimeType);
     formData.ID = result["ID"].toString();
-    print(result["image"].toString());
+    //print(result["image"].toString());
     formData.image = result["image"].toString();
     formData.Answer = result["answers"];
 
@@ -182,7 +182,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
               Container(
                 child: Center(
                   child: Text(
-                    "จงเลือกคำตอบให้ตรงกับภาพ",
+                    "จงเลือกคำตอบให้ตรงกับภาพ ",
                     style: TextStyle(
                         fontSize: 22,
                         color: Color.fromRGBO(13, 59, 102, 1),
@@ -243,42 +243,73 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                   } else {
                                     count++;
                                   }
-                                  print(index);
-                                  print(choice[index]["score"]);
-                                  answer.add(choice[index]["score"]);
-                                  print("answer = ${answer}");
-                                  print("games colors click");
-                                  print(condition);
-                                  selecter.add(choice[index]["ID"]);
-                                  print("selecter = ${selecter}");
+                                  print("LENGHT = ${answer.length}");
+
+                                  print("LENGHT count = ${count}");
+                                  // print(index);
+                                  // print(choice[index]["score"]);
+                                  // answer.add(choice[index]["score"]);
+                                  // print("answer = ${answer}");
+                                  // print("games colors click");
+                                  // print(condition);
+                                  // selecter.add(choice[index]["ID"]);
+                                  // print("selecter = ${selecter}");
+                                  if (count == 3) {
+                                    //if (answer.length == 3) {
+                                    print("in condition");
+                                    if (condition == 0) {
+                                      print("pass");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Color_pass()));
+                                    } else if (condition == 2) {
+                                      print("fail");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Fail_Color()));
+                                    } else {
+                                      print("fail");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Color_fail2()));
+                                    }
+                                  } else {}
                                   setState(() {
                                     if (idExam.isNotEmpty) {
                                       quizData();
                                     } else {
-                                      if (answer.length == 3) {
-                                        if (condition == 0) {
-                                          print("pass");
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Color_pass()));
-                                        } else if (condition == 2) {
-                                          print("fail");
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Fail_Color()));
-                                        } else {
-                                          print("fail");
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Color_fail2()));
-                                        }
-                                      } else {}
+                                      // if (count == 3) {
+                                      //   // if (answer.length == 3) {
+                                      //   print("in condition");
+                                      //   if (condition == 0) {
+                                      //     print("pass");
+                                      //     Navigator.push(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //             builder: (context) =>
+                                      //                 Color_pass()));
+                                      //   } else if (condition == 2) {
+                                      //     print("fail");
+                                      //     Navigator.push(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //             builder: (context) =>
+                                      //                 Fail_Color()));
+                                      //   } else {
+                                      //     print("fail");
+                                      //     Navigator.push(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //             builder: (context) =>
+                                      //                 Color_fail2()));
+                                      //   }
+                                      // } else {}
                                     }
                                   });
                                 })),
