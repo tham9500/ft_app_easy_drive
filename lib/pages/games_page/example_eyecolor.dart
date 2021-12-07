@@ -43,13 +43,15 @@ class _example_eyecoloState extends State<example_eyecolo> {
   List<dynamic> selecter = [];
   int count = 1;
   int condition = 0;
-
+  //แก้ไขการสุ่มค่า SEED
   quizData() {
     print(" id  = ${idExam}");
     print("idExam = $idExam");
     choice.clear();
+    idExam.shuffle();
+    print("idExam SUFFLE = $idExam");
     late int totalexam = Question().questions.length;
-    Random random = Random();
+    //Random random = Random(4);
     print("totalexam = ${totalexam}");
     //int quiz_id = random.nextInt(totalexam);
 
@@ -136,7 +138,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
 
     choice.shuffle();
 
-    print("a = $choice");
+    print("SUFFLE = $choice");
 
     /* print(result["answers"].runtimeType);
     print(formData.Answer.runtimeType); */

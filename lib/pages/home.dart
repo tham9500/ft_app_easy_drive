@@ -334,7 +334,7 @@ class _Home_pageState extends State<Home_page> {
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
-            child: Text("ทดสอบนับถอยหลัง"),
+            child: Text("ทดสอบนับถอยหลัง\nทดสอบ WIDGET"),
             onPressed: () {
               print("timer countdown click");
               Navigator.push(context,

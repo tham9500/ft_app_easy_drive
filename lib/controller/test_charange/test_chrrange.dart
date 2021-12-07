@@ -8,10 +8,10 @@ class Charange {
       "has_image_qeustion": 1,
       "has_image_choice": 0,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true','choice_url':'', 'score': 1},
+        {'ID': 2, 'text': 'true','choice_url':'', 'score': 0},
+        {'ID': 3, 'text': 'true','choice_url':'', 'score': 0},
+        {'ID': 4, 'text': 'true','choice_url':'', 'score': 0},
       ],
     },
     {
