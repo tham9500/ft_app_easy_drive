@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/article/home_article.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_sign.dart';
 
 class Sub_article extends StatefulWidget {
   Sub_article({Key? key}) : super(key: key);
@@ -61,7 +62,9 @@ class _Sub_articleState extends State<Sub_article> {
                           Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[],
+                              children: <Widget>[
+                                
+                              ],
                             ),
                           ),
                         ],
@@ -250,8 +253,8 @@ class _Sub_articleState extends State<Sub_article> {
             ),
             onPressed: () {
               print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Article_sign()));
             }));
   }
 
