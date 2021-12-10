@@ -62,9 +62,7 @@ class _Sub_articleState extends State<Sub_article> {
                           Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                
-                              ],
+                              children: <Widget>[],
                             ),
                           ),
                         ],

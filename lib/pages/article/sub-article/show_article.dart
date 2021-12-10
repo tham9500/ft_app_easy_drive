@@ -1,37 +1,46 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/controller/article_test/article_sign.dart';
-import 'package:ft_app_easy_drive/pages/article/sub-article/show_article.dart';
-import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/models/article_sign.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/page_view.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_sign.dart';
 
-class Article_sign extends StatefulWidget {
-  Article_sign({Key? key}) : super(key: key);
+class Show_article extends StatefulWidget {
+  var data;
+
+  Show_article(this.data, {Key? key}) : super(key: key);
 
   @override
-  _Article_signState createState() => _Article_signState();
+  _Show_articleState createState() => _Show_articleState();
 }
 
-class _Article_signState extends State<Article_sign> {
-  articleSign formData = articleSign();
-
-  List<dynamic> head = [];
+class _Show_articleState extends State<Show_article> {
+  Sign_data formData = Sign_data();
+  var list_Subarticle; //OBJ
+  int index = 0;
+  @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    List_article();
+    subArticle();
   }
 
-  List_article() {
-    var result;
-    print(formData.articles);
-    head = formData.articles;
-
-    print(head[0]["ID"].runtimeType);
+  subArticle() {
+    print(widget.data);
+    list_Subarticle = widget.data;
+    // for (var i = 0; i < widget.data.length; i++) {
+    //   index++;
+    //   list_Subarticle.add(widget.data[i]["sub_article"]);
+    // }
+    print(list_Subarticle.runtimeType);
+    print(list_Subarticle.length);
+    print("list = ${list_Subarticle}");
   }
 
   @override
   Widget build(BuildContext context) {
+    //print(widget.data);
+    //print(widget.data[0]["sub_article"]);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90.0),
@@ -40,7 +49,7 @@ class _Article_signState extends State<Article_sign> {
           leading: IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Sub_article()));
+                  MaterialPageRoute(builder: (context) => Article_sign()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
@@ -81,7 +90,7 @@ class _Article_signState extends State<Article_sign> {
                           SizedBox(height: 30),
                           Container(
                             child: Text(
-                              "เครื่องหมายนจราจร",
+                              "",
                               style: TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.bold,
@@ -108,65 +117,73 @@ class _Article_signState extends State<Article_sign> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
+      body: SafeArea(
+        //child: Text("${widget.data[0]["sub_article"]}"),
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
               children: <Widget>[
                 Container(
-                  child: SingleChildScrollView(
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical, //defualt
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true, //defualt
-                      itemCount: head.length,
-
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.08,
-                                width: MediaQuery.of(context).size.width,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.black),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.white),
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18.0),
-                                        ))),
-                                    child: Text(
-                                      "${head[index]["head"]}",
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Show_article(head[index])));
-                                    })),
-                            // color: Colors.amber.shade200,
-                          ),
-                        );
-                      },
-                    ),
+                  child: Text(
+                    "${widget.data["head"]}",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    "${widget.data["paragraph"]}",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
+                Btn_openPage(),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget Btn_openPage() {
+    return Container(
+        alignment: Alignment.bottomRight,
+        height: 50,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.orange.shade700),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ))),
+            child: Text(
+              "อ่านเพิ่มเติม",
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+            onPressed: () {
+              print("open page click");
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Page_view(list_Subarticle["sub_article"])));
+              // postdataUser();
+
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => Registor_page()));
+            }));
   }
 }
