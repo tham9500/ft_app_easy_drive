@@ -14,7 +14,7 @@ class _Page_viewState extends State<Page_view> {
   List<dynamic> list_text = [];
   List<dynamic> text = [];
   List<dynamic> img = [];
-  int index = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -25,7 +25,6 @@ class _Page_viewState extends State<Page_view> {
   subArticle() {
     print(widget.data_page[0]);
     for (var i = 0; i < widget.data_page.length; i++) {
-      index++;
       list_text.add(widget.data_page[i]);
     }
     //for(var content = 0 ;content<widget.data_page.)
@@ -133,9 +132,17 @@ class _Page_viewState extends State<Page_view> {
                                 child: Column(
                                   children: <Widget>[
                                     Container(
+                                      child: list_text[index]['image'] != null
+                                          ? Image_article(index)
+                                          : Text("${list_text[index]['text']}"),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Container(
+                                      padding: const EdgeInsets.all(18),
                                       child: SingleChildScrollView(
-                                        child:
-                                            Text("${list_text[index]['text']}"),
+                                        child: Text(
+                                            "${list_text[index]['text']}",
+                                            style: TextStyle(fontSize: 18)),
                                       ),
                                     ),
                                   ],
@@ -162,13 +169,75 @@ class _Page_viewState extends State<Page_view> {
             child: Column(
               children: <Widget>[
                 Container(
-                  child: Text("${list_text[index]["text"]}"),
+                  child: Text(
+                    "${list_text[index]["text"]}",
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
               ],
             ),
           );
         },
       ),
+    );
+  }
+
+  Widget Image_article(index) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      child: GestureDetector(
+        child: Image(
+          image: AssetImage("${list_text[index]["image"]}"),
+        ),
+        onTap: () {
+          zoomPictureDialog(context, list_text[index]["image"]);
+        },
+      ),
+    );
+  }
+
+  Future<void> zoomPictureDialog(BuildContext context, file) async {
+    showGeneralDialog(
+      context: context,
+      barrierColor: Colors.black12.withOpacity(0.6), // Background color
+      barrierDismissible: false,
+      barrierLabel: 'Dialog',
+      // transitionDuration: const Duration(
+      //     milliseconds:
+      //         400), // How long it takes to popup dialog after button click
+      pageBuilder: (_, __, ___) {
+        // Makes widget fullscreen
+        return SizedBox.expand(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 5,
+                child: SizedBox.expand(
+                    child: Center(
+                  child: InteractiveViewer(
+                    panEnabled: true, // Set it to false
+                    boundaryMargin: const EdgeInsets.all(100),
+                    minScale: 0.5,
+                    maxScale: 2,
+                    // child: Image.file(
+                    //   file,
+                    //   width: MediaQuery.of(context).size.width,
+                    //   height: MediaQuery.of(context).size.height,
+                    //   fit: BoxFit.cover,
+                    // ),
+                    child: Image.asset(
+                      file,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                )),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
