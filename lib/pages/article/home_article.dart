@@ -14,7 +14,7 @@ class _Home_articleState extends State<Home_article> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130.0),
+        preferredSize: Size.fromHeight(80.0),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(

@@ -34,7 +34,7 @@ class _Article_signState extends State<Article_sign> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90.0),
+        preferredSize: Size.fromHeight(80.0),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
@@ -43,6 +43,11 @@ class _Article_signState extends State<Article_sign> {
                   MaterialPageRoute(builder: (context) => Sub_article()));
             },
             icon: Icon(Icons.arrow_back_ios),
+          ),
+          title: Text(
+            "เครื่องหมายนจราจร",
+            style: TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(
@@ -79,16 +84,6 @@ class _Article_signState extends State<Article_sign> {
                             ),
                           ),
                           SizedBox(height: 30),
-                          Container(
-                            child: Text(
-                              "เครื่องหมายนจราจร",
-                              style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
                         ],
                       ),
                     ),
