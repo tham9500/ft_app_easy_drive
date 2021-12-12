@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/controller/article_test/article_sign.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/show_article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
-import 'package:ft_app_easy_drive/models/article_sign.dart';
 
 class Article_sign extends StatefulWidget {
   Article_sign({Key? key}) : super(key: key);
