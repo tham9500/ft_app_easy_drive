@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/controller/test_charange/test_chrrange.dart';
+import 'package:ft_app_easy_drive/pages/charange_quiz/guide_charange.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 
 class Screen_main extends StatefulWidget {
@@ -11,6 +13,7 @@ class Screen_main extends StatefulWidget {
 }
 
 class _Screen_mainState extends State<Screen_main> {
+  Charange data = Charange();
   final interval = const Duration(seconds: 1);
 
   final int timerMaxSeconds = 0;
@@ -18,6 +21,7 @@ class _Screen_mainState extends State<Screen_main> {
 
   int currentSeconds = 0;
   int currentMinute = 0;
+  List<dynamic> Quiz = [];
   String get timerText =>
       '${((timerMaxMinute - currentMinute) ~/ 60).toString().padLeft(2, '0')}:${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
 
@@ -25,7 +29,7 @@ class _Screen_mainState extends State<Screen_main> {
     var duration = interval;
     Timer.periodic(duration, (timer) {
       setState(() {
-        print(timer.tick);
+        //print(timer.tick);
         currentSeconds = timer.tick;
         if (timer.tick >= timerMaxSeconds) timer.cancel();
       });
@@ -35,63 +39,103 @@ class _Screen_mainState extends State<Screen_main> {
   void initState() {
     startTimeout();
     super.initState();
+    Quiz_charage();
+  }
+
+  Quiz_charage() {
+    print("data_list = ${data.charange.length}");
+    for (int i = 0; i < data.charange.length; i++) {
+      Quiz.add(data.charange[i]);
+    }
+    print("Quiz list total = ${Quiz.length}");
+    print("Quiz data total = ${Quiz}");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: Text("เกมส์ทดสอบตามบอดสี"),
-      // ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0),
+        child: AppBar(
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: Btn_exit(),
+          actions: <Widget>[Timer_count()],
+
+          flexibleSpace: ClipRRect(
+            // borderRadius: BorderRadius.only(
+            //     bottomLeft: Radius.circular(50),
+            //     bottomRight: Radius.circular(50)),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                // Container(
+                                //   child: Text(
+                                //     "เครื่องหมายนจราจร",
+                                //     style: TextStyle(
+                                //         fontSize: 28,
+                                //         fontWeight: FontWeight.bold,
+                                //         color: Colors.white),
+                                //     textAlign: TextAlign.left,
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // title: Text(
+          //   "ลงทะเบียนเข้าใช้งาน",
+          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          // ),
+          shape: RoundedRectangleBorder(
+              // borderRadius: BorderRadius.only(
+              //     bottomLeft: Radius.circular(50),
+              //     bottomRight: Radius.circular(50)),
+              ),
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 20),
               Container(
-                child: Row(
-                  children: <Widget>[
-                    Btn_exit(),
-                    Expanded(child: SizedBox()),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      alignment: Alignment.centerLeft,
-                      child: Row(
+                width: double.infinity,
+                height: 700,
+                child: PageView.builder(
+                  itemCount: Quiz.length,
+                  itemBuilder: (context, index) {
+                    print(Quiz[index]["ID"]);
+                    return Container(
+                      child: Column(
                         children: <Widget>[
-                          Container(
-                            child: Image(
-                              image: AssetImage(
-                                  "assets/images/game_icon/notification4.png"),
-                            ),
-                          ),
-                          SizedBox(width: 15),
-                          Container(
-                            child: Text(
-                              "${timerText} ",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                          Qeustion_show(index),
                         ],
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
-              Container(
-                child: Center(
-                  child: Text(
-                    "จงตอบคำถามให้ถูกต้อง",
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: Color.fromRGBO(13, 59, 102, 1),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
             ],
           ),
         ),
@@ -102,12 +146,72 @@ class _Screen_mainState extends State<Screen_main> {
   Widget Btn_exit() {
     return Container(
       child: IconButton(
+        color: Colors.red,
         onPressed: () {
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (context) => Home_game()));
           _showMyDialogPass("ออก");
         },
-        icon: Icon(Icons.exit_to_app),
+        icon: Icon(
+          Icons.exit_to_app,
+          size: 35,
+        ),
+      ),
+    );
+  }
+
+  Widget Qeustion_show(index) {
+    print("img quiz = ${Quiz[index]["image"]}");
+    return Container(
+      child: Quiz[index]["image"] == ""
+          ? Qeustion_NoImage(index)
+          : Qeustion_HaveImage(index),
+    );
+  }
+
+  Widget Qeustion_NoImage(index) {
+    print("NO");
+    return Container(
+      child: Text(
+        "No image",
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+
+  Widget Qeustion_HaveImage(index) {
+    print("YES");
+    return Container(
+      child: Text(
+        "Have image",
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+
+  Widget Timer_count() {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Container(
+            child: Icon(
+              Icons.access_alarm,
+              color: Colors.red,
+              size: 30,
+            ),
+          ),
+          SizedBox(width: 15),
+          Container(
+            child: Text(
+              "${timerText} ",
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            alignment: Alignment.centerRight,
+          ),
+        ],
       ),
     );
   }
@@ -119,17 +223,6 @@ class _Screen_mainState extends State<Screen_main> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          // content: SingleChildScrollView(
-          //   child: ListBody(
-          //     children: <Widget>[
-          //       Container(
-          //           // child: Center(
-          //           //   child: Text("$content"),
-          //           // ),
-          //           ),
-          //     ],
-          //   ),
-          // ),
           actions: <Widget>[
             Container(
               padding: const EdgeInsets.all(12),
@@ -180,7 +273,7 @@ class _Screen_mainState extends State<Screen_main> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Home_login()));
+                                builder: (context) => Guide_charange()));
                       },
                     ),
                   ),

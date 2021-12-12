@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/load_example/load_example.dart';
+import 'package:ft_app_easy_drive/pages/home_login.dart';
 
 class Guide_charange extends StatefulWidget {
   Guide_charange({Key? key}) : super(key: key);
@@ -18,7 +19,8 @@ class _Guide_charangeState extends State<Guide_charange> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Home_login()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),

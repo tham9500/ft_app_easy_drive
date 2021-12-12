@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/controller/article_test/article_sign.dart';
-import 'package:ft_app_easy_drive/models/article_sign.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_sign.dart';
 
 class Show_article extends StatefulWidget {
@@ -13,11 +12,9 @@ class Show_article extends StatefulWidget {
 }
 
 class _Show_articleState extends State<Show_article> {
-  Sign_data formData = Sign_data();
   var list_Subarticle; //OBJ
   List<dynamic> list_text = [];
-  List<dynamic> text = [];
-  List<dynamic> img = [];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -36,7 +33,6 @@ class _Show_articleState extends State<Show_article> {
     print(list_text.runtimeType);
     print(list_text.length);
     print("list content = ${list_text}");
-    print("text = ${text}");
   }
 
   subArticle() {
@@ -161,25 +157,26 @@ class _Show_articleState extends State<Show_article> {
               children: <Widget>[
                 //First_page(),
                 Container(
-                    width: double.infinity,
-                    height: 700,
-                    child: PageView.builder(
-                      itemCount: list_text.length,
-                      itemBuilder: (context, index) {
-                        print(list_text[index]["ID"]);
-                        return Container(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                child: list_text[index]['ID'] == 1
-                                    ? First_page(index)
-                                    : Next_page(index),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    )),
+                  width: double.infinity,
+                  height: 700,
+                  child: PageView.builder(
+                    itemCount: list_text.length,
+                    itemBuilder: (context, index) {
+                      print(list_text[index]["ID"]);
+                      return Container(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: list_text[index]['ID'] == 1
+                                  ? First_page(index)
+                                  : Next_page(index),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
