@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/pages/profile.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class Registor_page extends StatefulWidget {
-  Registor_page({Key? key}) : super(key: key);
+class Edit_password extends StatefulWidget {
+  Edit_password({Key? key}) : super(key: key);
 
   @override
-  _Registor_pageState createState() => _Registor_pageState();
+  _Edit_passwordState createState() => _Edit_passwordState();
 }
 
-class _Registor_pageState extends State<Registor_page> {
-  String firstname = "",
-      lastname = "",
-      email = "",
-      password = "",
-      confirmpassword = "";
+class _Edit_passwordState extends State<Edit_password> {
+  String password = "", confirmpassword = "", old_password = "";
   bool isChecked = false;
+  bool _isVisible_password_old = true;
   bool _isVisible_password = true;
   bool _isVisible_confirm = true;
   final form_key = GlobalKey<FormState>();
@@ -22,15 +20,17 @@ class _Registor_pageState extends State<Registor_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(200.0),
+        preferredSize: Size.fromHeight(100.0),
         child: AppBar(
           centerTitle: true,
+          automaticallyImplyLeading: false, //move back button
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
+
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -38,16 +38,25 @@ class _Registor_pageState extends State<Registor_page> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
+                    image: AssetImage("assets/images/appbars/appbar1.png"),
                     fit: BoxFit.fill),
               ),
+              padding: EdgeInsets.all(35),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    child: Center(
+                    child: Container(
                       child: Column(
-                        children: [SizedBox(height: 30), Title_appbar()],
+                        children: [
+                          Container(
+                            child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[],
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                        ],
                       ),
                     ),
                   ),
@@ -55,10 +64,10 @@ class _Registor_pageState extends State<Registor_page> {
               ),
             ),
           ),
-          title: Text(
-            "ลงทะเบียนเข้าใช้งาน",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
+          // title: Text(
+          //   "ลงทะเบียนเข้าใช้งาน",
+          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          // ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -74,12 +83,10 @@ class _Registor_pageState extends State<Registor_page> {
               padding: const EdgeInsets.all(30),
               child: Column(
                 children: <Widget>[
-                  Form_firstname(),
-                  Form_lastname(),
-                  Form_email(),
+                  Title_appbar(),
+                  Form_Old_password(),
                   Form_password(),
                   Form_confirm(),
-                  Check_verify(),
                   SizedBox(height: 50),
                   Btn_Submit()
                 ],
@@ -96,20 +103,25 @@ class _Registor_pageState extends State<Registor_page> {
       child: Center(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 50),
             Container(
-              child: Image(
-                image: AssetImage("assets/images/logo/logo.png"),
+              height: 70,
+              width: 70,
+              decoration: BoxDecoration(
+                color: Colors.lightBlue.shade50,
+                shape: BoxShape.circle,
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/logo/pass-setting.png"),
+                ),
               ),
             ),
             SizedBox(height: 20),
             Container(
               child: Text(
-                "ลงทะเบียนสมาชิก",
+                "แก้ไขรหัสผ่าน",
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.normal,
-                    color: Colors.white),
+                    color: Colors.red),
               ),
             ),
           ],
@@ -118,52 +130,32 @@ class _Registor_pageState extends State<Registor_page> {
     );
   }
 
-  Widget Form_firstname() {
+  Widget Form_Old_password() {
     return TextFormField(
-      decoration: const InputDecoration(
-        icon: Icon(Icons.person),
-        hintText: 'กรุณากรอกชื่อ',
-        labelText: 'ชื่อ *',
-      ),
+      obscureText: _isVisible_password_old,
+      decoration: InputDecoration(
+          icon: Icon(Icons.lock),
+          hintText: 'Password',
+          labelText: 'Password *',
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  _isVisible_password_old = !_isVisible_password_old;
+                });
+              },
+              icon: Icon(_isVisible_password_old
+                  ? Icons.visibility_off
+                  : Icons.visibility))),
       onChanged: (value) => setState(() {
-        firstname = value;
+        old_password = value;
       }),
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(context, errorText: "กรุณากรอกชื่อ")
-      ]),
-    );
-  }
-
-  Widget Form_lastname() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        icon: Icon(Icons.person),
-        hintText: 'กรุณากรอกนามสกุล',
-        labelText: 'นามสกุล *',
-      ),
-      onChanged: (value) => setState(() {
-        lastname = value;
-      }),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(context, errorText: "กรุณากรอกนามสกุล")
-      ]),
-    );
-  }
-
-  Widget Form_email() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        icon: Icon(Icons.mail),
-        hintText: 'username@mail.com',
-        labelText: 'E-mail *',
-      ),
-      onChanged: (value) => setState(() {
-        email = value;
-      }),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(context, errorText: "กรุณากรอก Email"),
-        FormBuilderValidators.email(context,
-            errorText: "Email ไม่ถูกต้องตัวอย่างเช่น name@mail.com")
+        FormBuilderValidators.required(context,
+            errorText: "กรุณากรอกรหัสผ่านเก่า"),
+        FormBuilderValidators.minLength(context, 8,
+            errorText: "กรุณากรอกอย่างน้อย 8 ตัวอักษร"),
+        FormBuilderValidators.match(context, confirmpassword,
+            errorText: "รหัสไม่ถูกต้อง")
       ]),
     );
   }
@@ -188,7 +180,8 @@ class _Registor_pageState extends State<Registor_page> {
         password = value;
       }),
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(context, errorText: "กรุณากรอกรหัสผ่าน"),
+        FormBuilderValidators.required(context,
+            errorText: "กรุณากรอกรหัสผ่านใหม่"),
         FormBuilderValidators.minLength(context, 8,
             errorText: "กรุณากรอกอย่างน้อย 8 ตัวอักษร"),
         FormBuilderValidators.match(context, confirmpassword,
@@ -217,7 +210,8 @@ class _Registor_pageState extends State<Registor_page> {
         confirmpassword = value;
       }),
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(context, errorText: "กรุณากรอกรหัสผ่าน"),
+        FormBuilderValidators.required(context,
+            errorText: "กรุณากรอกรหัสผ่านใหม่"),
         FormBuilderValidators.minLength(context, 8,
             errorText: "กรุณากรอกอย่างน้อย 8 ตัวอักษร"),
         FormBuilderValidators.match(context, password,
@@ -254,9 +248,7 @@ class _Registor_pageState extends State<Registor_page> {
                   _showMyDialogVerify("confirm");
                 } else {
                   print("verify register");
-                  print("firstname = ${firstname}");
-                  print("lastname = ${lastname}");
-                  print("email = ${email}");
+
                   print("password = ${password}");
                 }
                 // postdataUser();
@@ -265,26 +257,6 @@ class _Registor_pageState extends State<Registor_page> {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Login_page()));
             }));
-  }
-
-  Widget Check_verify() {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Container(
-              child: Checkbox(
-                  value: isChecked,
-                  onChanged: (verify) {
-                    setState(() {
-                      isChecked = verify!;
-                    });
-                  })),
-          Container(
-            child: Text("data"),
-          ),
-        ],
-      ),
-    );
   }
 
   Future<void> _showMyDialogVerify(content) async {

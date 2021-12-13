@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
-import 'package:ft_app_easy_drive/pages/home.dart';
+import 'package:ft_app_easy_drive/pages/edit/edit_password.dart';
+import 'package:ft_app_easy_drive/pages/edit/edit_profile.dart';
 
-class Home_article extends StatefulWidget {
-  Home_article({Key? key}) : super(key: key);
+class Profile_user extends StatefulWidget {
+  Profile_user({Key? key}) : super(key: key);
 
   @override
-  _Home_articleState createState() => _Home_articleState();
+  _Profile_userState createState() => _Profile_userState();
 }
 
-class _Home_articleState extends State<Home_article> {
+class _Profile_userState extends State<Profile_user> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
+        preferredSize: Size.fromHeight(130.0),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Home_page()));
+              Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
@@ -31,7 +30,7 @@ class _Home_articleState extends State<Home_article> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
+                    image: AssetImage("assets/images/appbars/appbar1.png"),
                     fit: BoxFit.fill),
               ),
               child: Column(
@@ -84,46 +83,45 @@ class _Home_articleState extends State<Home_article> {
           ),
         ),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  shape: BoxShape.circle,
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/logo/article.png"),
-                  ),
-                ),
-              ),
-              SizedBox(height: 25),
-              Container(
-                child: Center(
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 20),
+                Container(
+                  alignment: Alignment.center,
                   child: Text(
-                    "เกี่ยวกับใบขับขี่",
-                    style: TextStyle(
-                        fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
+                    "Username",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Article_fee(),
-              SizedBox(height: 20),
-              Article_doc(),
-              SizedBox(height: 20),
-              Article_read(),
-            ],
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Username@mail.com",
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+                  ),
+                ),
+                SizedBox(height: 20),
+                profile_setting(),
+                SizedBox(height: 20),
+                app_setting(),
+                SizedBox(height: 20),
+                password_setting(),
+                SizedBox(height: 20),
+                Btn_logout(),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget Article_fee() {
+  Widget profile_setting() {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -133,7 +131,7 @@ class _Home_articleState extends State<Home_article> {
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(230, 238, 246, 1),
+                  Color.fromRGBO(255, 255, 255, 1),
                 ),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
@@ -146,131 +144,20 @@ class _Home_articleState extends State<Home_article> {
                     height: 50,
                     width: 50,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.orange.shade700,
                       borderRadius: BorderRadius.circular(12),
                       image: const DecorationImage(
-                        image: AssetImage("assets/images/logo/article-fee.png"),
+                        image: AssetImage(
+                            "assets/images/logo/profile-setting.png"),
                       ),
                     ),
                   ),
-                  SizedBox(width: 12),
+                  SizedBox(width: 18),
                   Container(
                     width: 210,
                     child: Text(
-                      "ค่าธรรมเนียบการสอบ",
+                      "ตั้งค่าบัญชี",
                       style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onPressed: () {
-              print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
-            }));
-  }
-
-  Widget Article_doc() {
-    return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(230, 238, 246, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/images/logo/article-doc.png"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Container(
-                    width: 210,
-                    child: Text(
-                      "วิธีการสอบและ\nเอกสารที่จำเป็น",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onPressed: () {
-              print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
-            }));
-  }
-
-  Widget Article_read() {
-    return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(230, 238, 246, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image:
-                            AssetImage("assets/images/logo/article-read.png"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Container(
-                    width: 210,
-                    child: Text(
-                      "รอบรู้เรื่องการขับขี่",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
                     ),
                   ),
                 ],
@@ -279,7 +166,132 @@ class _Home_articleState extends State<Home_article> {
             onPressed: () {
               print("games colors click");
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Sub_article()));
+                  MaterialPageRoute(builder: (context) => Edit_profile()));
+            }));
+  }
+
+  Widget app_setting() {
+    return Container(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(255, 255, 255, 1),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.orange.shade700,
+                      borderRadius: BorderRadius.circular(12),
+                      image: const DecorationImage(
+                        image: AssetImage("assets/images/logo/app-setting.png"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 18),
+                  Container(
+                    width: 210,
+                    child: Text(
+                      "ตั้งค่าแอพพลิเคชัน",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {
+              print("games colors click");
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+            }));
+  }
+
+  Widget password_setting() {
+    return Container(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(255, 255, 255, 1),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(230, 238, 246, 1),
+                      borderRadius: BorderRadius.circular(12),
+                      image: const DecorationImage(
+                        image:
+                            AssetImage("assets/images/logo/pass-setting.png"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 18),
+                  Container(
+                    width: 210,
+                    child: Text(
+                      "แก้ไขรหัสผ่าน",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {
+              print("games colors click");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Edit_password()));
+            }));
+  }
+
+  Widget Btn_logout() {
+    return Container(
+        height: 50,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ))),
+            child: Text(
+              "ออกจากระบบ",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.orange.shade800,
+              ),
+            ),
+            onPressed: () {
+              print("registor click");
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => Registor_page()));
             }));
   }
 }

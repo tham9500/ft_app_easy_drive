@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
-import 'package:ft_app_easy_drive/pages/home.dart';
+import 'package:ft_app_easy_drive/pages/home_login.dart';
 
-class Home_article extends StatefulWidget {
-  Home_article({Key? key}) : super(key: key);
+class home_sample extends StatefulWidget {
+  home_sample({Key? key}) : super(key: key);
 
   @override
-  _Home_articleState createState() => _Home_articleState();
+  _home_sampleState createState() => _home_sampleState();
 }
 
-class _Home_articleState extends State<Home_article> {
+class _home_sampleState extends State<home_sample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
+        preferredSize: Size.fromHeight(130.0),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Home_page()));
+                  MaterialPageRoute(builder: (context) => Home_login()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
@@ -31,7 +30,7 @@ class _Home_articleState extends State<Home_article> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
+                    image: AssetImage("assets/images/appbars/appbar1.png"),
                     fit: BoxFit.fill),
               ),
               child: Column(
@@ -84,46 +83,54 @@ class _Home_articleState extends State<Home_article> {
           ),
         ),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  shape: BoxShape.circle,
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/logo/article.png"),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                    shape: BoxShape.circle,
+                    image: const DecorationImage(
+                      image:
+                          AssetImage("assets/images/logo/article_charange.png"),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 25),
-              Container(
-                child: Center(
-                  child: Text(
-                    "เกี่ยวกับใบขับขี่",
-                    style: TextStyle(
-                        fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
+                SizedBox(height: 25),
+                Container(
+                  child: Center(
+                    child: Text(
+                      "แนวข้อสอบ",
+                      style: TextStyle(
+                          fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Article_fee(),
-              SizedBox(height: 20),
-              Article_doc(),
-              SizedBox(height: 20),
-              Article_read(),
-            ],
+                SizedBox(height: 10),
+                sample_car(),
+                SizedBox(height: 10),
+                sample_maintenance(),
+                SizedBox(height: 10),
+                sample_manners(),
+                SizedBox(height: 10),
+                sample_sign(),
+                SizedBox(height: 10),
+                sample_traffic(),
+                SizedBox(height: 10),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget Article_fee() {
+  Widget sample_car() {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -133,7 +140,7 @@ class _Home_articleState extends State<Home_article> {
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(230, 238, 246, 1),
+                  Color.fromRGBO(255, 255, 255, 1),
                 ),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
@@ -142,22 +149,11 @@ class _Home_articleState extends State<Home_article> {
             child: Container(
               child: Row(
                 children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/images/logo/article-fee.png"),
-                      ),
-                    ),
-                  ),
                   SizedBox(width: 12),
                   Container(
-                    width: 210,
+                    width: 260,
                     child: Text(
-                      "ค่าธรรมเนียบการสอบ",
+                      "กฏหมายว่าด้วยรถยนต์\nและจักยานยนต์",
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -176,7 +172,7 @@ class _Home_articleState extends State<Home_article> {
             }));
   }
 
-  Widget Article_doc() {
+  Widget sample_traffic() {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -186,7 +182,7 @@ class _Home_articleState extends State<Home_article> {
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(230, 238, 246, 1),
+                  Color.fromRGBO(255, 255, 255, 1),
                 ),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
@@ -195,22 +191,11 @@ class _Home_articleState extends State<Home_article> {
             child: Container(
               child: Row(
                 children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/images/logo/article-doc.png"),
-                      ),
-                    ),
-                  ),
                   SizedBox(width: 12),
                   Container(
-                    width: 210,
+                    width: 260,
                     child: Text(
-                      "วิธีการสอบและ\nเอกสารที่จำเป็น",
+                      "กฏหมายจราจรทางบก",
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -229,7 +214,7 @@ class _Home_articleState extends State<Home_article> {
             }));
   }
 
-  Widget Article_read() {
+  Widget sample_sign() {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -239,7 +224,7 @@ class _Home_articleState extends State<Home_article> {
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(230, 238, 246, 1),
+                  Color.fromRGBO(255, 255, 255, 1),
                 ),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
@@ -248,23 +233,11 @@ class _Home_articleState extends State<Home_article> {
             child: Container(
               child: Row(
                 children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image:
-                            AssetImage("assets/images/logo/article-read.png"),
-                      ),
-                    ),
-                  ),
                   SizedBox(width: 12),
                   Container(
-                    width: 210,
+                    width: 260,
                     child: Text(
-                      "รอบรู้เรื่องการขับขี่",
+                      "เครื่องหมายจราจร",
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -278,8 +251,92 @@ class _Home_articleState extends State<Home_article> {
             ),
             onPressed: () {
               print("games colors click");
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Sub_article()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+            }));
+  }
+
+  Widget sample_manners() {
+    return Container(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(255, 255, 255, 1),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 12),
+                  Container(
+                    width: 260,
+                    child: Text(
+                      "มารยาทและจิตสำนึก",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Container(
+                    child: Container(
+                      child: Icon(Icons.arrow_right),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {
+              print("games colors click");
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+            }));
+  }
+
+  Widget sample_maintenance() {
+    return Container(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(255, 255, 255, 1),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 12),
+                  Container(
+                    width: 260,
+                    child: Text(
+                      "การบำรุงรักษารถ",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Container(
+                    child: Container(
+                      child: Icon(Icons.arrow_right),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {
+              print("games colors click");
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
             }));
   }
 }

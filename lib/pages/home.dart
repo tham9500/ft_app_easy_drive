@@ -22,6 +22,14 @@ class _Home_pageState extends State<Home_page> {
         preferredSize: Size.fromHeight(220.0),
         child: AppBar(
           centerTitle: true,
+          automaticallyImplyLeading: false, //move back button
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => Home_game()));
+          //   },
+          //   icon: Icon(Icons.arrow_back_ios),
+          // ),
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -120,6 +128,8 @@ class _Home_pageState extends State<Home_page> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
+            Timer_count(),
           ],
         ),
       ),
@@ -312,9 +322,8 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Timer_count() {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.18,
-        width: MediaQuery.of(context).size.width,
-
+        height: 120,
+        width: 150,
         // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
@@ -325,7 +334,7 @@ class _Home_pageState extends State<Home_page> {
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
-            child: Text("ทดสอบนับถอยหลัง"),
+            child: Text("ทดสอบนับถอยหลัง\nทดสอบ WIDGET"),
             onPressed: () {
               print("timer countdown click");
               Navigator.push(context,

@@ -25,38 +25,31 @@ class _example_eyecoloState extends State<example_eyecolo> {
     super.initState();
     examtotal();
     quizData();
+    //condition_ans();
+    //end_quiz();
   }
 
   examtotal() {
     var aaa = Question().questions;
     for (var i = 0; i < Question().questions.length; i++) {
-      print(aaa[i]["ID"]);
       idExam.add(aaa[i]["ID"]);
     }
-    print(idExam);
   }
 
   var test;
   List<dynamic> choice = [];
   List<dynamic> idExam = [];
   List<dynamic> answer = [];
-  List<bool> _selections = List.generate(3, (_) => false);
+  List<dynamic> selecter = [];
   int count = 1;
   int condition = 0;
-
+  int counting = 0;
   quizData() {
-    print(" id  = ${idExam}");
-    print("idExam = $idExam");
     choice.clear();
+    idExam.shuffle();
+    print("idExam SUFFLE = $idExam");
     late int totalexam = Question().questions.length;
-    Random random = Random();
-    print("totalexam = ${totalexam}");
-    //int quiz_id = random.nextInt(totalexam);
-
     var quiz_id = (idExam..shuffle()).first;
-
-    print("quiz_id = ${quiz_id}");
-
     for (var i = 0; i < idExam.length; i++) {
       if (idExam[i] == quiz_id) {
         idExam.removeAt(i);
@@ -71,101 +64,75 @@ class _example_eyecoloState extends State<example_eyecolo> {
         continue;
       }
     }
-    print("Realexam = ${idExam}");
-    print(idExam.length);
     if (idExam.length == 3) {
       for (var i = 0; i < idExam.length; i++) {
         idExam.removeAt(i);
         print("remove complete");
       }
     }
-    if (condition == 0) {
-      print("ตาปกติ");
-    } else if (condition == 2) {
-      print("บอดสีแดงเขียว");
-    } else {
-      print("บอดทุกสี");
-    }
-    for (int selection = 0; selection < answer.length; selection++) {
-      print("list ans");
-      print(answer[selection]);
-      if ((answer[selection] == 0) && (condition != 2)) {
-        this.condition = 0;
-        print("ไม่บอด");
-      } else if ((answer[selection] == 2) && (condition != 3)) {
-        print('บอดสีแดงเขียว');
-        this.condition = 2;
-      } else {
-        print('บอดทุกสี');
-        this.condition = 3;
-      }
-    }
 
     var result;
-    //print(quiz_id);
-    /*  var prefs = await SharedPreferences.getInstance();
-    prefs.setInt('QUIZ_ID', quiz_id); */
     for (var i = 0; i < Question().questions.length; i++) {
       if (quiz_id == Question().questions[i]["ID"]) {
         result = Question().questions[i];
       }
     }
     print("result = ${result}");
-    /* var user_id = (prefs.getInt('QUIZ_ID') ?? 0); */
-    /*  print(user_id); */
-
-    // print(result.runtimeType);
-    // print("result = ${result["ID"].runtimeType}");
-    //var test = result["ID"];
-
-    //print(test.runtimeType);
     formData.ID = result["ID"].toString();
-    print(result["image"].toString());
     formData.image = result["image"].toString();
     formData.Answer = result["answers"];
-
     test = result["image"].toString();
-
     setState(() {
       test = result["image"].toString();
     });
-
     for (var i = 0; i < formData.Answer.length; i++) {
       choice.add(formData.Answer[i]);
     }
-
     choice.shuffle();
-
-    print("a = $choice");
-
-    /* print(result["answers"].runtimeType);
-    print(formData.Answer.runtimeType); */
-    /*  var r = [1, 2, 3];
-    r.shuffle(); */
-    /*  print(r); */
-
-    /*  print(formData.image); */
-    // print(formData.Answer);
-    /*  print(formData.image); */
-    /* ImageQuiz = formData.image; */
+    print("SUFFLE = $choice");
   }
 
-  /*  Future<String> tests() async {
-    if (test != null) {
-      return test;
-    } else {
-      return "false";
+  condition_ans() {
+    for (int selection = 0; selection < answer.length; selection++) {
+      //print("list ans");
+      print("list answer = ${answer[selection]}");
+      if ((answer[selection] == 0) && (condition != 2) && (condition != 3)) {
+        this.condition = 0;
+        print("ไม่บอด");
+      } else if ((answer[selection] == 2) && (condition != 3)) {
+        print('บอดสีแดงเขียว');
+        this.condition = 2;
+      } else if (answer[selection] == 3) {
+        print('บอดทุกสี');
+        this.condition = 3;
+      }
     }
-  } */
+    print("CONDITION TOTAL ===>> ${condition}");
+  }
+
+  end_quiz() {
+    if (answer.length == 3) {
+      print("in condition");
+      if (condition == 0) {
+        print("pass");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Color_pass()));
+      } else if (condition == 2) {
+        print("fail");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Fail_Color()));
+      } else {
+        print("fail");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Color_fail2()));
+      }
+    } else {}
+  }
 
   @override
   Widget build(BuildContext context) {
     print("test = $test");
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: Text("เกมส์ทดสอบตามบอดสี"),
-      // ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Center(
@@ -180,7 +147,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
               Container(
                 child: Center(
                   child: Text(
-                    "จงเลือกคำตอบให้ตรงกับภาพ",
+                    "จงเลือกคำตอบให้ตรงกับภาพ ",
                     style: TextStyle(
                         fontSize: 22,
                         color: Color.fromRGBO(13, 59, 102, 1),
@@ -190,16 +157,6 @@ class _example_eyecoloState extends State<example_eyecolo> {
               ),
               SizedBox(height: 20),
               Container(
-                /*  child: FutureBuilder(
-                future: tests(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.data == "false") {
-                    return CircularProgressIndicator();
-                  } else {
-                    return Image.asset(snapshot.data);
-                  }
-                },
-              ) */
                 child: test != null
                     ? Image.asset(test)
                     : CircularProgressIndicator(),
@@ -241,44 +198,24 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                   } else {
                                     count++;
                                   }
-                                  print(index);
-                                  print(choice[index]["score"]);
+                                  print("LENGHT list ANS= ${answer.length}");
+
+                                  print("LENGHT count = ${count}");
                                   answer.add(choice[index]["score"]);
+                                  counting++;
+                                  print("counting list = ${counting}");
+                                  print(choice[index]["score"]);
                                   print("answer = ${answer}");
-                                  print("games colors click");
-                                  print(condition);
+                                  selecter.add(choice[index]["ID"]);
+                                  if (counting >= 3) {
+                                    condition_ans();
+                                    end_quiz();
+                                  } else {}
 
                                   setState(() {
-                                    _selections[index] = !_selections[index];
-                                    print("SELECT=${_selections[index]}");
                                     if (idExam.isNotEmpty) {
                                       quizData();
-                                    } else {
-                                      if (answer.length == 3) {
-                                        if (condition == 0) {
-                                          print("pass");
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Color_pass()));
-                                        } else if (condition == 2) {
-                                          print("fail");
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Fail_Color()));
-                                        } else {
-                                          print("fail");
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Color_fail2()));
-                                        }
-                                      } else {}
-                                    }
+                                    } else {}
                                   });
                                 })),
                         // color: Colors.amber.shade200,
@@ -316,17 +253,6 @@ class _example_eyecoloState extends State<example_eyecolo> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          // content: SingleChildScrollView(
-          //   child: ListBody(
-          //     children: <Widget>[
-          //       Container(
-          //           // child: Center(
-          //           //   child: Text("$content"),
-          //           // ),
-          //           ),
-          //     ],
-          //   ),
-          // ),
           actions: <Widget>[
             Container(
               padding: const EdgeInsets.all(12),

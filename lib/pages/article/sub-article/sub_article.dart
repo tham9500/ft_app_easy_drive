@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/article/home_article.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_sign.dart';
 
 class Sub_article extends StatefulWidget {
   Sub_article({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _Sub_articleState extends State<Sub_article> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130.0),
+        preferredSize: Size.fromHeight(80.0),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
@@ -151,7 +152,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("กฏหมายว่าด้วยรถยนต์\nและจักยานยนต์"),
+                    child: Text(
+                      "กฏหมายว่าด้วยรถยนต์\nและจักยานยนต์",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -190,7 +194,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("กฏหมายจราจรทางบก"),
+                    child: Text(
+                      "กฏหมายจราจรทางบก",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -229,7 +236,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("เครื่องหมายจราจร"),
+                    child: Text(
+                      "เครื่องหมายจราจร",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -241,8 +251,8 @@ class _Sub_articleState extends State<Sub_article> {
             ),
             onPressed: () {
               print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Article_sign()));
             }));
   }
 
@@ -268,7 +278,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("มารยาทและจิตสำนึก"),
+                    child: Text(
+                      "มารยาทและจิตสำนึก",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(
@@ -307,7 +320,10 @@ class _Sub_articleState extends State<Sub_article> {
                   SizedBox(width: 12),
                   Container(
                     width: 260,
-                    child: Text("การบำรุงรักษารถ"),
+                    child: Text(
+                      "การบำรุงรักษารถ",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Container(
                     child: Container(

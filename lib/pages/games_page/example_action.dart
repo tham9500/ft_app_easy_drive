@@ -168,6 +168,7 @@ class _Example_actionState extends State<Example_action> {
   }
 
   int Counter = 3;
+  int maxCount = 3;
   late Timer _timer;
 
   void startTimer() {
@@ -220,10 +221,13 @@ class _Example_actionState extends State<Example_action> {
           padding: const EdgeInsets.all(12),
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               Container(
                 child: Row(
-                  children: <Widget>[Btn_exit()],
+                  children: <Widget>[
+                    Btn_exit(),
+                   
+                  ],
                 ),
               ),
               Container(
@@ -254,9 +258,9 @@ class _Example_actionState extends State<Example_action> {
                             child: Column(
                               children: [
                                 light_1(),
-                                SizedBox(height: 25),
+                                SizedBox(height: 20),
                                 light_2(),
-                                SizedBox(height: 25),
+                                SizedBox(height: 20),
                                 light_3(),
                               ],
                             ),
@@ -267,7 +271,20 @@ class _Example_actionState extends State<Example_action> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 7.5,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    LinearProgressIndicator(
+                      value: Counter / maxCount,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 15),
               Container(
                 padding: const EdgeInsets.all(8),
                 alignment: Alignment.centerLeft,
@@ -290,7 +307,7 @@ class _Example_actionState extends State<Example_action> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 5),
               Container(
                 padding: const EdgeInsets.all(8),
                 alignment: Alignment.centerLeft,
@@ -299,11 +316,11 @@ class _Example_actionState extends State<Example_action> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               Container(
                 child: Center(
                   child: Container(
-                    height: 100,
+                    height: 50,
                     width: 300,
                     decoration: BoxDecoration(
                       color: _color,
