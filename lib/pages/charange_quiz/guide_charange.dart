@@ -248,6 +248,10 @@ class _Guide_charangeState extends State<Guide_charange> {
     );
   }
 
+  Widget test(){
+    return Container();
+  }
+
   Widget Btn_Start() {
     return Container(
         height: 50,
