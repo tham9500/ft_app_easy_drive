@@ -46,11 +46,15 @@ class _Screen_mainState extends State<Screen_main> {
   }
 
   Quiz_charage() {
+    data.charange.shuffle();
+
     print("data_list = ${data.charange.length}");
     for (int i = 0; i < data.charange.length; i++) {
       Quiz.add(data.charange[i]);
+      Quiz[i]["answers"].shuffle();
     }
     //print("Quiz list total = ${Quiz.length}");
+
     print("Quiz data total = ${Quiz}");
   }
 
@@ -59,7 +63,7 @@ class _Screen_mainState extends State<Screen_main> {
       selections.add(Select_choice(Quiz[i]["ID"], 0));
     }
     print(selections.length);
-    print("select = ${selections}");
+    //print("select = ${selections}");
   }
 
   @override
@@ -136,7 +140,7 @@ class _Screen_mainState extends State<Screen_main> {
                 child: PageView.builder(
                   itemCount: Quiz.length,
                   itemBuilder: (context, index) {
-                    print(Quiz[index]["ID"]);
+                    //print(Quiz[index]["ID"]);
                     return Container(
                       child: Column(
                         children: <Widget>[
@@ -174,8 +178,8 @@ class _Screen_mainState extends State<Screen_main> {
   Widget Qeustion_show(index) {
     // print("img quiz = ${Quiz[index]["image"]}");
     // print("choice = ${Quiz[index]["image"]}");
-    print(Quiz[index]["answers"][0]["choice_url"].isEmpty);
-    print(Quiz[index]["answers"][0]["choice_url"]);
+    //print(Quiz[index]["answers"][0]["choice_url"].isEmpty);
+    //print(Quiz[index]["answers"][0]["choice_url"]);
     return Container(
       child: Column(
         children: [
@@ -185,7 +189,7 @@ class _Screen_mainState extends State<Screen_main> {
                 : Qeustion_HaveImage(index),
           ),
           Container(
-            child: Quiz[index]["answers"][0]["choice_url"].isEmpty
+            child: Quiz[index]["answers"][0]["choice_url"] == ""
                 ? Choice_NoIamge(index)
                 : Choice_HaveIamge(index),
           ),
@@ -195,20 +199,20 @@ class _Screen_mainState extends State<Screen_main> {
   }
 
   Widget Qeustion_NoImage(index) {
-    print("NO");
+    //print("NO");
     return Container(
       child: Text(
-        "No image",
+        "${Quiz[index]["ID"]}",
         style: TextStyle(fontSize: 24),
       ),
     );
   }
 
   Widget Qeustion_HaveImage(index) {
-    print("YES");
+    //print("YES");
     return Container(
       child: Text(
-        "Have image",
+        "${Quiz[index]["ID"]}",
         style: TextStyle(fontSize: 24),
       ),
     );
@@ -216,9 +220,47 @@ class _Screen_mainState extends State<Screen_main> {
 
   Widget Choice_NoIamge(index) {
     return Container(
-      child: Text(
-        "No image in choice",
-        style: TextStyle(fontSize: 24),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical, //defualt
+        shrinkWrap: true, //defualt
+        itemCount: Quiz[index]["answers"].length,
+
+        itemBuilder: (BuildContext context, int i) {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.08,
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.black),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
+                    child: Text(
+                      "${Quiz[index]["answers"][i]["ID"]}",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    onPressed: () {
+                      //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
+                      selections[index] = Select_choice(
+                          Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
+                      print("Quiz = ${selections[index].id_quiz}");
+                      print("select = ${selections[index].id_answers}");
+                    }
+
+                    // color: Colors.amber.shade200,
+                    ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -351,6 +393,7 @@ class _Screen_mainState extends State<Screen_main> {
                             color: Colors.black),
                       ),
                       onPressed: () {
+                        Quiz.clear();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
