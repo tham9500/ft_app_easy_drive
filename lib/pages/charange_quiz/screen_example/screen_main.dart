@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/controller/test_charange/test_chrrange.dart';
+import 'package:ft_app_easy_drive/models/selcetchoice_model.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/guide_charange.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 
@@ -16,12 +17,13 @@ class _Screen_mainState extends State<Screen_main> {
   Charange data = Charange();
   final interval = const Duration(seconds: 1);
 
-  final int timerMaxSeconds = 0;
-  final int timerMaxMinute = 1;
+  final int timerMaxSeconds = 3600;
+  final int timerMaxMinute = 0;
 
   int currentSeconds = 0;
   int currentMinute = 0;
   List<dynamic> Quiz = [];
+  List<Select_choice> selections = [];
   String get timerText =>
       '${((timerMaxMinute - currentMinute) ~/ 60).toString().padLeft(2, '0')}:${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
 
@@ -40,6 +42,7 @@ class _Screen_mainState extends State<Screen_main> {
     startTimeout();
     super.initState();
     Quiz_charage();
+    Choice();
   }
 
   Quiz_charage() {
@@ -47,8 +50,16 @@ class _Screen_mainState extends State<Screen_main> {
     for (int i = 0; i < data.charange.length; i++) {
       Quiz.add(data.charange[i]);
     }
-    print("Quiz list total = ${Quiz.length}");
+    //print("Quiz list total = ${Quiz.length}");
     print("Quiz data total = ${Quiz}");
+  }
+
+  Choice() {
+    for (var i = 0; i < data.charange.length; i++) {
+      selections.add(Select_choice(Quiz[i]["ID"], 0));
+    }
+    print(selections.length);
+    print("select = ${selections}");
   }
 
   @override
@@ -161,11 +172,25 @@ class _Screen_mainState extends State<Screen_main> {
   }
 
   Widget Qeustion_show(index) {
-    print("img quiz = ${Quiz[index]["image"]}");
+    // print("img quiz = ${Quiz[index]["image"]}");
+    // print("choice = ${Quiz[index]["image"]}");
+    print(Quiz[index]["answers"][0]["choice_url"].isEmpty);
+    print(Quiz[index]["answers"][0]["choice_url"]);
     return Container(
-      child: Quiz[index]["image"] == ""
-          ? Qeustion_NoImage(index)
-          : Qeustion_HaveImage(index),
+      child: Column(
+        children: [
+          Container(
+            child: Quiz[index]["image"] == ""
+                ? Qeustion_NoImage(index)
+                : Qeustion_HaveImage(index),
+          ),
+          Container(
+            child: Quiz[index]["answers"][0]["choice_url"].isEmpty
+                ? Choice_NoIamge(index)
+                : Choice_HaveIamge(index),
+          ),
+        ],
+      ),
     );
   }
 
@@ -185,6 +210,62 @@ class _Screen_mainState extends State<Screen_main> {
       child: Text(
         "Have image",
         style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+
+  Widget Choice_NoIamge(index) {
+    return Container(
+      child: Text(
+        "No image in choice",
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+
+  Widget Choice_HaveIamge(index) {
+    return Container(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical, //defualt
+        shrinkWrap: true, //defualt
+        itemCount: Quiz[index]["answers"].length,
+
+        itemBuilder: (BuildContext context, int i) {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.08,
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.black),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
+                    child: Text(
+                      "${Quiz[index]["answers"][i]["ID"]}",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    onPressed: () {
+                      //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
+                      selections[index] = Select_choice(
+                          Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
+                      print("Quiz = ${selections[index].id_quiz}");
+                      print("select = ${selections[index].id_answers}");
+                    }
+
+                    // color: Colors.amber.shade200,
+                    ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
