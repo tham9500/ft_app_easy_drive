@@ -252,6 +252,7 @@ class _Screen_mainState extends State<Screen_main> {
                       selections[index] = Select_choice(
                           Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
                       print("Quiz = ${selections[index].id_quiz}");
+                      print(i);
                       print("select = ${selections[index].id_answers}");
                     }
 
@@ -299,6 +300,7 @@ class _Screen_mainState extends State<Screen_main> {
                       selections[index] = Select_choice(
                           Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
                       print("Quiz = ${selections[index].id_quiz}");
+                      print(i);
                       print("select = ${selections[index].id_answers}");
                     }
 
