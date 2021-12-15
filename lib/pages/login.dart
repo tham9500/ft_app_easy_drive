@@ -277,4 +277,74 @@ class _Login_pageState extends State<Login_page> {
               //     MaterialPageRoute(builder: (context) => Registor_page()));
             }));
   }
+
+  Future<void> _showMyDialogPass(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          actions: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Image(
+                        image: AssetImage("assets/images/game_icon/exit.png")),
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    child: Text(
+                      "หากกดออกหรือปอดแอพพลิเคชัน\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'DISAGREE',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      onPressed: () => Navigator.pop(context, true),
+                    ),
+                  ),
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'AGREE',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      onPressed: () {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => Home_game()));
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
