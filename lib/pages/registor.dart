@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:ft_app_easy_drive/pages/login.dart';
 
 class Registor_page extends StatefulWidget {
   Registor_page({Key? key}) : super(key: key);
@@ -9,11 +11,11 @@ class Registor_page extends StatefulWidget {
 }
 
 class _Registor_pageState extends State<Registor_page> {
-  String firstname = "",
-      lastname = "",
-      email = "",
-      password = "",
-      confirmpassword = "";
+  String firstName = "",
+      lastName = "",
+      e_mail = "",
+      Password = "",
+      confirmPassword = "";
   bool isChecked = false;
   bool _isVisible_password = true;
   bool _isVisible_confirm = true;
@@ -126,7 +128,7 @@ class _Registor_pageState extends State<Registor_page> {
         labelText: 'ชื่อ *',
       ),
       onChanged: (value) => setState(() {
-        firstname = value;
+        firstName = value;
       }),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(context, errorText: "กรุณากรอกชื่อ")
@@ -142,7 +144,7 @@ class _Registor_pageState extends State<Registor_page> {
         labelText: 'นามสกุล *',
       ),
       onChanged: (value) => setState(() {
-        lastname = value;
+        lastName = value;
       }),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(context, errorText: "กรุณากรอกนามสกุล")
@@ -158,7 +160,7 @@ class _Registor_pageState extends State<Registor_page> {
         labelText: 'E-mail *',
       ),
       onChanged: (value) => setState(() {
-        email = value;
+        e_mail = value;
       }),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(context, errorText: "กรุณากรอก Email"),
@@ -185,13 +187,13 @@ class _Registor_pageState extends State<Registor_page> {
                   ? Icons.visibility_off
                   : Icons.visibility))),
       onChanged: (value) => setState(() {
-        password = value;
+        Password = value;
       }),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(context, errorText: "กรุณากรอกรหัสผ่าน"),
         FormBuilderValidators.minLength(context, 8,
             errorText: "กรุณากรอกอย่างน้อย 8 ตัวอักษร"),
-        FormBuilderValidators.match(context, confirmpassword,
+        FormBuilderValidators.match(context, confirmPassword,
             errorText: "รหัสไม่ถูกต้อง")
       ]),
     );
@@ -214,13 +216,13 @@ class _Registor_pageState extends State<Registor_page> {
                   ? Icons.visibility_off
                   : Icons.visibility))),
       onChanged: (value) => setState(() {
-        confirmpassword = value;
+        confirmPassword = value;
       }),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(context, errorText: "กรุณากรอกรหัสผ่าน"),
         FormBuilderValidators.minLength(context, 8,
             errorText: "กรุณากรอกอย่างน้อย 8 ตัวอักษร"),
-        FormBuilderValidators.match(context, password,
+        FormBuilderValidators.match(context, Password,
             errorText: "รหัสไม่ถูกต้อง")
       ]),
     );
@@ -228,43 +230,65 @@ class _Registor_pageState extends State<Registor_page> {
 
   Widget Btn_Submit() {
     return Container(
-        height: 50,
-        width: MediaQuery.of(context).size.width,
+      height: 50,
+      width: MediaQuery.of(context).size.width,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.orange.shade800),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(35.0),
-                ))),
-            child: Text(
-              "ยืนยันลงทะเบียน",
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            ),
-            onPressed: () {
-              print("Submit click");
-              form_key.currentState!.save();
+      // color: Colors.amber.shade200,
+      child: ElevatedButton(
+        style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Colors.orange.shade800),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(35.0),
+            ))),
+        child: Text(
+          "ยืนยันลงทะเบียน",
+          style: TextStyle(fontSize: 16, color: Colors.white),
+        ),
+        onPressed: () {
+          print("Submit click");
+          form_key.currentState!.save();
 
-              if (form_key.currentState!.validate()) {
-                if (isChecked == false) {
-                  _showMyDialogVerify("confirm");
-                } else {
-                  print("verify register");
-                  print("firstname = ${firstname}");
-                  print("lastname = ${lastname}");
-                  print("email = ${email}");
-                  print("password = ${password}");
-                }
-                // postdataUser();
+          if (form_key.currentState!.validate()) {
+            if (isChecked == false) {
+              _showMyDialogVerify("กรุณายีนยันนโยบายก่อนทำ\nการลงทะเบียน");
+            } else {
+              print("verify register");
+              print("firstname = ${firstName}");
+              print("lastname = ${lastName}");
+              print("email = ${e_mail}");
+              print("password = ${Password}");
+              regitorThead();
+            }
+            // postdataUser();
 
-              }
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => Login_page()));
-            }));
+          }
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => Login_page()));
+        },
+      ),
+    );
+  }
+
+  Future<Null> regitorThead() async {
+    String url =
+        'http://172.27.7.226/easy_drive_backend/user/mobile/register.php?New_user=true&email=e_mail&password=Password&first_name=firstName&last_name=lastName';
+    //String url =
+    //'http://172.27.7.226/easy_drive_backend/user/mobile/register.php';
+    try {
+      Response response = await Dio().get(url);
+      print("res = ${response}");
+      if (response.toString() == 'true') {
+        // Navigator.push(
+        //       context, MaterialPageRoute(builder: (context) => Login_page()));
+      } else if (response.toString() == 'haveAccount') {
+        _showMyDialogVerify("มี email นี้อยู่ในระบบแล้ว");
+      }
+    } catch (e) {
+      print("ERROR");
+    }
   }
 
   Widget Check_verify() {
@@ -318,8 +342,8 @@ class _Registor_pageState extends State<Registor_page> {
                   SizedBox(width: 20),
                   Container(
                     child: Text(
-                      "กรุณาตกลงยอมรับเงื่อนไขการลงทะเบียน",
-                      style: TextStyle(color: Colors.black),
+                      "${content}",
+                      style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ),
                 ],
