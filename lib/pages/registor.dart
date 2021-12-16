@@ -260,7 +260,8 @@ class _Registor_pageState extends State<Registor_page> {
               print("lastname = ${lastName}");
               print("email = ${e_mail}");
               print("password = ${Password}");
-              regitorThead();
+              //regitorThead();
+              checkUser();
             }
             // postdataUser();
 
@@ -272,17 +273,33 @@ class _Registor_pageState extends State<Registor_page> {
     );
   }
 
+  Future<Null> checkUser() async {
+    String url =
+        'http://172.27.7.226/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
+    try {
+      Response response = await Dio().get(url);
+      print("response = ${response}");
+      if (response.toString() == "haveUser") {
+        _showMyDialogVerify("มี Email อยู่ในระบบกรุณาใช้ \nEmail อื่น");
+      } else if (response.toString() != null) {
+        regitorThead();
+      }
+    } catch (e) {
+      print("ERROR");
+    }
+  }
+
   Future<Null> regitorThead() async {
     String url =
-        'http://172.27.7.226/easy_drive_backend/user/mobile/register.php?New_user=true&email=e_mail&password=Password&first_name=firstName&last_name=lastName';
+        'http://172.27.7.226/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
     //String url =
     //'http://172.27.7.226/easy_drive_backend/user/mobile/register.php';
     try {
       Response response = await Dio().get(url);
       print("res = ${response}");
       if (response.toString() == 'true') {
-        // Navigator.push(
-        //       context, MaterialPageRoute(builder: (context) => Login_page()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Login_page()));
       } else if (response.toString() == 'haveAccount') {
         _showMyDialogVerify("มี email นี้อยู่ในระบบแล้ว");
       }
