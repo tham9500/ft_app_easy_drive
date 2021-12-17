@@ -275,7 +275,9 @@ class _Registor_pageState extends State<Registor_page> {
 
   Future<Null> checkUser() async {
     String url =
-        'http://172.27.7.226/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
+        'http://10.0.2.2/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
+    // String url =
+    //     'http://127.0.0.1/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
     try {
       Response response = await Dio().get(url);
       print("response = ${response}");
@@ -291,7 +293,9 @@ class _Registor_pageState extends State<Registor_page> {
 
   Future<Null> regitorThead() async {
     String url =
-        'http://172.27.7.226/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
+        'http://10.0.2.2/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
+    // String url =
+    //     'http://127.0.0.1/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
     //String url =
     //'http://172.27.7.226/easy_drive_backend/user/mobile/register.php';
     try {
