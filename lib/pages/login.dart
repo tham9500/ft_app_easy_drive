@@ -1,9 +1,14 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ft_app_easy_drive/models/user_madel.dart';
 import 'package:ft_app_easy_drive/pages/forget_page.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/custom_shape.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -15,9 +20,11 @@ class Login_page extends StatefulWidget {
 }
 
 class _Login_pageState extends State<Login_page> {
-  String username = "", password = "";
+  String username = "", Password = "";
   final form_key = GlobalKey<FormState>();
+  List<dynamic> data_user = [];
   bool _isVisible = true;
+  var user_data;
 
   void updateStatus() {
     setState(() {
@@ -186,10 +193,9 @@ class _Login_pageState extends State<Login_page> {
               },
               icon:
                   Icon(_isVisible ? Icons.visibility_off : Icons.visibility))),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
+      onChanged: (value) => setState(() {
+        Password = value;
+      }),
       validator: (String? value) {
         return (value != null && value.contains('@'))
             ? 'Do not use the @ char.'
@@ -217,10 +223,45 @@ class _Login_pageState extends State<Login_page> {
               style: TextStyle(fontSize: 18, color: Colors.orange.shade800),
             ),
             onPressed: () {
+              login();
               print("registor click");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Registor_page()));
             }));
+  }
+
+  Future<void> login() async {
+    Dio dio = new Dio();
+    String url = "http://10.0.2.2/easy_drive_backend/user/mobile/login.php";
+    var dataReq = {};
+    dataReq["email"] = username;
+    dataReq["password"] = Password;
+    String data = jsonEncode(dataReq);
+    var response = await Dio().post(url, data: data);
+    var result = json.decode(response.data);
+    print("result = ${result}");
+    print(result.runtimeType);
+    for (var map in result) {
+      // try {
+      User_model user_model = User_model.fromJson(map);
+      routeService(user_model);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Home_login()));
+      // } catch (e) {
+      //   _showMyDialogPass("email และ password ของท่าน\nไม่ถูกต้องกรุณาลองใหม่");
+      // }
+      //User_model user_model = User_model.fromJson(map);
+    }
+
+    // print("user_data=${data_user}");
+  }
+
+  Future<Null> routeService(User_model user_model) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('ID', user_model.userId);
+    preferences.setString('EMAIL', user_model.email);
+    preferences.setString('FIRSTNAME', user_model.firstName);
+    preferences.setString('LASTNAME', user_model.lastName);
   }
 
   Widget Btn_ForgetPassword() {
@@ -268,8 +309,9 @@ class _Login_pageState extends State<Login_page> {
               form_key.currentState!.save();
 
               if (form_key.currentState!.validate()) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Home_login()));
+                login();
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => Home_login()));
                 // postdataUser();
 
               }
@@ -287,19 +329,14 @@ class _Login_pageState extends State<Login_page> {
           backgroundColor: Colors.white,
           actions: <Widget>[
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    child: Image(
-                        image: AssetImage("assets/images/game_icon/exit.png")),
-                  ),
                   SizedBox(width: 20),
                   Container(
                     child: Text(
-                      "หากกดออกหรือปอดแอพพลิเคชัน\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
-                      style: TextStyle(color: Colors.black),
+                      "${content}",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                   ),
                 ],
@@ -313,30 +350,13 @@ class _Login_pageState extends State<Login_page> {
                   Container(
                     child: TextButton(
                       child: const Text(
-                        'DISAGREE',
+                        'ตกลง',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.red),
                       ),
                       onPressed: () => Navigator.pop(context, true),
-                    ),
-                  ),
-                  Container(
-                    child: TextButton(
-                      child: const Text(
-                        'AGREE',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => Home_game()));
-                      },
                     ),
                   ),
                 ],

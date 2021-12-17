@@ -8,6 +8,7 @@ import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/profile.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_login extends StatefulWidget {
   Home_login({Key? key}) : super(key: key);
@@ -17,7 +18,22 @@ class Home_login extends StatefulWidget {
 }
 
 class _Home_loginState extends State<Home_login> {
-  String username = "name";
+  String displayName = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    User_data();
+  }
+
+  Future<Null> User_data() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      displayName = preferences.getString("FIRSTNAME")!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -463,7 +479,7 @@ class _Home_loginState extends State<Home_login> {
     return Container(
       alignment: Alignment.centerLeft,
       child: Text(
-        "${username}",
+        "${displayName}",
         style: TextStyle(
             fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
       ),
