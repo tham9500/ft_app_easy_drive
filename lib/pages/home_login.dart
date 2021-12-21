@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/article/home_article.dart';
@@ -19,7 +22,8 @@ class Home_login extends StatefulWidget {
 
 class _Home_loginState extends State<Home_login> {
   String displayName = "";
-
+  String displayID = "";
+  String history = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -31,7 +35,9 @@ class _Home_loginState extends State<Home_login> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       displayName = preferences.getString("FIRSTNAME")!;
+      displayID = preferences.getString("ID")!;
     });
+    print("login complete");
   }
 
   @override
@@ -55,6 +61,8 @@ class _Home_loginState extends State<Home_login> {
                 ),
                 child: IconButton(
                     onPressed: () {
+                      history = "E";
+                      User_history();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -254,9 +262,12 @@ class _Home_loginState extends State<Home_login> {
               ],
             ),
             onPressed: () {
-              print("games colors click");
+              history = "G";
+              print("games page click");
+              User_history();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Home_game()));
+              User_history();
             }));
   }
 
@@ -298,6 +309,8 @@ class _Home_loginState extends State<Home_login> {
               ],
             ),
             onPressed: () {
+              history = "R";
+              User_history();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Home_article()));
             }));
@@ -341,6 +354,8 @@ class _Home_loginState extends State<Home_login> {
               ],
             ),
             onPressed: () {
+              history = "T";
+              User_history();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Guide_charange()));
             }));
@@ -349,6 +364,8 @@ class _Home_loginState extends State<Home_login> {
   Widget Article_Page_scroll() {
     return GestureDetector(
       onTap: () {
+        history = "R";
+        User_data();
         print("click");
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Sub_article()));
@@ -409,9 +426,34 @@ class _Home_loginState extends State<Home_login> {
     );
   }
 
+  Future<Null> User_history() async {
+    String url =
+        'http://10.0.2.2/easy_drive_backend/user/mobile/last_menu.php?user_id=$displayID';
+    // String url =
+    //     'http://127.0.0.1/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
+    var dataReq = {};
+    dataReq["last_menu"] = history;
+    String data = jsonEncode(dataReq);
+    var response = await Dio().put(url, data: data);
+    try {
+      Response response = await Dio().get(url);
+      print("response = ${response}");
+      if (response.toString() == "error") {
+        print("ERROR don't call api");
+      } else if (response.toString() == "complate") {
+        print("last menu is : ${history}");
+      }
+    } catch (e) {
+      print("ERROR");
+    }
+  }
+
   Widget Article_Page_scroll2() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        history = "G";
+        print("games page click");
+      },
       child: Card(
         shadowColor: Colors.black,
         elevation: 8,
@@ -479,7 +521,7 @@ class _Home_loginState extends State<Home_login> {
     return Container(
       alignment: Alignment.centerLeft,
       child: Text(
-        "${displayName}",
+        "${displayName},${displayID}",
         style: TextStyle(
             fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
       ),
@@ -531,6 +573,8 @@ class _Home_loginState extends State<Home_login> {
               ),
             ),
             onPressed: () {
+              history = "P";
+              User_history();
               print("games colors click");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => home_sample()));
@@ -581,6 +625,8 @@ class _Home_loginState extends State<Home_login> {
               ),
             ),
             onPressed: () {
+              history = "H";
+              User_history();
               print("games colors click");
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => example_eyecolo()));

@@ -238,22 +238,25 @@ class _Login_pageState extends State<Login_page> {
     dataReq["password"] = Password;
     String data = jsonEncode(dataReq);
     var response = await Dio().post(url, data: data);
-    var result = json.decode(response.data);
-    print("result = ${result}");
-    print(result.runtimeType);
-    for (var map in result) {
-      // try {
-      User_model user_model = User_model.fromJson(map);
-      routeService(user_model);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Home_login()));
-      // } catch (e) {
-      //   _showMyDialogPass("email และ password ของท่าน\nไม่ถูกต้องกรุณาลองใหม่");
-      // }
-      //User_model user_model = User_model.fromJson(map);
+    if (response.toString() == "error") {
+      _showMyDialogPass("email และ password ของท่าน\nไม่ถูกต้องกรุณาลองใหม่");
+    } else {
+      var result = json.decode(response.data);
+      print("result = ${result}");
+      print(result.runtimeType);
+      for (var map in result) {
+        try {
+          User_model user_model = User_model.fromJson(map);
+          routeService(user_model);
+          print("login complete");
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Home_login()));
+        } catch (e) {}
+        User_model user_model = User_model.fromJson(map);
+      }
     }
 
-    // print("user_data=${data_user}");
+    print("user_data=${data_user}");
   }
 
   Future<Null> routeService(User_model user_model) async {
@@ -262,6 +265,7 @@ class _Login_pageState extends State<Login_page> {
     preferences.setString('EMAIL', user_model.email);
     preferences.setString('FIRSTNAME', user_model.firstName);
     preferences.setString('LASTNAME', user_model.lastName);
+    preferences.setString('STATUS', "login");
   }
 
   Widget Btn_ForgetPassword() {
