@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/models/user_madel.dart';
 import 'package:ft_app_easy_drive/pages/edit/edit_password.dart';
 import 'package:ft_app_easy_drive/pages/edit/edit_profile.dart';
+import 'package:ft_app_easy_drive/pages/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile_user extends StatefulWidget {
   Profile_user({Key? key}) : super(key: key);
@@ -10,6 +13,39 @@ class Profile_user extends StatefulWidget {
 }
 
 class _Profile_userState extends State<Profile_user> {
+  String displayID = "";
+  String displayEmail = "";
+  String status = "";
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Check_status();
+  }
+
+  Future<Null> Check_status() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      status = preferences.getString("STATUS")!;
+    });
+    if (status == "login") {
+      print("login complete");
+      User_data();
+    } else {
+      print("Not login");
+    }
+  }
+
+  Future<Null> User_data() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      displayID = preferences.getString("ID")!;
+      displayEmail = preferences.getString("EMAIL")!;
+    });
+    print("ID = ${displayID}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +55,11 @@ class _Profile_userState extends State<Profile_user> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              if (displayID == "") {
+                Navigator.pop(context);
+              } else {
+                Navigator.pop(context);
+              }
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
@@ -100,7 +140,7 @@ class _Profile_userState extends State<Profile_user> {
                 Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "Username@mail.com",
+                    "${displayEmail}",
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
                   ),
@@ -289,9 +329,16 @@ class _Profile_userState extends State<Profile_user> {
               ),
             ),
             onPressed: () {
-              print("registor click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => Registor_page()));
+              print("lgout");
+              routeService();
             }));
+  }
+
+  Future<Null> routeService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.clear();
+    preferences.setString('STATUS', "logout");
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Home_page()));
   }
 }

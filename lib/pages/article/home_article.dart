@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
+import 'package:ft_app_easy_drive/pages/home_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_article extends StatefulWidget {
   Home_article({Key? key}) : super(key: key);
@@ -10,6 +12,37 @@ class Home_article extends StatefulWidget {
 }
 
 class _Home_articleState extends State<Home_article> {
+  String displayID = "";
+  String status = "";
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Check_status();
+  }
+
+  Future<Null> Check_status() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      status = preferences.getString("STATUS")!;
+    });
+    if (status == "login") {
+      print("login complete");
+      User_data();
+    } else {
+      print("Not login");
+    }
+  }
+
+  Future<Null> User_data() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      displayID = preferences.getString("ID")!;
+    });
+    print("ID = ${displayID}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +52,13 @@ class _Home_articleState extends State<Home_article> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Home_page()));
+              if (displayID == "") {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home_page()));
+              } else {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home_login()));
+              }
             },
             icon: Icon(Icons.arrow_back_ios),
           ),

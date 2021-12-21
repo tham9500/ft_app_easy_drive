@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class home_sample extends StatefulWidget {
   home_sample({Key? key}) : super(key: key);
@@ -9,6 +10,36 @@ class home_sample extends StatefulWidget {
 }
 
 class _home_sampleState extends State<home_sample> {
+  String displayID = "";
+  String status = "";
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Check_status();
+  }
+
+  Future<Null> Check_status() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      status = preferences.getString("STATUS")!;
+    });
+    if (status == "login") {
+      print("login complete");
+      User_data();
+    } else {
+      print("Not login");
+    }
+  }
+
+  Future<Null> User_data() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      displayID = preferences.getString("ID")!;
+    });
+    print("ID = ${displayID}");
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

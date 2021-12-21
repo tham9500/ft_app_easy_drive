@@ -51,7 +51,7 @@ class _Show_articleState extends State<Show_article> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
+        preferredSize: Size.fromHeight(60),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
@@ -189,13 +189,13 @@ class _Show_articleState extends State<Show_article> {
     return Container(
       child: Column(
         children: <Widget>[
-          Container(
-            child: Text(
-              "${widget.data["head"]}",
-              style: TextStyle(
-                  color: Colors.red, fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-          ),
+          // Container(
+          //   child: Text(
+          //     "${widget.data["head"]}",
+          //     style: TextStyle(
+          //         color: Colors.red, fontSize: 28, fontWeight: FontWeight.bold),
+          //   ),
+          // ),
           Container(
             padding: const EdgeInsets.all(12),
             child: Text(

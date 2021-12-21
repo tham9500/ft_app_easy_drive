@@ -44,12 +44,12 @@ class User_model {
     password = json['password'];
     firstName = json['first_name'];
     lastName = json['last_name'];
-    role = json['role'];
+    //role = json['role'];
     //statusUser = json['status_user'];
-    createDate = json['create_date'];
+    //createDate = json['create_date'];
     //editDate = json['edit_date'];
     //activateDate = json['activate_date'];
-    lastDate = json['last_date'];
+    //lastDate = json['last_date'];
     //lastMenu = json['last_menu'];
   }
 

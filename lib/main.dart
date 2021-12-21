@@ -8,9 +8,10 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
+    
     // ignore: avoid_unnecessary_containers
     return Container(
       child: MaterialApp(
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         title: 'easy drive',
         initialRoute: '/',
         routes: {
+          
           '/': (context) => LoadApp_page(),
         },
       ),
