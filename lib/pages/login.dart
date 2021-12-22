@@ -252,7 +252,6 @@ class _Login_pageState extends State<Login_page> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Home_login()));
         } catch (e) {}
-        User_model user_model = User_model.fromJson(map);
       }
     }
 

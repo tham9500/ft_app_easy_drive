@@ -3,6 +3,7 @@ import 'package:ft_app_easy_drive/models/user_madel.dart';
 import 'package:ft_app_easy_drive/pages/edit/edit_password.dart';
 import 'package:ft_app_easy_drive/pages/edit/edit_profile.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
+import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile_user extends StatefulWidget {
@@ -58,7 +59,8 @@ class _Profile_userState extends State<Profile_user> {
               if (displayID == "") {
                 Navigator.pop(context);
               } else {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home_login()));
               }
             },
             icon: Icon(Icons.arrow_back_ios),
