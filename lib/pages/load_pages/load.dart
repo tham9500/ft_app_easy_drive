@@ -18,7 +18,20 @@ class _LoadApp_pageState extends State<LoadApp_page> {
     // TODO: implement initState
     super.initState();
 
-    Check_status();
+    Check_state();
+  }
+
+  Future<Null> Check_state() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    print(preferences);
+    setState(() {
+      if (preferences.getString("STATUS") == null) {
+        preferences.setString("STATUS", "logout");
+        Check_status();
+      } else {
+        Check_status();
+      }
+    });
   }
 
   Future<Null> Check_status() async {
@@ -26,6 +39,7 @@ class _LoadApp_pageState extends State<LoadApp_page> {
     setState(() {
       status = preferences.getString("STATUS")!;
     });
+
     if (status == "login") {
       print("login complete");
       User_data();
@@ -37,7 +51,7 @@ class _LoadApp_pageState extends State<LoadApp_page> {
   Future<Null> User_data() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      status  = preferences.getString("STATUS")!;
+      status = preferences.getString("STATUS")!;
     });
   }
 
