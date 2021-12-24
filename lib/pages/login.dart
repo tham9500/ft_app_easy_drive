@@ -8,6 +8,7 @@ import 'package:ft_app_easy_drive/pages/forget_page.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
+import 'package:ft_app_easy_drive/pages/verify_email.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/custom_shape.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -223,8 +224,8 @@ class _Login_pageState extends State<Login_page> {
               style: TextStyle(fontSize: 18, color: Colors.orange.shade800),
             ),
             onPressed: () {
-              login();
               print("registor click");
+
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Registor_page()));
             }));
@@ -238,8 +239,13 @@ class _Login_pageState extends State<Login_page> {
     dataReq["password"] = Password;
     String data = jsonEncode(dataReq);
     var response = await Dio().post(url, data: data);
-    if (response.toString() == "error") {
+    if (response.toString() == "email or passwoed incorret") {
       _showMyDialogPass("email และ password ของท่าน\nไม่ถูกต้องกรุณาลองใหม่");
+    } else if (response.toString() == "email not verified") {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('verify_email', username);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Verify_email()));
     } else {
       var result = json.decode(response.data);
       print("result = ${result}");
@@ -258,6 +264,9 @@ class _Login_pageState extends State<Login_page> {
     print("user_data=${data_user}");
   }
 
+//verify query datbase check active OTP
+
+//set account to device
   Future<Null> routeService(User_model user_model) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('ID', user_model.userId);
@@ -265,6 +274,11 @@ class _Login_pageState extends State<Login_page> {
     preferences.setString('FIRSTNAME', user_model.firstName);
     preferences.setString('LASTNAME', user_model.lastName);
     preferences.setString('STATUS', "login");
+  }
+
+  Future<Null> setemail_verify() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('Email', username);
   }
 
   Widget Btn_ForgetPassword() {
@@ -312,6 +326,9 @@ class _Login_pageState extends State<Login_page> {
               form_key.currentState!.save();
 
               if (form_key.currentState!.validate()) {
+                print("username = ${username}");
+                print("username = ${Password}");
+                setemail_verify();
                 login();
                 // Navigator.push(context,
                 //     MaterialPageRoute(builder: (context) => Home_login()));

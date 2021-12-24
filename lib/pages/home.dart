@@ -4,6 +4,7 @@ import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
+import 'package:ft_app_easy_drive/pages/verify_email.dart';
 import 'package:ft_app_easy_drive/widget/custom_shape.dart';
 import '../pages/test_page/time_countdown.dart';
 
@@ -97,17 +98,19 @@ class _Home_pageState extends State<Home_page> {
           ),
         ),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Scroll_Article_horizon(),
-              SizedBox(
-                height: 20,
-              ),
-              Scroll_menu()
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: <Widget>[
+                Scroll_Article_horizon(),
+                SizedBox(
+                  height: 20,
+                ),
+                Scroll_menu()
+              ],
+            ),
           ),
         ),
       ),
@@ -129,7 +132,15 @@ class _Home_pageState extends State<Home_page> {
               ),
             ),
             SizedBox(height: 20),
-            Timer_count(),
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Timer_count(),
+                  SizedBox(width: 20),
+                  verify_test(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -339,6 +350,28 @@ class _Home_pageState extends State<Home_page> {
               print("timer countdown click");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Time_countdown()));
+            }));
+  }
+
+  Widget verify_test() {
+    return Container(
+        height: 120,
+        width: 150,
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Text("ทดสอบ verrfy"),
+            onPressed: () {
+              print("timer countdown click");
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => Verify_email()));
             }));
   }
 

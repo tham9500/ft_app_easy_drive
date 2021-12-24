@@ -521,7 +521,8 @@ class _Home_loginState extends State<Home_login> {
     return Container(
       alignment: Alignment.centerLeft,
       child: Text(
-        "${displayName},${displayID}",
+        // "${displayName},${displayID}",
+        "${displayName}",
         style: TextStyle(
             fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
       ),

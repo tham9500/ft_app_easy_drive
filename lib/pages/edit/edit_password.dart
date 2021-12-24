@@ -304,7 +304,8 @@ class _Edit_passwordState extends State<Edit_password> {
       if (response.toString() == "password old correctcomplete") {
         _showMyDialogPass("บันทึกสำเร็จ");
       } else if (response.toString() == "password old incorrect") {
-        _showMyDialogPass("บันทึกไม่สำเร็จ");
+        _showMyDialogPass(
+            "บันทึกไม่สำเร็จ เนื่องจาก\nรหัสผ่านเก่าของท่านไม่ถูกต้อง");
       }
     } catch (e) {}
   }
@@ -346,7 +347,11 @@ class _Edit_passwordState extends State<Edit_password> {
                             color: Colors.red),
                       ),
                       onPressed: () {
-                        if (content == "บันทึกไม่สำเร็จ") {
+                        if (content ==
+                            "บันทึกไม่สำเร็จ เนื่องจาก\nรหัสผ่านเก่าของท่านไม่ถูกต้อง") {
+                          Navigator.pop(context, true);
+                        } else if (content ==
+                            "รหัสผ่านใหม่ไม่ถูกต้อง \nกรุณากรอกใหม่") {
                           Navigator.pop(context, true);
                         } else if (content == "บันทึกสำเร็จ") {
                           Navigator.push(
