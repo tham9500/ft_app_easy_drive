@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -14,7 +16,7 @@ class _Registor_pageState extends State<Registor_page> {
   String firstName = "",
       lastName = "",
       e_mail = "",
-      Password = "",
+      passWord = "",
       confirmPassword = "";
   bool isChecked = false;
   bool _isVisible_password = true;
@@ -187,7 +189,7 @@ class _Registor_pageState extends State<Registor_page> {
                   ? Icons.visibility_off
                   : Icons.visibility))),
       onChanged: (value) => setState(() {
-        Password = value;
+        passWord = value;
       }),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(context, errorText: "กรุณากรอกรหัสผ่าน"),
@@ -222,7 +224,7 @@ class _Registor_pageState extends State<Registor_page> {
         FormBuilderValidators.required(context, errorText: "กรุณากรอกรหัสผ่าน"),
         FormBuilderValidators.minLength(context, 8,
             errorText: "กรุณากรอกอย่างน้อย 8 ตัวอักษร"),
-        FormBuilderValidators.match(context, Password,
+        FormBuilderValidators.match(context, passWord,
             errorText: "รหัสไม่ถูกต้อง")
       ]),
     );
@@ -259,7 +261,7 @@ class _Registor_pageState extends State<Registor_page> {
               print("firstname = ${firstName}");
               print("lastname = ${lastName}");
               print("email = ${e_mail}");
-              print("password = ${Password}");
+              print("password = ${passWord}");
               //regitorThead();
               checkUser();
             }
@@ -274,6 +276,7 @@ class _Registor_pageState extends State<Registor_page> {
   }
 
   Future<Null> checkUser() async {
+    Dio dio = new Dio();
     String url =
         'http://10.0.2.2/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
     // String url =
@@ -283,7 +286,7 @@ class _Registor_pageState extends State<Registor_page> {
       print("response = ${response}");
       if (response.toString() == "haveUser") {
         _showMyDialogVerify("มี Email อยู่ในระบบกรุณาใช้ \nEmail อื่น");
-      } else if (response.toString() != null) {
+      } else if (response.toString() != "null") {
         regitorThead();
       }
     } catch (e) {
@@ -292,36 +295,30 @@ class _Registor_pageState extends State<Registor_page> {
   }
 
   Future<Null> regitorThead() async {
-    String url =
-        'http://10.0.2.2/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
+    Dio dio = new Dio();
+    String url = 'http://10.0.2.2/easy_drive_backend/user/mobile/register.php';
     // String url =
     //     'http://127.0.0.1/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
     //String url =
     //'http://172.27.7.226/easy_drive_backend/user/mobile/register.php';
+    var dataReq = {};
+    dataReq["email"] = e_mail;
+    dataReq["password"] = passWord;
+    dataReq["first_name"] = firstName;
+    dataReq["last_name"] = lastName;
+
+    var data = jsonEncode(dataReq);
+    print("data send = ${data}");
+    var response = await Dio().post(url, data: data);
+    print(response.toString());
     try {
-      Response response = await Dio().get(url);
-      print("res = ${response}");
-      if (response.toString() == 'true') {
+      print(url);
+
+      if (response.toString() == 'workingcomplete') {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Login_page()));
-      } else if (response.toString() == 'haveAccount') {
+      } else if (response.toString() == 'workinghaveUser') {
         _showMyDialogVerify("มี email นี้อยู่ในระบบแล้ว");
-      }
-    } catch (e) {
-      print("ERROR");
-    }
-  }
-  Future<Null> verify_email() async {
-    String url ='';
-    // String url =
-    //     'http://127.0.0.1/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
-    try {
-      Response response = await Dio().get(url);
-      print("response = ${response}");
-      if (response.toString() == "haveUser") {
-        _showMyDialogVerify("มี Email อยู่ในระบบกรุณาใช้ \nEmail อื่น");
-      } else if (response.toString() != null) {
-        regitorThead();
       }
     } catch (e) {
       print("ERROR");
