@@ -311,6 +311,22 @@ class _Registor_pageState extends State<Registor_page> {
       print("ERROR");
     }
   }
+  Future<Null> verify_email() async {
+    String url ='';
+    // String url =
+    //     'http://127.0.0.1/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
+    try {
+      Response response = await Dio().get(url);
+      print("response = ${response}");
+      if (response.toString() == "haveUser") {
+        _showMyDialogVerify("มี Email อยู่ในระบบกรุณาใช้ \nEmail อื่น");
+      } else if (response.toString() != null) {
+        regitorThead();
+      }
+    } catch (e) {
+      print("ERROR");
+    }
+  }
 
   Widget Check_verify() {
     return Container(

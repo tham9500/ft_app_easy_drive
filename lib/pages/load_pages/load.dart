@@ -52,13 +52,15 @@ class _LoadApp_pageState extends State<LoadApp_page> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       status = preferences.getString("STATUS")!;
+      print("status = ${status}");
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return SplashScreenView(
-      navigateRoute: status == "logout" ? Home_page() : Home_login(),
+      navigateRoute: status == "login" ? Home_login() : Home_page(),
+      // navigateRoute: Home_page(),
       duration: 3000,
       imageSize: 300,
       imageSrc: "assets/images/load/load.png",
