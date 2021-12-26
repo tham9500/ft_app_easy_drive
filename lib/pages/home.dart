@@ -135,9 +135,9 @@ class _Home_pageState extends State<Home_page> {
             Container(
               child: Row(
                 children: <Widget>[
-                  Timer_count(),
-                  SizedBox(width: 20),
-                  verify_test(),
+                  // Timer_count(),
+                  // SizedBox(width: 20),
+                  // verify_test(),
                 ],
               ),
             ),

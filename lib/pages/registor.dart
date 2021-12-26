@@ -290,7 +290,7 @@ class _Registor_pageState extends State<Registor_page> {
         regitorThead();
       }
     } catch (e) {
-      print("ERROR");
+      print("ERROR check");
     }
   }
 
