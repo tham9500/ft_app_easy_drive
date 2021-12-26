@@ -232,7 +232,11 @@ class _Login_pageState extends State<Login_page> {
   }
 
   Future<void> login() async {
+    // var dio = Dio();
+    // final response = await dio.get('https://google.com');
+    // print(response.data);
     Dio dio = new Dio();
+    // String url = "http://172.27.7.226/easy_drive_backend/user/mobile/login.php";
     String url = "http://10.0.2.2/easy_drive_backend/user/mobile/login.php";
     var dataReq = {};
     dataReq["email"] = username;
@@ -257,11 +261,13 @@ class _Login_pageState extends State<Login_page> {
           print("login complete");
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Home_login()));
-        } catch (e) {}
+        } catch (e) {
+          print("ERROR LOGIN");
+        }
       }
     }
 
-    print("user_data=${data_user}");
+    print("user_data=${data_user.toString()}");
   }
 
 //verify query datbase check active OTP
