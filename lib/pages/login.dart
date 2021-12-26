@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/models/user_madel.dart';
 import 'package:ft_app_easy_drive/pages/forget_page.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
@@ -237,12 +238,14 @@ class _Login_pageState extends State<Login_page> {
     // print(response.data);
     Dio dio = new Dio();
     // String url = "http://172.27.7.226/easy_drive_backend/user/mobile/login.php";
-    String url = "http://10.0.2.2/easy_drive_backend/user/mobile/login.php";
+    String url =
+        "${Domain_name().domain}/easy_drive_backend/user/mobile/login.php";
     var dataReq = {};
     dataReq["email"] = username;
     dataReq["password"] = Password;
     String data = jsonEncode(dataReq);
     var response = await Dio().post(url, data: data);
+    print("response = ${response.toString()}");
     if (response.toString() == "email or passwoed incorret") {
       _showMyDialogPass("email และ password ของท่าน\nไม่ถูกต้องกรุณาลองใหม่");
     } else if (response.toString() == "email not verified") {
@@ -250,6 +253,9 @@ class _Login_pageState extends State<Login_page> {
       preferences.setString('verify_email', username);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Verify_email()));
+    } else if (response.toString() == "suspended") {
+      _showMyDialogPass(
+          "บัญชีของท่านถูระงับการใช้งาน \nกรุณาติดต่อ \nserviceeasydrive@gmail.com");
     } else {
       var result = json.decode(response.data);
       print("result = ${result}");

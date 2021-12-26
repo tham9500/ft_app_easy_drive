@@ -341,10 +341,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -353,10 +353,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -365,10 +365,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -377,10 +377,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -389,10 +389,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -401,10 +401,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -413,10 +413,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -425,10 +425,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -437,10 +437,10 @@ class Charange {
       'image': '',
       "type": 2,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -449,10 +449,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -461,10 +461,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -473,10 +473,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -485,10 +485,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -497,10 +497,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -509,10 +509,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -521,10 +521,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -533,10 +533,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -545,10 +545,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -557,10 +557,10 @@ class Charange {
       'image': '',
       "type": 3,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -889,10 +889,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -901,10 +901,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -913,10 +913,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -925,10 +925,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -937,10 +937,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -949,10 +949,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -961,10 +961,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -973,10 +973,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -985,10 +985,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
     {
@@ -997,10 +997,10 @@ class Charange {
       'image': 'assets/Example_Colors/plat1.png',
       "type": 5,
       'answers': [
-        {'ID': 1, 'text': 'true', 'score': 1},
-        {'ID': 2, 'text': 'false', 'score': 0},
-        {'ID': 3, 'text': 'false', 'score': 0},
-        {'ID': 4, 'text': 'false', 'score': 0},
+        {'ID': 1, 'text': 'true', 'choice_url': '', 'score': 1},
+        {'ID': 2, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 3, 'text': 'false', 'choice_url': '', 'score': 0},
+        {'ID': 4, 'text': 'false', 'choice_url': '', 'score': 0},
       ],
     },
   ];

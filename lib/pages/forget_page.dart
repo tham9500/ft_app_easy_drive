@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -189,6 +192,7 @@ class _forget_pageState extends State<forget_page> {
               form_key.currentState!.save();
 
               if (form_key.currentState!.validate()) {
+                forgot_password();
                 // Navigator.push(context,
                 //     MaterialPageRoute(builder: (context) => Home_login()));
                 // postdataUser();
@@ -197,5 +201,75 @@ class _forget_pageState extends State<forget_page> {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Registor_page()));
             }));
+  }
+
+  Future<void> forgot_password() async {
+    // var dio = Dio();
+    // final response = await dio.get('https://google.com');
+    // print(response.data);
+    Dio dio = new Dio();
+    // String url = "http://172.27.7.226/easy_drive_backend/user/mobile/login.php";
+    String url =
+        "http://10.0.2.2/easy_drive_backend/user/mobile/forgot_password.php";
+    var dataReq = {};
+    dataReq["email"] = username;
+    String data = jsonEncode(dataReq);
+    var response = await Dio().post(url, data: data);
+    print("response = ${response.toString()}");
+    if (response.toString() == "error") {
+      _showMyDialogPass("ไม่พบบัญชีผู้ใช้นี้ในระบบ");
+    } else if (response.toString() == "mail complete") {
+      _showMyDialogPass("กรุณาตรวจสอบ Email ของท่าน");
+    } else {
+      print(response);
+    }
+  }
+
+  Future<void> _showMyDialogPass(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          actions: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 20),
+                  Container(
+                    child: Text(
+                      "${content}",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'ตกลง',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      onPressed: () => Navigator.pop(context, true),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
