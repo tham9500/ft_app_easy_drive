@@ -14,6 +14,11 @@ class Screen_main extends StatefulWidget {
 }
 
 class _Screen_mainState extends State<Screen_main> {
+  var currentPageValue;
+  var present_page;
+  var jumpPosition;
+  PageController controller =
+      PageController(viewportFraction: 1, keepPage: true);
   Charange data = Charange();
   final interval = const Duration(seconds: 1);
 
@@ -39,7 +44,7 @@ class _Screen_mainState extends State<Screen_main> {
   }
 
   void initState() {
-    startTimeout();
+    // startTimeout();
     super.initState();
     Quiz_charage();
     Choice();
@@ -63,6 +68,7 @@ class _Screen_mainState extends State<Screen_main> {
       selections.add(Select_choice(Quiz[i]["ID"], 0));
     }
     print(selections.length);
+    print("selection = ${selections.first.id_answers}");
     //print("select = ${selections}");
   }
 
@@ -70,12 +76,31 @@ class _Screen_mainState extends State<Screen_main> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.0),
+        preferredSize: Size.fromHeight(60.0),
         child: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
           leading: Btn_exit(),
-          actions: <Widget>[Timer_count()],
+          actions: <Widget>[
+            Timer_count(),
+            // Container(
+            //   child: Column(
+            //     children: [
+            //       Container(
+            //         child: ListView.builder(
+            //           shrinkWrap: true,
+            //           physics: ClampingScrollPhysics(),
+            //           itemCount: 3,
+            //           scrollDirection: Axis.horizontal,
+            //           itemBuilder: (BuildContext context, int index) {
+            //             return Btn_Quiz(index);
+            //           },
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+          ],
 
           flexibleSpace: ClipRRect(
             // borderRadius: BorderRadius.only(
@@ -138,6 +163,7 @@ class _Screen_mainState extends State<Screen_main> {
                 width: double.infinity,
                 height: 700,
                 child: PageView.builder(
+                  controller: controller,
                   itemCount: Quiz.length,
                   itemBuilder: (context, index) {
                     //print(Quiz[index]["ID"]);
@@ -155,7 +181,16 @@ class _Screen_mainState extends State<Screen_main> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          zoomPictureDialog();
+        },
+      ),
     );
+  }
+
+  Widget Btn_Quiz() {
+    return FloatingActionButton(onPressed: () {});
   }
 
   Widget Btn_exit() {
@@ -219,6 +254,8 @@ class _Screen_mainState extends State<Screen_main> {
   }
 
   Widget Choice_NoIamge(index) {
+    print("select on= ${selections[index].id_answers}");
+    print("noImage");
     return Container(
       child: ListView.builder(
         scrollDirection: Axis.vertical, //defualt
@@ -236,8 +273,11 @@ class _Screen_mainState extends State<Screen_main> {
                     style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: selections[index].id_answers != 0 &&
+                                Quiz[index]["answers"][i]["ID"] ==
+                                    selections[index].id_answers
+                            ? MaterialStateProperty.all<Color>(Colors.green)
+                            : MaterialStateProperty.all<Color>(Colors.white),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -248,6 +288,8 @@ class _Screen_mainState extends State<Screen_main> {
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
+                      //changePageViewPostion(index);
+                      controller.jumpToPage(index + 1);
                       //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
                       selections[index] = Select_choice(
                           Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
@@ -267,6 +309,8 @@ class _Screen_mainState extends State<Screen_main> {
   }
 
   Widget Choice_HaveIamge(index) {
+    print("select on= ${selections[index].id_answers}");
+    print("haveImage");
     return Container(
       child: ListView.builder(
         scrollDirection: Axis.vertical, //defualt
@@ -284,8 +328,11 @@ class _Screen_mainState extends State<Screen_main> {
                     style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: selections[index].id_answers != 0 &&
+                                Quiz[index]["answers"][i]["ID"] ==
+                                    selections[index].id_answers
+                            ? MaterialStateProperty.all<Color>(Colors.green)
+                            : MaterialStateProperty.all<Color>(Colors.white),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -296,6 +343,8 @@ class _Screen_mainState extends State<Screen_main> {
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
+                      //changePageViewPostion(index);
+                      controller.jumpToPage(index + 1);
                       //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
                       selections[index] = Select_choice(
                           Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
@@ -310,6 +359,40 @@ class _Screen_mainState extends State<Screen_main> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget Btn_quiz(index) {
+    return Expanded(
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Container(
+            height: 100,
+            width: 100,
+            child: ElevatedButton(
+                style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.green),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.green),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ))),
+                child: Text(
+                  "${[index + 1]}",
+                  style: TextStyle(fontSize: 18),
+                ),
+                onPressed: () {
+                  //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
+                }
+
+                // color: Colors.amber.shade200,
+                ),
+          ),
+        ),
       ),
     );
   }
@@ -407,6 +490,83 @@ class _Screen_mainState extends State<Screen_main> {
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  Future<void> zoomPictureDialog() async {
+    showGeneralDialog(
+      context: context,
+      barrierColor: Colors.black12.withOpacity(0.6), // Background color
+      barrierDismissible: false,
+      barrierLabel: 'Dialog',
+      // transitionDuration: const Duration(
+      //     milliseconds:
+      //         400), // How long it takes to popup dialog after button click
+      pageBuilder: (_, __, ___) {
+        // Makes widget fullscreen
+        return SizedBox.expand(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: GridView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 70,
+                                    childAspectRatio: 3 / 2,
+                                    crossAxisSpacing: 20,
+                                    mainAxisSpacing: 20),
+                            itemCount: Quiz.length,
+                            itemBuilder: (BuildContext ctx, index) {
+                              return Container(
+                                alignment: Alignment.center,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.black),
+                                      backgroundColor: selections[index]
+                                                      .id_answers !=
+                                                  0 &&
+                                              Quiz[index]["answers"][index]
+                                                      ["ID"] ==
+                                                  selections[index].id_answers
+                                          ? MaterialStateProperty.all<Color>(
+                                              Colors.green)
+                                          : MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                      ))),
+                                  child: Text("${index + 1}"),
+                                  onPressed: () {
+                                    controller.jumpToPage(index);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                // decoration: BoxDecoration(
+                                //     color: Colors.amber,
+                                //     borderRadius: BorderRadius.circular(15)),
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );

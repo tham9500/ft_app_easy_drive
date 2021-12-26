@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/models/user_madel.dart';
 import 'package:ft_app_easy_drive/pages/forget_page.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
@@ -237,7 +238,8 @@ class _Login_pageState extends State<Login_page> {
     // print(response.data);
     Dio dio = new Dio();
     // String url = "http://172.27.7.226/easy_drive_backend/user/mobile/login.php";
-    String url = "http://10.0.2.2/easy_drive_backend/user/mobile/login.php";
+    String url =
+        "${Domain_name().domain}/easy_drive_backend/user/mobile/login.php";
     var dataReq = {};
     dataReq["email"] = username;
     dataReq["password"] = Password;
