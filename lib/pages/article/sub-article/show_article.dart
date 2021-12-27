@@ -56,8 +56,7 @@ class _Show_articleState extends State<Show_article> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Article_sign()));
+              Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back_ios),
           ),

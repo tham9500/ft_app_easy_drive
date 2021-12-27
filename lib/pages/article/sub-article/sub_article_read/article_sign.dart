@@ -38,8 +38,7 @@ class _Article_signState extends State<Article_sign> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Sub_article()));
+              Navigator.pop(context);
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
