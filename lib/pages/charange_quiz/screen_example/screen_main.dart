@@ -288,6 +288,11 @@ class _Screen_mainState extends State<Screen_main> {
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
+                      if (index != Quiz.length) {
+                        controller.jumpToPage(index + 1);
+                      } else {
+                        print("condition Last page");
+                      }
                       //changePageViewPostion(index);
                       controller.jumpToPage(index + 1);
                       //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
@@ -343,8 +348,13 @@ class _Screen_mainState extends State<Screen_main> {
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
+                      if (index != Quiz.length) {
+                        controller.jumpToPage(index + 1);
+                      } else {
+                        print("condition Last page");
+                      }
                       //changePageViewPostion(index);
-                      controller.jumpToPage(index + 1);
+                      //controller.jumpToPage(index + 1);
                       //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
                       selections[index] = Select_choice(
                           Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
@@ -534,13 +544,10 @@ class _Screen_mainState extends State<Screen_main> {
                                           MaterialStateProperty.all<Color>(
                                               Colors.black),
                                       backgroundColor: selections[index]
-                                                      .id_answers !=
-                                                  0 &&
-                                              Quiz[index]["answers"][index]
-                                                      ["ID"] ==
-                                                  selections[index].id_answers
+                                                  .id_answers !=
+                                              0
                                           ? MaterialStateProperty.all<Color>(
-                                              Colors.green)
+                                              Colors.lightGreen.shade500)
                                           : MaterialStateProperty.all<Color>(
                                               Colors.white),
                                       shape: MaterialStateProperty.all<
@@ -551,6 +558,8 @@ class _Screen_mainState extends State<Screen_main> {
                                       ))),
                                   child: Text("${index + 1}"),
                                   onPressed: () {
+                                    print(
+                                        "condition floating BTN = ${selections[index].id_answers}");
                                     controller.jumpToPage(index);
                                     Navigator.of(context).pop();
                                   },

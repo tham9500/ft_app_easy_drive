@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_video.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -149,6 +150,8 @@ class _Home_articleState extends State<Home_article> {
                 ),
               ),
               SizedBox(height: 20),
+              Article_video(),
+              SizedBox(height: 20),
               Article_fee(),
               SizedBox(height: 20),
               Article_doc(),
@@ -264,6 +267,59 @@ class _Home_articleState extends State<Home_article> {
               print("games colors click");
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+            }));
+  }
+
+  Widget Article_video() {
+    return Container(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(230, 238, 246, 1),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      image: const DecorationImage(
+                        image: AssetImage("assets/images/logo/article-doc.png"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Container(
+                    width: 210,
+                    child: Text(
+                      "คลิปท่าทางการสอบปฏิบัติ",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Container(
+                    child: Container(
+                      child: Icon(Icons.arrow_right),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {
+              print("games colors click");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => article_video()));
             }));
   }
 
