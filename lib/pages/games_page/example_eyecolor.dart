@@ -324,8 +324,6 @@ class _example_eyecoloState extends State<example_eyecolo> {
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
-  }
-
-  // ignore: non_constant_identifier_names
+  }  // ignore: non_constant_identifier_names
 
 }
