@@ -22,8 +22,6 @@ class _Car_videoState extends State<Car_video> {
     video_data();
   }
 
-  
-
   video_data() {
     data_video = formData.car;
     print(data_video.length);
