@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/controller/article_test/video_car.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/video_play/car.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class article_video extends StatefulWidget {
@@ -192,9 +194,9 @@ class _article_videoState extends State<article_video> {
               ),
             ),
             onPressed: () {
-              print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+              print("car article click");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Car_video()));
             }));
   }
 

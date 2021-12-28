@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 
 class forget_page extends StatefulWidget {
   forget_page({Key? key}) : super(key: key);
@@ -210,7 +211,7 @@ class _forget_pageState extends State<forget_page> {
     Dio dio = new Dio();
     // String url = "http://172.27.7.226/easy_drive_backend/user/mobile/login.php";
     String url =
-        "http://10.0.2.2/easy_drive_backend/user/mobile/forgot_password.php";
+        "${Domain_name().domain}/easy_drive_backend/user/mobile/forgot_password.php";
     var dataReq = {};
     dataReq["email"] = username;
     String data = jsonEncode(dataReq);

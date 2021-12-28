@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/models/user_madel.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
@@ -249,7 +250,7 @@ class _Verify_emailState extends State<Verify_email> {
 
   Future<Null> regitor_OTP() async {
     String url =
-        'http://10.0.2.2/easy_drive_backend/user/mobile/activate_email.php';
+        '${Domain_name().domain}/easy_drive_backend/user/mobile/activate_email.php';
     // String url =
     //     'http://127.0.0.1/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
     //String url =
