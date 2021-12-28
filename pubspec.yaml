@@ -40,7 +40,6 @@ dependencies:
   shared_preferences: ^2.0.8
   form_builder_validators: ^7.2.0
   dio: ^4.0.4
-  chewie: ^1.2.2
 
 dev_dependencies:
   flutter_test:
