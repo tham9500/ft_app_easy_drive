@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
 
 class Registor_page extends StatefulWidget {
@@ -278,7 +279,7 @@ class _Registor_pageState extends State<Registor_page> {
   Future<Null> checkUser() async {
     Dio dio = new Dio();
     String url =
-        'http://10.0.2.2/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
+        '${Domain_name().domain}/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
     // String url =
     //     'http://127.0.0.1/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
     try {
@@ -296,7 +297,7 @@ class _Registor_pageState extends State<Registor_page> {
 
   Future<Null> regitorThead() async {
     Dio dio = new Dio();
-    String url = 'http://10.0.2.2/easy_drive_backend/user/mobile/register.php';
+    String url = '${Domain_name().domain}/easy_drive_backend/user/mobile/register.php';
     // String url =
     //     'http://127.0.0.1/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
     //String url =

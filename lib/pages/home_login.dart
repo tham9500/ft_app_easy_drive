@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/article/home_article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/guide_charange.dart';
@@ -428,7 +429,7 @@ class _Home_loginState extends State<Home_login> {
 
   Future<Null> User_history() async {
     String url =
-        'http://10.0.2.2/easy_drive_backend/user/mobile/last_menu.php?user_id=$displayID';
+        '${Domain_name().domain}/easy_drive_backend/user/mobile/last_menu.php?user_id=$displayID';
     // String url =
     //     'http://127.0.0.1/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
     var dataReq = {};
