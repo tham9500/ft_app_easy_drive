@@ -141,7 +141,7 @@ class _Car_videoState extends State<Car_video> {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
-              //vi
+              
               // Container(
               //   child: AspectRatio(
               //     aspectRatio: 16 / 9,
@@ -157,7 +157,7 @@ class _Car_videoState extends State<Car_video> {
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
                   child: BetterPlayer.network(
-                    "http://10.0.2.2:80/easy_drive_backend/video/1640790649.mp4",
+                    "http://172.27.7.226:80/easy_drive_backend/video/1640790649.mp4",
                     betterPlayerConfiguration: BetterPlayerConfiguration(
                       aspectRatio: 16 / 9,
                     ),
