@@ -1,6 +1,10 @@
+import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/controller/article_test/video_car.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
+import 'package:auto_orientation/auto_orientation.dart';
 
 class Car_video extends StatefulWidget {
   const Car_video({Key? key}) : super(key: key);
@@ -14,6 +18,8 @@ class _Car_videoState extends State<Car_video> {
   List<dynamic> data_video = [];
   String displayID = "";
   String status = "";
+  late VideoPlayerController videoPlayerController;
+  late ChewieController chewieController;
 
   void initState() {
     // TODO: implement initState
@@ -25,6 +31,7 @@ class _Car_videoState extends State<Car_video> {
   video_data() {
     data_video = formData.car;
     print(data_video.length);
+    // print("list video = ${data_video[0]["clip_url"]}");
   }
 
   Future<Null> Check_status() async {
@@ -134,33 +141,56 @@ class _Car_videoState extends State<Car_video> {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
+              //vi
+              // Container(
+              //   child: AspectRatio(
+              //     aspectRatio: 16 / 9,
+              //     child: BetterPlayer.network(
+              //       "https://7bee-203-158-248-18.ngrok.io/easy_drive_backend/video/1640790649.mp4",
+              //       betterPlayerConfiguration: BetterPlayerConfiguration(
+              //         aspectRatio: 16 / 9,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Container(
-                child: Text("data"),
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: BetterPlayer.network(
+                    "http://10.0.2.2:80/easy_drive_backend/video/1640790649.mp4",
+                    betterPlayerConfiguration: BetterPlayerConfiguration(
+                      aspectRatio: 16 / 9,
+                    ),
+                  ),
+                ),
               ),
-              Container(
-                child: Text("data"),
-              ),
-              Container(
-                child: Text("data"),
-              ),
-              Container(
-                child: Text("data"),
-              ),
-              Container(
-                child: Text("data"),
-              ),
-              Container(
-                child: Text("data"),
-              ),
-              Container(
-                child: Text("data"),
-              ),
-              Container(
-                child: Text("data"),
-              ),
-              Container(
-                child: Text("data"),
-              ),
+              SizedBox(height: 20),
+              // Container(
+              //   child: Image.network(
+              //       "http://10.0.2.2/easy_drive_backend/image/1641018645.jpg"),
+              // ),
+              // Container(
+              //   child: AspectRatio(
+              //     aspectRatio: 16 / 9,
+              //     child: BetterPlayer.network(
+              //       "https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4",
+              //       betterPlayerConfiguration: BetterPlayerConfiguration(
+              //         aspectRatio: 16 / 9,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // Container(
+              //   child: AspectRatio(
+              //     aspectRatio: 16 / 9,
+              //     child: BetterPlayer.file(
+              //       "../../../../../../assets/video/1640790649.mp4",
+              //       betterPlayerConfiguration: BetterPlayerConfiguration(
+              //         aspectRatio: 16 / 9,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
