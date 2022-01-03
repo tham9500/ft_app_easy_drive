@@ -40,11 +40,12 @@ class _home_sampleState extends State<home_sample> {
     });
     print("ID = ${displayID}");
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130.0),
+        preferredSize: Size.fromHeight(60),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
@@ -62,7 +63,7 @@ class _home_sampleState extends State<home_sample> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/appbars/appbar1.png"),
-                    fit: BoxFit.fill),
+                    fit: BoxFit.cover),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
