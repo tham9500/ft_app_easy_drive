@@ -9,6 +9,7 @@ import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/guide_charange.dart';
 import 'package:ft_app_easy_drive/pages/example_exam/home_sample.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
+import 'package:ft_app_easy_drive/pages/history.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/profile.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
@@ -629,8 +630,8 @@ class _Home_loginState extends State<Home_login> {
               history = "H";
               User_history();
               print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => History_charage()));
             }));
   }
 }
