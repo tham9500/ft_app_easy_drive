@@ -1,5 +1,6 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/controller/article_test/video_car.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chewie/chewie.dart';
@@ -141,29 +142,18 @@ class _Car_videoState extends State<Car_video> {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
-              
-              // Container(
-              //   child: AspectRatio(
-              //     aspectRatio: 16 / 9,
-              //     child: BetterPlayer.network(
-              //       "https://7bee-203-158-248-18.ngrok.io/easy_drive_backend/video/1640790649.mp4",
-              //       betterPlayerConfiguration: BetterPlayerConfiguration(
-              //         aspectRatio: 16 / 9,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Container(
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
                   child: BetterPlayer.network(
-                    "http://172.27.7.226:80/easy_drive_backend/video/1640790649.mp4",
+                    "${Domain_name().forword_port}/easy_drive_backend/video/1640790649.mp4",
                     betterPlayerConfiguration: BetterPlayerConfiguration(
                       aspectRatio: 16 / 9,
                     ),
                   ),
                 ),
               ),
+
               SizedBox(height: 20),
               // Container(
               //   child: Image.network(

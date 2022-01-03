@@ -437,8 +437,7 @@ class _Home_loginState extends State<Home_login> {
     String data = jsonEncode(dataReq);
     var response = await Dio().put(url, data: data);
     try {
-      Response response = await Dio().get(url);
-      print("response = ${response}");
+      print("response = ${response.toString()}");
       if (response.toString() == "error") {
         print("ERROR don't call api");
       } else if (response.toString() == "complate") {

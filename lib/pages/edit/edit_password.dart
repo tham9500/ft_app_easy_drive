@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/profile.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -288,7 +289,7 @@ class _Edit_passwordState extends State<Edit_password> {
   Future<void> Submit() async {
     Dio dio = new Dio();
     String url =
-        "http://10.0.2.2/easy_drive_backend/user/mobile/edit_password.php?user_id=$id";
+        "${Domain_name().domain}/easy_drive_backend/user/mobile/edit_password.php?user_id=$id";
     var dataReq = {};
 
     dataReq["password_old"] = old_password;

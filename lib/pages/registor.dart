@@ -285,9 +285,10 @@ class _Registor_pageState extends State<Registor_page> {
     try {
       Response response = await Dio().get(url);
       print("response = ${response}");
-      if (response.toString() == "haveUser") {
+      if (response.toString() == "checkusernull") {
         _showMyDialogVerify("มี Email อยู่ในระบบกรุณาใช้ \nEmail อื่น");
       } else if (response.toString() != "null") {
+        print("response = checkusernull");
         regitorThead();
       }
     } catch (e) {
@@ -297,7 +298,8 @@ class _Registor_pageState extends State<Registor_page> {
 
   Future<Null> regitorThead() async {
     Dio dio = new Dio();
-    String url = '${Domain_name().domain}/easy_drive_backend/user/mobile/register.php';
+    String url =
+        '${Domain_name().domain}/easy_drive_backend/user/mobile/register.php';
     // String url =
     //     'http://127.0.0.1/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
     //String url =
@@ -315,10 +317,11 @@ class _Registor_pageState extends State<Registor_page> {
     try {
       print(url);
 
-      if (response.toString() == 'workingcomplete') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Login_page()));
-      } else if (response.toString() == 'workinghaveUser') {
+      if (response.toString() == 'complete') {
+        _showRegistorPass("กรุณาเข้าสู่ระบบเพื่อทำการยืนยัน\nการใช้งาน");
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => Login_page()));
+      } else if (response.toString() == 'error') {
         _showMyDialogVerify("มี email นี้อยู่ในระบบแล้ว");
       }
     } catch (e) {
@@ -399,6 +402,75 @@ class _Registor_pageState extends State<Registor_page> {
                             color: Colors.red),
                       ),
                       onPressed: () => Navigator.pop(context, true),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showRegistorPass(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          // content: SingleChildScrollView(
+          //   child: ListBody(
+          //     children: <Widget>[
+          //       Container(
+          //           // child: Center(
+          //           //   child: Text("$content"),
+          //           // ),
+          //           ),
+          //     ],
+          //   ),
+          // ),
+          actions: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: <Widget>[
+                  // Container(
+                  //   padding: const EdgeInsets.all(12),
+                  //   child: Image(
+                  //       image: AssetImage("assets/images/game_icon/exit.png")),
+                  // ),
+                  SizedBox(width: 20),
+                  Container(
+                    child: Text(
+                      "${content}",
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'ตกลง',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Login_page()));
+                      },
                     ),
                   ),
                 ],
