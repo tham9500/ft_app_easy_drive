@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
+import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_login.dart';
@@ -12,8 +17,14 @@ class History_charage extends StatefulWidget {
 }
 
 class _History_charageState extends State<History_charage> {
+  bool load = true;
   String displayID = "";
   String status = "";
+  var history_data;
+
+  List<dynamic> history = [];
+  List<dynamic> date_his = [];
+  List<dynamic> time_his = [];
   bool btn_s1 = true;
   bool btn_s2 = false;
   bool btn_s3 = false;
@@ -23,6 +34,8 @@ class _History_charageState extends State<History_charage> {
     super.initState();
 
     Check_status();
+    //User_data();
+    get_history();
   }
 
   Future<Null> Check_status() async {
@@ -44,6 +57,33 @@ class _History_charageState extends State<History_charage> {
       displayID = preferences.getString("ID")!;
     });
     print("ID = ${displayID}");
+    get_history();
+  }
+
+  Future<void> get_history() async {
+    Dio dio = new Dio();
+    String url =
+        "${Domain_name().domain}/easy_drive_backend/history_test/mobile/get_history.php?user_id=$displayID";
+
+    var response = await Dio().get(url);
+    try {
+      print("response history = ${response.toString()}");
+      history = json.decode(response.data);
+      if (history != null) {
+        for (int i = 0; i < history.length; i++) {
+          date_his.add(history[i]["test_date"].split(" ")[0]);
+          time_his.add(history[i]["test_date"].split(" ")[1]);
+        }
+        setState(() {
+          load = false;
+        });
+      } else {}
+      print("history_type = ${history.runtimeType}");
+      print("history_type = ${history.length}");
+      print("history_type = ${history}");
+      print("date = ${date_his}");
+      print("time = ${time_his}");
+    } catch (e) {}
   }
 
   @override
@@ -130,20 +170,130 @@ class _History_charageState extends State<History_charage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  Btn_day(),
-                ],
+      body: load
+          ? ShowProgress()
+          : SingleChildScrollView(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: history != null
+                            ? page()
+                            : CircularProgressIndicator(),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+    );
+  }
+
+  Widget page() {
+    return Container(
+      child: Column(
+        children: [
+          Btn_day(),
+          SizedBox(height: 15),
+          btn_s1 == true
+              ? list_day()
+              : btn_s2 == true
+                  ? list_week()
+                  : list_month()
+        ],
+      ),
+    );
+  }
+
+  Widget list_day() {
+    return SingleChildScrollView(
+      child: Container(
+        child: ListView.builder(
+          physics: ScrollPhysics(),
+          scrollDirection: Axis.vertical, //defualt
+          shrinkWrap: true, //defualt
+          itemCount: history.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                height: MediaQuery.of(context).size.height * 0.19,
+                child: Card(
+                  color: Colors.amber.shade50,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                child: Center(
+                                  child: Text(
+                                    "${history[index]["score"]}",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                width: 90,
+                                height: 90,
+                                decoration: BoxDecoration(
+                                  color: history[index]["result"] == "0"
+                                      ? Colors.red
+                                      : Colors.green.shade400,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              SizedBox(width: 15),
+                              Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Text(
+                                        "${date_his[index]}",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text("${time_his[index]}",
+                                          style: TextStyle(fontSize: 18)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // color: Colors.amber.shade200,
+            );
+          },
         ),
       ),
+    );
+  }
+
+  Widget list_week() {
+    return Container(
+      child: Text("week"),
+    );
+  }
+
+  Widget list_month() {
+    return Container(
+      child: Text("month"),
     );
   }
 
