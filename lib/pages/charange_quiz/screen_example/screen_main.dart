@@ -182,6 +182,8 @@ class _Screen_mainState extends State<Screen_main> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.amberAccent.shade700,
+        child: Icon(Icons.chat),
         onPressed: () {
           zoomPictureDialog();
         },

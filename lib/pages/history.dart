@@ -240,11 +240,9 @@ class _History_charageState extends State<History_charage> {
                 child: Text("เดือน", style: TextStyle(fontSize: 18)),
                 onPressed: () {
                   setState(() {
-                    setState(() {
-                      btn_s1 = false;
-                      btn_s2 = false;
-                      btn_s3 = true;
-                    });
+                    btn_s1 = false;
+                    btn_s2 = false;
+                    btn_s3 = true;
                   });
                   print("state 3");
                 },

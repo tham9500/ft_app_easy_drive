@@ -14,7 +14,7 @@ class _Guide_charangeState extends State<Guide_charange> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130.0),
+        preferredSize: Size.fromHeight(60.0),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
@@ -248,7 +248,7 @@ class _Guide_charangeState extends State<Guide_charange> {
     );
   }
 
-  Widget test(){
+  Widget test() {
     return Container();
   }
 
