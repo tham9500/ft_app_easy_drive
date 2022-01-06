@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_login.dart';
@@ -25,6 +27,10 @@ class _History_charageState extends State<History_charage> {
   List<dynamic> history = [];
   List<dynamic> date_his = [];
   List<dynamic> time_his = [];
+  List<dynamic> day = [];
+  List<dynamic> num_day = [];
+  List<dynamic> month = [];
+  List<dynamic> year = [];
   bool btn_s1 = true;
   bool btn_s2 = false;
   bool btn_s3 = false;
@@ -33,9 +39,25 @@ class _History_charageState extends State<History_charage> {
     // TODO: implement initState
     super.initState();
 
+    test();
+
     Check_status();
     //User_data();
     get_history();
+  }
+
+  test() {
+    // DateTime now = DateTime.now();
+    // String formattate = DateFormat('yyyy=MM=dd - kk:mm').format(now);
+    // print("formattate = $formattate");
+
+    DateTime testdate = DateTime.parse("2022-01-04 22:58:39");
+    var convertdate =
+        DateTime(testdate.year + 543, testdate.month, testdate.day);
+    var convertTh = DateFormat.yMMMd().format(convertdate);
+    print("convertdate = ${convertdate}");
+
+    print("convertTh = ${convertTh}");
   }
 
   Future<Null> Check_status() async {
@@ -67,24 +89,95 @@ class _History_charageState extends State<History_charage> {
 
     var response = await Dio().get(url);
     try {
-      print("response history = ${response.toString()}");
+      // print("response history = ${response.toString()}");
       history = json.decode(response.data);
       if (history != null) {
         for (int i = 0; i < history.length; i++) {
           date_his.add(history[i]["test_date"].split(" ")[0]);
           time_his.add(history[i]["test_date"].split(" ")[1]);
+
+          day.add(date_his[i].split("-")[2]);
+
+          if (date_his[i].split("-")[1] == "01") {
+            month.add("ม.ค");
+          } else if (date_his[i].split("-")[1] == "02") {
+            month.add("ก.พ");
+          } else if (date_his[i].split("-")[1] == "03") {
+            month.add("มี.ค");
+          } else if (date_his[i].split("-")[1] == "04") {
+            month.add("เม.ย");
+          } else if (date_his[i].split("-")[1] == "05") {
+            month.add("พ.ค");
+          } else if (date_his[i].split("-")[1] == "06") {
+            month.add("มิ.ย");
+          } else if (date_his[i].split("-")[1] == "07") {
+            month.add("ก.ค");
+          } else if (date_his[i].split("-")[1] == "08") {
+            month.add("ส.ค");
+          } else if (date_his[i].split("-")[1] == "09") {
+            month.add("ก.ย");
+          } else if (date_his[i].split("-")[1] == "10") {
+            month.add("ต.ค");
+          } else if (date_his[i].split("-")[1] == "11") {
+            month.add("พ.ย");
+          } else if (date_his[i].split("-")[1] == "12") {
+            month.add("ธ.ค");
+          }
+          // month.add(date_his[j].split("-")[1]);
+          year.add(date_his[i].split("-")[0]);
         }
+
+        print("list day = ${num_day.length}");
+        print("list day = ${num_day}");
+
         setState(() {
           load = false;
         });
       } else {}
-      print("history_type = ${history.runtimeType}");
-      print("history_type = ${history.length}");
+      // print("history_type = ${history.runtimeType}");
+      // print("history_type = ${history.length}");
       print("history_type = ${history}");
-      print("date = ${date_his}");
-      print("time = ${time_his}");
+
+      // print("date = ${date_his}");
+      // print("time = ${time_his}");
+      print("day = ${day}");
+      print("month = ${month}");
+      print("year = ${year}");
+      check_day();
     } catch (e) {}
   }
+
+  check_day() {
+    num_day = day;
+    print("AAAAAAAAAAAAAAAAA = ${day}");
+    print("AAAAAAAAAAAAAAAAAAA = ${num_day.length}");
+
+    for (int i = 0; i < num_day.length; i++) {
+      print("num_day[i] = ${num_day[i]}");
+      for (int j = 1; j < num_day.length; j++) {
+        print("num_day[j] = ${num_day[j]}");
+        if (num_day[i] != num_day[j]) {
+          print("sssssssssssss");
+          /* print(num_day[i] == num_day[j]); */
+        } else {
+          print("aaaaaaaaa");
+          num_day.removeAt(j);
+        }
+      }
+    }
+    print("list day s = ${num_day.length}");
+    print("list day s = ${num_day}");
+
+    // DateTime testdate = DateTime.parse("2022-01-04 22:58:39");
+    // var convertdate =
+    //     DateTime(testdate.year + 543, testdate.month, testdate.day);
+    // var convertTh = DateFormat.yMMMd().format(testdate).toString();
+    // print("convertdate = ${convertdate}");
+
+    // print("convertTh = $convertTh");
+  }
+
+  check_month() {}
 
   @override
   Widget build(BuildContext context) {
@@ -219,14 +312,50 @@ class _History_charageState extends State<History_charage> {
             return Container(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                height: MediaQuery.of(context).size.height * 0.19,
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: Card(
-                  color: Colors.amber.shade50,
+                  color: Color.fromRGBO(230, 238, 246, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Container(
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: <Widget>[
+                        Container(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // color: Colors.amber.shade200,
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget list_week() {
+    return SingleChildScrollView(
+      child: Container(
+        child: ListView.builder(
+          physics: ScrollPhysics(),
+          scrollDirection: Axis.vertical, //defualt
+          shrinkWrap: true, //defualt
+          itemCount: history.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Card(
+                  color: Color.fromRGBO(230, 238, 246, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -254,19 +383,40 @@ class _History_charageState extends State<History_charage> {
                               SizedBox(width: 15),
                               Container(
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
                                       child: Text(
-                                        "${date_his[index]}",
-                                        style: TextStyle(fontSize: 18),
+                                        "วันที่ ${day[index]} ${month[index]} ${year[index]}",
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                     Container(
                                       child: Text("${time_his[index]}",
-                                          style: TextStyle(fontSize: 18)),
+                                          style: TextStyle(fontSize: 14)),
                                     ),
                                   ],
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              Container(
+                                child: Center(
+                                  child: history[index]["result"] == "0"
+                                      ? Text(
+                                          "ไม่ผ่าน",
+                                          style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red),
+                                        )
+                                      : Text(
+                                          "ผ่าน",
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                 ),
                               ),
                             ],
@@ -285,15 +435,102 @@ class _History_charageState extends State<History_charage> {
     );
   }
 
-  Widget list_week() {
-    return Container(
-      child: Text("week"),
-    );
-  }
-
   Widget list_month() {
-    return Container(
-      child: Text("month"),
+    return SingleChildScrollView(
+      child: Container(
+        child: ListView.builder(
+          physics: ScrollPhysics(),
+          scrollDirection: Axis.vertical, //defualt
+          shrinkWrap: true, //defualt
+          itemCount: history.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Card(
+                  color: Color.fromRGBO(230, 238, 246, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                child: Center(
+                                  child: Text(
+                                    "${history[index]["score"]}",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                width: 90,
+                                height: 90,
+                                decoration: BoxDecoration(
+                                  color: history[index]["result"] == "0"
+                                      ? Colors.red
+                                      : Colors.green.shade400,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              SizedBox(width: 15),
+                              Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Text(
+                                        "วันที่ ${day[index]} ${month[index]} ${year[index]}",
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text("${time_his[index]}",
+                                          style: TextStyle(fontSize: 14)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              Container(
+                                child: Center(
+                                  child: history[index]["result"] == "0"
+                                      ? Text(
+                                          "ไม่ผ่าน",
+                                          style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red),
+                                        )
+                                      : Text(
+                                          "ผ่าน",
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // color: Colors.amber.shade200,
+            );
+          },
+        ),
+      ),
     );
   }
 
