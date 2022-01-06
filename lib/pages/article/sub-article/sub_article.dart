@@ -1,6 +1,12 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/article/home_article.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_sign.dart';
+import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Sub_article extends StatefulWidget {
@@ -11,8 +17,14 @@ class Sub_article extends StatefulWidget {
 }
 
 class _Sub_articleState extends State<Sub_article> {
+  bool load = true;
   String displayID = "";
   String status = "";
+  String cate_id = "";
+  String cate_name = "";
+  String id_articleCate = "";
+  String name_articleCate = "";
+  List<dynamic> list_articleCate = [];
 
   void initState() {
     // TODO: implement initState
@@ -40,6 +52,35 @@ class _Sub_articleState extends State<Sub_article> {
       displayID = preferences.getString("ID")!;
     });
     print("ID = ${displayID}");
+    Cate_data();
+  }
+
+  Future<Null> Cate_data() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      cate_id = preferences.getString("CATERGORY_ID")!;
+      cate_name = preferences.getString("CATERGORY_NAME")!;
+    });
+    print("ID_cate = ${cate_id}");
+    get_articleCate();
+    // print("ID = ${cate_name}");
+  }
+
+  Future<Null> get_articleCate() async {
+    Dio dio = new Dio();
+    String url =
+        '${Domain_name().domain}/easy_drive_backend/article_cate/mobile/get_article_cate.php?cate_id=$cate_id';
+
+    var response = await Dio().get(url);
+
+    try {
+      list_articleCate = json.decode(response.data);
+      print("list_cate = ${list_articleCate.length}");
+      print("list_cate = ${list_articleCate}");
+      setState(() {
+        load = false;
+      });
+    } catch (e) {}
   }
 
   @override
@@ -119,134 +160,67 @@ class _Sub_articleState extends State<Sub_article> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    shape: BoxShape.circle,
-                    image: const DecorationImage(
-                      image: AssetImage("assets/images/logo/article-read.png"),
-                    ),
+      body: load
+          ? ShowProgress()
+          : SingleChildScrollView(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 70,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                          shape: BoxShape.circle,
+                          image: const DecorationImage(
+                            image: AssetImage(
+                                "assets/images/logo/article-read.png"),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                      Container(
+                        child: Center(
+                          child: Text(
+                            "${cate_name}",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color.fromRGBO(13, 59, 102, 1)),
+                          ),
+                        ),
+                      ),
+                      SubArticle_sign(),
+                      SizedBox(height: 10),
+                      List_articlecate(),
+                    ],
                   ),
                 ),
-                SizedBox(height: 25),
-                Container(
-                  child: Center(
-                    child: Text(
-                      "รอบรู้เรื่องการขับขี่",
-                      style: TextStyle(
-                          fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                SubArticle_car(),
-                SizedBox(height: 10),
-                SubArticle_traffic(),
-                SizedBox(height: 10),
-                SubArticle_sign(),
-                SizedBox(height: 10),
-                SubArticle_manners(),
-                SizedBox(height: 10),
-                SubArticle_maintenance(),
-                SizedBox(height: 10),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 
-  Widget SubArticle_car() {
+  Widget List_articlecate() {
     return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
+      child: ListView.builder(
+        physics: ScrollPhysics(),
+        scrollDirection: Axis.vertical, //defualt
+        shrinkWrap: true, //defualt
+        itemCount: list_articleCate.length,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(255, 255, 255, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  SizedBox(width: 12),
-                  Container(
-                    width: 260,
-                    child: Text(
-                      "กฏหมายว่าด้วยรถยนต์\nและจักยานยนต์",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
-                  ),
-                ],
-              ),
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: Article_cate(index),
+              // color: Colors.amber.shade200,
             ),
-            onPressed: () {
-              print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
-            }));
-  }
-
-  Widget SubArticle_traffic() {
-    return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(255, 255, 255, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  SizedBox(width: 12),
-                  Container(
-                    width: 260,
-                    child: Text(
-                      "กฏหมายจราจรทางบก",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onPressed: () {
-              print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
-            }));
+          );
+        },
+      ),
+    );
   }
 
   Widget SubArticle_sign() {
@@ -291,7 +265,7 @@ class _Sub_articleState extends State<Sub_article> {
             }));
   }
 
-  Widget SubArticle_manners() {
+  Widget Article_cate(index) {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -310,11 +284,14 @@ class _Sub_articleState extends State<Sub_article> {
             child: Container(
               child: Row(
                 children: <Widget>[
-                  SizedBox(width: 12),
                   Container(
                     width: 260,
                     child: Text(
-                      "มารยาทและจิตสำนึก",
+                      "${list_articleCate[index]["article_cate_name"]}".length >
+                              30
+                          ? "${list_articleCate[index]["article_cate_name"]}"
+                              .substring(0, 30)
+                          : "${list_articleCate[index]["article_cate_name"]}",
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -327,51 +304,22 @@ class _Sub_articleState extends State<Sub_article> {
               ),
             ),
             onPressed: () {
+              setState(() {
+                id_articleCate = list_articleCate[index]["article_cate_id"];
+                name_articleCate = list_articleCate[index]["article_cate_name"];
+              });
+              cateService();
               print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Article()));
             }));
   }
 
-  Widget SubArticle_maintenance() {
-    return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(255, 255, 255, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  SizedBox(width: 12),
-                  Container(
-                    width: 260,
-                    child: Text(
-                      "การบำรุงรักษารถ",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onPressed: () {
-              print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
-            }));
+  Future<Null> cateService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('aCATE_ID', id_articleCate);
+    preferences.setString('aCATE_NAME', name_articleCate);
+    print("ID_CATE = $id_articleCate");
+    print("NAME_CATE = $name_articleCate");
   }
 }

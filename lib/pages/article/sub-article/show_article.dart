@@ -117,17 +117,7 @@ class _Show_articleState extends State<Show_article> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 30),
-                          Container(
-                            child: Text(
-                              "",
-                              style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
+                          
                         ],
                       ),
                     ),

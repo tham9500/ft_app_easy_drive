@@ -50,6 +50,11 @@ dependencies:
   auto_orientation: ^2.1.0
   better_player: ^0.0.48
 
+  intl: ^0.17.0-nullsafety.2
+  flutter_localizations: 
+    sdk: flutter
+  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

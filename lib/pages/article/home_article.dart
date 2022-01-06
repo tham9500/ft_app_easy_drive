@@ -1,8 +1,13 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_video.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
+import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home_article extends StatefulWidget {
@@ -13,14 +18,19 @@ class Home_article extends StatefulWidget {
 }
 
 class _Home_articleState extends State<Home_article> {
+  bool load = true;
   String displayID = "";
   String status = "";
+  List<dynamic> list_cate = [];
+  String id_cate = "";
+  String name_cate = "";
 
   void initState() {
     // TODO: implement initState
     super.initState();
 
     Check_status();
+    get_Cate();
   }
 
   Future<Null> Check_status() async {
@@ -42,6 +52,23 @@ class _Home_articleState extends State<Home_article> {
       displayID = preferences.getString("ID")!;
     });
     print("ID = ${displayID}");
+  }
+
+  Future<Null> get_Cate() async {
+    Dio dio = new Dio();
+    String url =
+        '${Domain_name().domain}/easy_drive_backend/category/mobile/get_category.php';
+
+    var response = await Dio().get(url);
+
+    try {
+      list_cate = json.decode(response.data);
+      print("list_cate = ${list_cate.length}");
+      print("list_cate = ${list_cate}");
+      setState(() {
+        load = false;
+      });
+    } catch (e) {}
   }
 
   @override
@@ -123,48 +150,71 @@ class _Home_articleState extends State<Home_article> {
           ),
         ),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 1),
-                  shape: BoxShape.circle,
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/logo/article.png"),
+      body: load
+          ? ShowProgress()
+          : SingleChildScrollView(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 70,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                          shape: BoxShape.circle,
+                          image: const DecorationImage(
+                            image: AssetImage("assets/images/logo/article.png"),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                      Container(
+                        child: Center(
+                          child: Text(
+                            "เกี่ยวกับใบขับขี่",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color.fromRGBO(13, 59, 102, 1)),
+                          ),
+                        ),
+                      ),
+                      List_cate(),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(height: 25),
-              Container(
-                child: Center(
-                  child: Text(
-                    "เกี่ยวกับใบขับขี่",
-                    style: TextStyle(
-                        fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
-                  ),
+            ),
+    );
+  }
+
+  Widget List_cate() {
+    return Container(
+      child: ListView.builder(
+        physics: ScrollPhysics(),
+        scrollDirection: Axis.vertical, //defualt
+        shrinkWrap: true, //defualt
+        itemCount: list_cate.length,
+
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: list_cate[index]["cate_type"] == "V"
+                    ? Video_cate(index)
+                    : list_cate[index]["cate_type"] == "L"
+                        ? Link_cate(index)
+                        : Article_cate(index)
+                // color: Colors.amber.shade200,
                 ),
-              ),
-              SizedBox(height: 20),
-              Article_video(),
-              SizedBox(height: 20),
-              Article_fee(),
-              SizedBox(height: 20),
-              Article_doc(),
-              SizedBox(height: 20),
-              Article_read(),
-            ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }
 
-  Widget Article_fee() {
+  Widget Link_cate(index) {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -198,13 +248,8 @@ class _Home_articleState extends State<Home_article> {
                   Container(
                     width: 210,
                     child: Text(
-                      "ค่าธรรมเนียบการสอบ",
+                      "${list_cate[index]["cate_name"]}",
                       style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
                     ),
                   ),
                 ],
@@ -212,12 +257,17 @@ class _Home_articleState extends State<Home_article> {
             ),
             onPressed: () {
               print("games colors click");
+              setState(() {
+                id_cate = list_cate[index]["cate_id"];
+                name_cate = list_cate[index]["cate_name"];
+              });
+              cateService();
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => example_eyecolo()));
             }));
   }
 
-  Widget Article_doc() {
+  Widget Video_cate(index) {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -251,13 +301,8 @@ class _Home_articleState extends State<Home_article> {
                   Container(
                     width: 210,
                     child: Text(
-                      "วิธีการสอบและ\nเอกสารที่จำเป็น",
+                      "${list_cate[index]["cate_name"]}",
                       style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
                     ),
                   ),
                 ],
@@ -265,65 +310,17 @@ class _Home_articleState extends State<Home_article> {
             ),
             onPressed: () {
               print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
-            }));
-  }
-
-  Widget Article_video() {
-    return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(230, 238, 246, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/images/logo/article-doc.png"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Container(
-                    width: 210,
-                    child: Text(
-                      "คลิปท่าทางการสอบปฏิบัติ",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onPressed: () {
-              print("games colors click");
+              setState(() {
+                id_cate = list_cate[index]["cate_id"];
+                name_cate = list_cate[index]["cate_name"];
+              });
+              cateService();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => article_video()));
             }));
   }
 
-  Widget Article_read() {
+  Widget Article_cate(index) {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
@@ -358,13 +355,8 @@ class _Home_articleState extends State<Home_article> {
                   Container(
                     width: 210,
                     child: Text(
-                      "รอบรู้เรื่องการขับขี่",
+                      "${list_cate[index]["cate_name"]}",
                       style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
                     ),
                   ),
                 ],
@@ -372,8 +364,21 @@ class _Home_articleState extends State<Home_article> {
             ),
             onPressed: () {
               print("games colors click");
+              setState(() {
+                id_cate = list_cate[index]["cate_id"];
+                name_cate = list_cate[index]["cate_name"];
+              });
+              cateService();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Sub_article()));
             }));
+  }
+
+  Future<Null> cateService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('CATERGORY_ID', id_cate);
+    preferences.setString('CATERGORY_NAME', name_cate);
+    print("ID_CATE = $id_cate");
+    print("NAME_CATE = $name_cate");
   }
 }
