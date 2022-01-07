@@ -6,6 +6,7 @@ import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/controller/article_test/article_sign.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/show_article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/content.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +24,9 @@ class _ArticleState extends State<Article> {
   String articleCate_id = "";
   String articleCate_name = "";
   List<dynamic> list_article = [];
+  String id_article = "";
+  String name_article = "";
+  String head_article = "";
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -197,13 +201,25 @@ class _ArticleState extends State<Article> {
             ),
             onPressed: () {
               setState(() {
-                // id_articleCate = list_articleCate[index]["article_cate_id"];
-                // name_articleCate = list_articleCate[index]["article_cate_name"];
+                id_article = list_article[index]["article_id"];
+                name_article = list_article[index]["article_title"];
+                head_article = list_article[index]["article_head"];
               });
+              cateService();
               // cateService();
               print("read article click");
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (context) => Article()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Content()));
             }));
+  }
+
+  Future<Null> cateService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('ARTICLE_ID', id_article);
+    preferences.setString('ARTICLE_NAME', name_article);
+    preferences.setString('ARTICLE_HEAD', head_article);
+    print("ID_CONTENT = $id_article");
+    print("NAME_CONTENT = $name_article");
+    print("HEAD_CONTENT = $head_article");
   }
 }
