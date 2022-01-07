@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/controller/article_test/video_car.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:chewie/chewie.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:chewie/chewie.dart';
+// import 'package:video_player/video_player.dart';
 import 'package:auto_orientation/auto_orientation.dart';
 
 class Car_video extends StatefulWidget {
@@ -19,8 +19,8 @@ class _Car_videoState extends State<Car_video> {
   List<dynamic> data_video = [];
   String displayID = "";
   String status = "";
-  late VideoPlayerController videoPlayerController;
-  late ChewieController chewieController;
+  // late VideoPlayerController videoPlayerController;
+  // late ChewieController chewieController;
 
   void initState() {
     // TODO: implement initState

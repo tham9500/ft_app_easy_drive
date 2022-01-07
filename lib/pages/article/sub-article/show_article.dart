@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/controller/article_test/article_sign.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_sign.dart';
 
@@ -117,7 +118,6 @@ class _Show_articleState extends State<Show_article> {
                               ],
                             ),
                           ),
-                          
                         ],
                       ),
                     ),
@@ -151,7 +151,7 @@ class _Show_articleState extends State<Show_article> {
                   child: PageView.builder(
                     itemCount: list_text.length,
                     itemBuilder: (context, index) {
-                      print(list_text[index]["ID"]);
+                      print(list_text[index]);
                       return Container(
                         child: Column(
                           children: <Widget>[
@@ -246,9 +246,8 @@ class _Show_articleState extends State<Show_article> {
     return Container(
       padding: const EdgeInsets.all(18),
       child: GestureDetector(
-        child: Image(
-          image: AssetImage("${list_text[index]["image"]}"),
-        ),
+        child: Image.network(
+            "${Domain_name().domain}/easy_drive_backend/image/article/${list_text[index]["image_content"]}"),
         onTap: () {
           zoomPictureDialog(context, list_text[index]["image"]);
         },
@@ -256,7 +255,7 @@ class _Show_articleState extends State<Show_article> {
     );
   }
 
-  Future<void> zoomPictureDialog(BuildContext context, file) async {
+  Future<void> zoomPictureDialog(BuildContext context, url) async {
     showGeneralDialog(
       context: context,
       barrierColor: Colors.black12.withOpacity(0.6), // Background color
@@ -286,7 +285,7 @@ class _Show_articleState extends State<Show_article> {
                     //   fit: BoxFit.cover,
                     // ),
                     child: Image.asset(
-                      file,
+                      url,
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       fit: BoxFit.contain,
