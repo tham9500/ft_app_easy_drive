@@ -9,6 +9,7 @@ import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home_article extends StatefulWidget {
   Home_article({Key? key}) : super(key: key);
@@ -22,8 +23,10 @@ class _Home_articleState extends State<Home_article> {
   String displayID = "";
   String status = "";
   List<dynamic> list_cate = [];
+  List<dynamic> result = [];
   String id_cate = "";
   String name_cate = "";
+  String _url = '';
 
   void initState() {
     // TODO: implement initState
@@ -62,9 +65,19 @@ class _Home_articleState extends State<Home_article> {
     var response = await Dio().get(url);
 
     try {
-      list_cate = json.decode(response.data);
-      print("list_cate = ${list_cate.length}");
-      print("list_cate = ${list_cate}");
+      if (status == "login") {
+        list_cate = json.decode(response.data);
+      } else if (status == "logout") {
+        result = json.decode(response.data);
+        for (int i = 0; i < result.length; i++) {
+          if (result[i]["cate_show"] == "1") {
+            list_cate.add(result[i]);
+          } else {}
+        }
+      }
+      print("listcate filter= ${list_cate.length}");
+      print("listcate filter= ${list_cate}");
+
       setState(() {
         load = false;
       });
@@ -260,7 +273,10 @@ class _Home_articleState extends State<Home_article> {
               setState(() {
                 id_cate = list_cate[index]["cate_id"];
                 name_cate = list_cate[index]["cate_name"];
+                _url = list_cate[index]["link"];
+                // _url = 'https://flutterdevs.com/';
               });
+              check_link();
               cateService();
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => example_eyecolo()));
@@ -381,4 +397,16 @@ class _Home_articleState extends State<Home_article> {
     print("ID_CATE = $id_cate");
     print("NAME_CATE = $name_cate");
   }
+
+  check_link() {
+    if (_url != '') {
+      _launchURL();
+    } else {
+      print("Url id empty");
+    }
+  }
+
+  void _launchURL() async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw "could not launch $_url";
 }
