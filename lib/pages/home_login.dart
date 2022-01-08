@@ -14,6 +14,7 @@ import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/profile.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home_login extends StatefulWidget {
   Home_login({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class _Home_loginState extends State<Home_login> {
   String displayName = "";
   String displayID = "";
   String history = "";
+  String _url = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -453,7 +455,12 @@ class _Home_loginState extends State<Home_login> {
     return GestureDetector(
       onTap: () {
         history = "G";
+        User_data();
+        setState(() {
+          _url = 'https://www.dlt.go.th/th/public-news/view.php?_did=2858';
+        });
         print("games page click");
+        check_link();
       },
       child: Card(
         shadowColor: Colors.black,
@@ -634,4 +641,16 @@ class _Home_loginState extends State<Home_login> {
                   MaterialPageRoute(builder: (context) => History_charage()));
             }));
   }
+
+  check_link() {
+    if (_url != '') {
+      _launchURL();
+    } else {
+      print("Url id empty");
+    }
+  }
+
+  void _launchURL() async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw "could not launch $_url";
 }
