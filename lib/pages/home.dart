@@ -6,6 +6,7 @@ import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
 import 'package:ft_app_easy_drive/pages/verify_email.dart';
 import 'package:ft_app_easy_drive/widget/custom_shape.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../pages/test_page/time_countdown.dart';
 
 class Home_page extends StatefulWidget {
@@ -16,6 +17,7 @@ class Home_page extends StatefulWidget {
 }
 
 class _Home_pageState extends State<Home_page> {
+  String _url = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -311,7 +313,13 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Article_Page_scroll2() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          _url = 'https://www.dlt.go.th/th/public-news/view.php?_did=2858';
+        });
+        print("games page click");
+        check_link();
+      },
       child: Card(
         shadowColor: Colors.black,
         elevation: 8,
@@ -433,4 +441,16 @@ class _Home_pageState extends State<Home_page> {
       ),
     );
   }
+
+  check_link() {
+    if (_url != '') {
+      _launchURL();
+    } else {
+      print("Url id empty");
+    }
+  }
+
+  void _launchURL() async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw "could not launch $_url";
 }
