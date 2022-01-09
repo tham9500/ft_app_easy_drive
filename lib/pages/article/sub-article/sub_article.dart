@@ -43,6 +43,7 @@ class _Sub_articleState extends State<Sub_article> {
       User_data();
     } else {
       print("Not login");
+      Cate_data();
     }
   }
 
@@ -93,9 +94,11 @@ class _Sub_articleState extends State<Sub_article> {
           leading: IconButton(
             onPressed: () {
               if (displayID == "") {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home_article()));
               } else {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home_article()));
               }
             },
             icon: Icon(Icons.arrow_back_ios),
@@ -250,11 +253,6 @@ class _Sub_articleState extends State<Sub_article> {
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -293,11 +291,6 @@ class _Sub_articleState extends State<Sub_article> {
                               .substring(0, 30)
                           : "${list_articleCate[index]["article_cate_name"]}",
                       style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
                     ),
                   ),
                 ],

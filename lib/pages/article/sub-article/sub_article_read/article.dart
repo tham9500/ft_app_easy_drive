@@ -44,6 +44,7 @@ class _ArticleState extends State<Article> {
       User_data();
     } else {
       print("Not login");
+      articleCate_data();
     }
   }
 
@@ -93,7 +94,8 @@ class _ArticleState extends State<Article> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Sub_article()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
@@ -189,11 +191,6 @@ class _ArticleState extends State<Article> {
                               .substring(0, 30)
                           : "${list_article[index]["article_title"]}",
                       style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
                     ),
                   ),
                 ],

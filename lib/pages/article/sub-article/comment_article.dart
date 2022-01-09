@@ -76,7 +76,8 @@ class _Comment_articlState extends State<Comment_articl> {
           leading: IconButton(
             onPressed: () {
               if (displayID == "") {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Content()));
               } else {
                 Navigator.pop(context);
               }
