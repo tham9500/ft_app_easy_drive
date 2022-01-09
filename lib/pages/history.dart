@@ -291,47 +291,11 @@ class _History_charageState extends State<History_charage> {
           Btn_day(),
           SizedBox(height: 15),
           btn_s1 == true
-              ? list_day()
+              ? list_week()
               : btn_s2 == true
-                  ? list_week()
-                  : list_month()
+                  ? list_month()
+                  : list_6month()
         ],
-      ),
-    );
-  }
-
-  Widget list_day() {
-    return SingleChildScrollView(
-      child: Container(
-        child: ListView.builder(
-          physics: ScrollPhysics(),
-          scrollDirection: Axis.vertical, //defualt
-          shrinkWrap: true, //defualt
-          itemCount: history.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                height: MediaQuery.of(context).size.height * 0.20,
-                child: Card(
-                  color: Color.fromRGBO(230, 238, 246, 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: <Widget>[
-                        Container(),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              // color: Colors.amber.shade200,
-            );
-          },
-        ),
       ),
     );
   }
@@ -358,70 +322,7 @@ class _History_charageState extends State<History_charage> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: <Widget>[
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                child: Center(
-                                  child: Text(
-                                    "${history[index]["score"]}",
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                width: 90,
-                                height: 90,
-                                decoration: BoxDecoration(
-                                  color: history[index]["result"] == "0"
-                                      ? Colors.red
-                                      : Colors.green.shade400,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              SizedBox(width: 15),
-                              Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "วันที่ ${day[index]} ${month[index]} ${year[index]}",
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text("${time_his[index]}",
-                                          style: TextStyle(fontSize: 14)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 20),
-                              Container(
-                                child: Center(
-                                  child: history[index]["result"] == "0"
-                                      ? Text(
-                                          "ไม่ผ่าน",
-                                          style: TextStyle(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.red),
-                                        )
-                                      : Text(
-                                          "ผ่าน",
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        Container(),
                       ],
                     ),
                   ),
@@ -462,8 +363,9 @@ class _History_charageState extends State<History_charage> {
                             children: <Widget>[
                               Container(
                                 child: Center(
+                                  //score
                                   child: Text(
-                                    "${history[index]["score"]}",
+                                    "",
                                     style: TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
@@ -473,6 +375,111 @@ class _History_charageState extends State<History_charage> {
                                 width: 90,
                                 height: 90,
                                 decoration: BoxDecoration(
+                                  //pass & fail color
+                                  color: history[index]["result"] == "0"
+                                      ? Colors.red
+                                      : Colors.green.shade400,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              SizedBox(width: 15),
+                              Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    //date
+                                    Container(
+                                      child: Text(
+                                        "",
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                    ),
+                                    //time
+                                    Container(
+                                      child: Text("",
+                                          style: TextStyle(fontSize: 14)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              Container(
+                                child: Center(
+                                  //condition word pass and fail
+                                  child: history[index]["result"] == "0"
+                                      ? Text(
+                                          "ไม่ผ่าน",
+                                          style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red),
+                                        )
+                                      : Text(
+                                          "ผ่าน",
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // color: Colors.amber.shade200,
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget list_6month() {
+    return SingleChildScrollView(
+      child: Container(
+        child: ListView.builder(
+          physics: ScrollPhysics(),
+          scrollDirection: Axis.vertical, //defualt
+          shrinkWrap: true, //defualt
+          itemCount: history.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Card(
+                  color: Color.fromRGBO(230, 238, 246, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                //score
+                                child: Center(
+                                  child: Text(
+                                    "",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                width: 90,
+                                height: 90,
+                                decoration: BoxDecoration(
+                                  //color pass fail
                                   color: history[index]["result"] == "0"
                                       ? Colors.red
                                       : Colors.green.shade400,
@@ -486,13 +493,15 @@ class _History_charageState extends State<History_charage> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
+                                      //date
                                       child: Text(
-                                        "วันที่ ${day[index]} ${month[index]} ${year[index]}",
+                                        "",
                                         style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                     Container(
-                                      child: Text("${time_his[index]}",
+                                      //time
+                                      child: Text("",
                                           style: TextStyle(fontSize: 14)),
                                     ),
                                   ],
@@ -501,6 +510,7 @@ class _History_charageState extends State<History_charage> {
                               SizedBox(width: 20),
                               Container(
                                 child: Center(
+                                  //word pass fail
                                   child: history[index]["result"] == "0"
                                       ? Text(
                                           "ไม่ผ่าน",
@@ -565,7 +575,7 @@ class _History_charageState extends State<History_charage> {
                     ),
                   ),
                 ),
-                child: Text("วัน", style: TextStyle(fontSize: 18)),
+                child: Text("สัปดาห์", style: TextStyle(fontSize: 18)),
                 onPressed: () {
                   setState(() {
                     btn_s1 = true;
@@ -594,7 +604,7 @@ class _History_charageState extends State<History_charage> {
                   ),
                 ),
                 child: Text(
-                  "สัปดาห์",
+                  "เดือน",
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
@@ -624,7 +634,7 @@ class _History_charageState extends State<History_charage> {
                     ),
                   ),
                 ),
-                child: Text("เดือน", style: TextStyle(fontSize: 18)),
+                child: Text("6 เดือน", style: TextStyle(fontSize: 18)),
                 onPressed: () {
                   setState(() {
                     btn_s1 = false;

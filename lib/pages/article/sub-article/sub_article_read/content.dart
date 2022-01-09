@@ -45,6 +45,7 @@ class _ContentState extends State<Content> {
       User_data();
     } else {
       print("Not login");
+      articleCate_data();
     }
   }
 

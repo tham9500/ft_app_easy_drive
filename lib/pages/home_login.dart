@@ -573,11 +573,6 @@ class _Home_loginState extends State<Home_login> {
                     width: 210,
                     child: Text("แนวข้อสอบ"),
                   ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -624,11 +619,6 @@ class _Home_loginState extends State<Home_login> {
                   Container(
                     width: 210,
                     child: Text("ประวัติการทำข้อสอบ"),
-                  ),
-                  Container(
-                    child: Container(
-                      child: Icon(Icons.arrow_right),
-                    ),
                   ),
                 ],
               ),
