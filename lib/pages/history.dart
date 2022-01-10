@@ -23,11 +23,14 @@ class _History_charageState extends State<History_charage> {
   String displayID = "";
   String status = "";
   var history_data;
+  String type_filter = "";
 
   List<dynamic> history = [];
   List<dynamic> date_his = [];
+  List<dynamic> date_th = [];
   List<dynamic> time_his = [];
-  List<dynamic> day = [];
+  List<dynamic> _hour = [];
+  List<dynamic> _min = [];
   List<dynamic> num_day = [];
   List<dynamic> month = [];
   List<dynamic> year = [];
@@ -39,10 +42,10 @@ class _History_charageState extends State<History_charage> {
     // TODO: implement initState
     super.initState();
 
-    test();
+    // test();
 
     Check_status();
-    //User_data();
+    User_data();
     get_history();
   }
 
@@ -50,14 +53,22 @@ class _History_charageState extends State<History_charage> {
     // DateTime now = DateTime.now();
     // String formattate = DateFormat('yyyy=MM=dd - kk:mm').format(now);
     // print("formattate = $formattate");
+    for (int i = 0; i < history.length; i++) {
+      DateTime testdate = DateTime.parse("${date_his[i]}");
 
-    DateTime testdate = DateTime.parse("2022-01-04 22:58:39");
-    var convertdate =
-        DateTime(testdate.year + 543, testdate.month, testdate.day);
-    var convertTh = DateFormat.yMMMd().format(convertdate);
-    print("convertdate = ${convertdate}");
+      var convertdate =
+          DateTime(testdate.year + 543, testdate.month, testdate.day);
+      String convertTh = DateFormat.yMMMd().format(convertdate);
+      print("convertdate = ${convertdate}");
+      date_th.add(convertTh);
+      print("convertTh = ${convertTh}");
+    }
+    print("date th = ${date_th.length}");
+    print("date th = ${date_th}");
 
-    print("convertTh = ${convertTh}");
+    setState(() {
+      load = false;
+    });
   }
 
   Future<Null> Check_status() async {
@@ -79,60 +90,49 @@ class _History_charageState extends State<History_charage> {
       displayID = preferences.getString("ID")!;
     });
     print("ID = ${displayID}");
-    get_history();
+    filter_history();
+  }
+
+  filter_history() {
+    if (btn_s1 == true) {
+      type_filter = "week";
+      print("preset = week");
+      get_history();
+    } else if (btn_s2 == true) {
+      type_filter = "month";
+      print("preset = month");
+      get_history();
+    } else if (btn_s3 == true) {
+      type_filter = "month6";
+      print("preset = month6");
+      get_history();
+    }
   }
 
   Future<void> get_history() async {
     Dio dio = new Dio();
     String url =
-        "${Domain_name().domain}/easy_drive_backend/history_test/mobile/get_history.php?user_id=$displayID";
+        "${Domain_name().domain}/easy_drive_backend/history_test/mobile/get_history.php?user_id=$displayID&filter=$type_filter";
 
     var response = await Dio().get(url);
+    print("response = ${response.toString()}");
     try {
-      // print("response history = ${response.toString()}");
       history = json.decode(response.data);
       if (history != null) {
         for (int i = 0; i < history.length; i++) {
           date_his.add(history[i]["test_date"].split(" ")[0]);
           time_his.add(history[i]["test_date"].split(" ")[1]);
-
-          day.add(date_his[i].split("-")[2]);
-
-          if (date_his[i].split("-")[1] == "01") {
-            month.add("ม.ค");
-          } else if (date_his[i].split("-")[1] == "02") {
-            month.add("ก.พ");
-          } else if (date_his[i].split("-")[1] == "03") {
-            month.add("มี.ค");
-          } else if (date_his[i].split("-")[1] == "04") {
-            month.add("เม.ย");
-          } else if (date_his[i].split("-")[1] == "05") {
-            month.add("พ.ค");
-          } else if (date_his[i].split("-")[1] == "06") {
-            month.add("มิ.ย");
-          } else if (date_his[i].split("-")[1] == "07") {
-            month.add("ก.ค");
-          } else if (date_his[i].split("-")[1] == "08") {
-            month.add("ส.ค");
-          } else if (date_his[i].split("-")[1] == "09") {
-            month.add("ก.ย");
-          } else if (date_his[i].split("-")[1] == "10") {
-            month.add("ต.ค");
-          } else if (date_his[i].split("-")[1] == "11") {
-            month.add("พ.ย");
-          } else if (date_his[i].split("-")[1] == "12") {
-            month.add("ธ.ค");
-          }
-          // month.add(date_his[j].split("-")[1]);
-          year.add(date_his[i].split("-")[0]);
         }
+        for (int j = 0; j < time_his.length; j++) {
+          _hour.add(time_his[j].split(":")[0]);
+          _min.add(time_his[j].split(":")[1]);
+        }
+        print("hr = ${_hour}");
+        print("min = ${_min}");
+        test();
+        // print("list day = ${num_day.length}");
+        // print("list day = ${num_day}");
 
-        print("list day = ${num_day.length}");
-        print("list day = ${num_day}");
-
-        setState(() {
-          load = false;
-        });
       } else {}
       // print("history_type = ${history.runtimeType}");
       // print("history_type = ${history.length}");
@@ -140,44 +140,52 @@ class _History_charageState extends State<History_charage> {
 
       // print("date = ${date_his}");
       // print("time = ${time_his}");
-      print("day = ${day}");
-      print("month = ${month}");
-      print("year = ${year}");
-      check_day();
+
+      // check_day();
     } catch (e) {}
   }
 
-  check_day() {
-    num_day = day;
-    print("AAAAAAAAAAAAAAAAA = ${day}");
-    print("AAAAAAAAAAAAAAAAAAA = ${num_day.length}");
+  // check_day() {
+  //   num_day = day;
+  //   print("AAAAAAAAAAAAAAAAA = ${day}");
+  //   print("AAAAAAAAAAAAAAAAAAA = ${num_day.length}");
 
-    for (int i = 0; i < num_day.length; i++) {
-      print("num_day[i] = ${num_day[i]}");
-      for (int j = 1; j < num_day.length; j++) {
-        print("num_day[j] = ${num_day[j]}");
-        if (num_day[i] != num_day[j]) {
-          print("sssssssssssss");
-          /* print(num_day[i] == num_day[j]); */
-        } else {
-          print("aaaaaaaaa");
-          num_day.removeAt(j);
-        }
-      }
-    }
-    print("list day s = ${num_day.length}");
-    print("list day s = ${num_day}");
+  //   for (int i = 0; i < num_day.length; i++) {
+  //     print("num_day[i] = ${num_day[i]}");
+  //     for (int j = 1; j < num_day.length; j++) {
+  //       print("num_day[j] = ${num_day[j]}");
+  //       if (num_day[i] != num_day[j]) {
+  //         print("sssssssssssss");
+  //         /* print(num_day[i] == num_day[j]); */
+  //       } else {
+  //         print("aaaaaaaaa");
+  //         num_day.removeAt(j);
+  //       }
+  //     }
+  //   }
+  //   print("list day s = ${num_day.length}");
+  //   print("list day s = ${num_day}");
 
-    // DateTime testdate = DateTime.parse("2022-01-04 22:58:39");
-    // var convertdate =
-    //     DateTime(testdate.year + 543, testdate.month, testdate.day);
-    // var convertTh = DateFormat.yMMMd().format(testdate).toString();
-    // print("convertdate = ${convertdate}");
+  //   // DateTime testdate = DateTime.parse("2022-01-04 22:58:39");
+  //   // var convertdate =
+  //   //     DateTime(testdate.year + 543, testdate.month, testdate.day);
+  //   // var convertTh = DateFormat.yMMMd().format(testdate).toString();
+  //   // print("convertdate = ${convertdate}");
 
-    // print("convertTh = $convertTh");
+  //   // print("convertTh = $convertTh");
+  // }
+
+  remove_list() {
+    history.removeRange(0, history.length);
+    date_his.removeRange(0, date_his.length);
+    date_th.removeRange(0, date_th.length);
+    time_his.removeRange(0, time_his.length);
+    _hour.removeRange(0, _hour.length);
+    _min.removeRange(0, _min.length);
+    print("List remove = ${history.length}");
+    print("List remove = ${date_his.length}");
+    print("List remove = ${date_th.length}");
   }
-
-  check_month() {}
 
   @override
   Widget build(BuildContext context) {
@@ -322,7 +330,76 @@ class _History_charageState extends State<History_charage> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: <Widget>[
-                        Container(),
+                        Container(
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                child: Center(
+                                  //score
+                                  child: Text(
+                                    "${history[index]["score"]}",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                width: 90,
+                                height: 90,
+                                decoration: BoxDecoration(
+                                  //pass & fail color
+                                  color: history[index]["result"] == "0"
+                                      ? Colors.red
+                                      : Colors.green.shade400,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              SizedBox(width: 15),
+                              Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    //date
+                                    Container(
+                                      child: Text(
+                                        "วันที่ ${date_th[index]}",
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                    ),
+                                    //time
+                                    Container(
+                                      child: Text(
+                                          "เวลา ${_hour[index]}:${_min[index]}",
+                                          style: TextStyle(fontSize: 14)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              Container(
+                                child: Center(
+                                  //condition word pass and fail
+                                  child: history[index]["result"] == "0"
+                                      ? Text(
+                                          "ไม่ผ่าน",
+                                          style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red),
+                                        )
+                                      : Text(
+                                          "ผ่าน",
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -365,7 +442,7 @@ class _History_charageState extends State<History_charage> {
                                 child: Center(
                                   //score
                                   child: Text(
-                                    "",
+                                    "${history[index]["score"]}",
                                     style: TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
@@ -391,13 +468,14 @@ class _History_charageState extends State<History_charage> {
                                     //date
                                     Container(
                                       child: Text(
-                                        "",
+                                        "วันที่ ${date_th[index]}",
                                         style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                     //time
                                     Container(
-                                      child: Text("",
+                                      child: Text(
+                                          "เวลา ${_hour[index]}:${_min[index]}",
                                           style: TextStyle(fontSize: 14)),
                                     ),
                                   ],
@@ -469,7 +547,7 @@ class _History_charageState extends State<History_charage> {
                                 //score
                                 child: Center(
                                   child: Text(
-                                    "",
+                                    "${history[index]["score"]}",
                                     style: TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
@@ -495,13 +573,14 @@ class _History_charageState extends State<History_charage> {
                                     Container(
                                       //date
                                       child: Text(
-                                        "",
+                                        "วันที่ ${date_th[index]}",
                                         style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                     Container(
                                       //time
-                                      child: Text("",
+                                      child: Text(
+                                          "เวลา ${_hour[index]}:${_min[index]}",
                                           style: TextStyle(fontSize: 14)),
                                     ),
                                   ],
@@ -582,6 +661,9 @@ class _History_charageState extends State<History_charage> {
                     btn_s2 = false;
                     btn_s3 = false;
                   });
+                  load = true;
+                  filter_history();
+                  remove_list();
                   print("state 1");
                 },
               ),
@@ -613,6 +695,9 @@ class _History_charageState extends State<History_charage> {
                     btn_s2 = true;
                     btn_s3 = false;
                   });
+                  load = true;
+                  filter_history();
+                  remove_list();
                   print("state 2");
                 },
               ),
@@ -641,6 +726,9 @@ class _History_charageState extends State<History_charage> {
                     btn_s2 = false;
                     btn_s3 = true;
                   });
+                  load = true;
+                  filter_history();
+                  remove_list();
                   print("state 3");
                 },
               ),

@@ -504,27 +504,6 @@ class _Home_loginState extends State<Home_login> {
             }));
   }
 
-  // Widget Btn_profile() {
-  //   return Container(
-  //     height: 40,
-  //     width: 40,
-  //     decoration: BoxDecoration(
-  //       color: Color.fromRGBO(230, 238, 246, 1),
-  //       shape: BoxShape.circle,
-  //     ),
-  //     child: IconButton(
-  //       onPressed: () {
-  //         Navigator.push(
-  //             context, MaterialPageRoute(builder: (context) => Profile_user()));
-  //       },
-  //       icon: Icon(
-  //         Icons.person_outline,
-  //         color: Colors.orange.shade700,
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget Show_username() {
     return Container(
       alignment: Alignment.centerLeft,

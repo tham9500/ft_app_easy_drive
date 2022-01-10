@@ -196,13 +196,6 @@ class _ContentState extends State<Content> {
     return Container(
       child: Column(
         children: <Widget>[
-          // Container(
-          //   child: Text(
-          //     "${widget.data["head"]}",
-          //     style: TextStyle(
-          //         color: Colors.red, fontSize: 28, fontWeight: FontWeight.bold),
-          //   ),
-          // ),
           Container(
             padding: const EdgeInsets.all(12),
             child: Text(
@@ -317,12 +310,7 @@ class _ContentState extends State<Content> {
                             boundaryMargin: const EdgeInsets.all(100),
                             minScale: 0.5,
                             maxScale: 2,
-                            // child: Image.file(
-                            //   file,
-                            //   width: MediaQuery.of(context).size.width,
-                            //   height: MediaQuery.of(context).size.height,
-                            //   fit: BoxFit.cover,
-                            // ),
+
                             child: Image.network(
                               url,
                               width: MediaQuery.of(context).size.width,

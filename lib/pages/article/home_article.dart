@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_video.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/video_aricle.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
@@ -26,6 +27,7 @@ class _Home_articleState extends State<Home_article> {
   List<dynamic> result = [];
   String id_cate = "";
   String name_cate = "";
+
   String _url = '';
 
   void initState() {
@@ -70,7 +72,7 @@ class _Home_articleState extends State<Home_article> {
       } else if (status == "logout") {
         result = json.decode(response.data);
         for (int i = 0; i < result.length; i++) {
-          if (result[i]["cate_show"] == "1") {
+          if (result[i]["cate_show"] == "0") {
             list_cate.add(result[i]);
           } else {}
         }
@@ -278,8 +280,6 @@ class _Home_articleState extends State<Home_article> {
               });
               check_link();
               cateService();
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
             }));
   }
 
@@ -332,7 +332,7 @@ class _Home_articleState extends State<Home_article> {
               });
               cateService();
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => article_video()));
+                  MaterialPageRoute(builder: (context) => Video_aricle()));
             }));
   }
 
