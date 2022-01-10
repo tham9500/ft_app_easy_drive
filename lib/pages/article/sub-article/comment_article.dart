@@ -216,9 +216,6 @@ class _Comment_articlState extends State<Comment_articl> {
                 print("comment complete");
                 Send_comment();
               }
-
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => Registor_page()));
             }));
   }
 
