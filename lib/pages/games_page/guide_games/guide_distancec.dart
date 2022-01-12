@@ -150,12 +150,9 @@ class _Guide_distanceState extends State<Guide_distance> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  height: 240,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade600,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                  height: 500,
+                  width: 460,
+                  child: Image.asset("assets/images/game_icon/title.png"),
                 ),
               ],
             ),

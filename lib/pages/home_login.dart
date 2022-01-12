@@ -454,8 +454,9 @@ class _Home_loginState extends State<Home_login> {
   Widget Article_Page_scroll2() {
     return GestureDetector(
       onTap: () {
-        history = "G";
+        history = "R";
         User_data();
+        User_history();
         setState(() {
           _url = 'https://www.dlt.go.th/th/public-news/view.php?_did=2858';
         });

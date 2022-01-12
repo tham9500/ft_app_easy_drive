@@ -133,100 +133,102 @@ class _example_eyecoloState extends State<example_eyecolo> {
   Widget build(BuildContext context) {
     print("test = $test");
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              Container(
-                child: Row(
-                  children: <Widget>[Btn_exit()],
-                ),
-              ),
-              Container(
-                child: Center(
-                  child: Text(
-                    "จงเลือกคำตอบให้ตรงกับภาพ ",
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: Color.fromRGBO(13, 59, 102, 1),
-                        fontWeight: FontWeight.bold),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(12),
+          child: Center(
+            child: Column(
+              children: [
+                Container(
+                  child: Row(
+                    children: <Widget>[Btn_exit()],
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                child: test != null
-                    ? Image.asset(test)
-                    : CircularProgressIndicator(),
-              ),
-              SizedBox(height: 20),
-              Container(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical, //defualt
-                  shrinkWrap: true, //defualt
-                  itemCount: choice.length,
-
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                            height: MediaQuery.of(context).size.height * 0.08,
-                            width: MediaQuery.of(context).size.width,
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.black),
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                    ))),
-                                child: Text(
-                                  "${choice[index]["text"]}",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                onPressed: () {
-                                  if (count == 3) {
-                                    count + 0;
-                                  } else {
-                                    count++;
-                                  }
-                                  print("LENGHT list ANS= ${answer.length}");
-
-                                  print("LENGHT count = ${count}");
-                                  answer.add(choice[index]["score"]);
-                                  counting++;
-                                  print("counting list = ${counting}");
-                                  print(choice[index]["score"]);
-                                  print("answer = ${answer}");
-                                  selecter.add(choice[index]["ID"]);
-                                  if (counting >= 3) {
-                                    condition_ans();
-                                    end_quiz();
-                                  } else {}
-
-                                  setState(() {
-                                    if (idExam.isNotEmpty) {
-                                      quizData();
-                                    } else {}
-                                  });
-                                })),
-                        // color: Colors.amber.shade200,
-                      ),
-                    );
-                  },
+                Container(
+                  child: Center(
+                    child: Text(
+                      "จงเลือกคำตอบให้ตรงกับภาพ ",
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: Color.fromRGBO(13, 59, 102, 1),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              count_quiz()
-            ],
+                SizedBox(height: 20),
+                Container(
+                  child: test != null
+                      ? Image.asset(test)
+                      : CircularProgressIndicator(),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical, //defualt
+                    shrinkWrap: true, //defualt
+                    itemCount: choice.length,
+
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              width: MediaQuery.of(context).size.width,
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.black),
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                      ))),
+                                  child: Text(
+                                    "${choice[index]["text"]}",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  onPressed: () {
+                                    if (count == 3) {
+                                      count + 0;
+                                    } else {
+                                      count++;
+                                    }
+                                    print("LENGHT list ANS= ${answer.length}");
+
+                                    print("LENGHT count = ${count}");
+                                    answer.add(choice[index]["score"]);
+                                    counting++;
+                                    print("counting list = ${counting}");
+                                    print(choice[index]["score"]);
+                                    print("answer = ${answer}");
+                                    selecter.add(choice[index]["ID"]);
+                                    if (counting >= 3) {
+                                      condition_ans();
+                                      end_quiz();
+                                    } else {}
+
+                                    setState(() {
+                                      if (idExam.isNotEmpty) {
+                                        quizData();
+                                      } else {}
+                                    });
+                                  })),
+                          // color: Colors.amber.shade200,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 20),
+                count_quiz()
+              ],
+            ),
           ),
         ),
       ),
@@ -266,8 +268,8 @@ class _example_eyecoloState extends State<example_eyecolo> {
                   SizedBox(width: 20),
                   Container(
                     child: Text(
-                      "หากกดออกหรือปอดแอพพลิเคชัน\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
-                      style: TextStyle(color: Colors.black),
+                      "หากออกหรือปิดแอพพลิเคชัน\nระหว่างการทดสอบการ\nทดสอบจะสิ้นสุดลง",
+                      style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ),
                 ],
@@ -324,6 +326,6 @@ class _example_eyecoloState extends State<example_eyecolo> {
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
-  }  // ignore: non_constant_identifier_names
+  } // ignore: non_constant_identifier_names
 
 }
