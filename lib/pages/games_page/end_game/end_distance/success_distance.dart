@@ -22,12 +22,13 @@ class _Success_distanceState extends State<Success_distance> {
                 height: 150,
                 width: 150,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(230, 238, 246, 1),
+                  color: Colors.lightGreen.shade400,
                   shape: BoxShape.circle,
-                  image: const DecorationImage(
-                      image:
-                          AssetImage("assets/animation/success-animation.gif"),
-                      fit: BoxFit.cover),
+                ),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 128,
                 ),
               ),
               SizedBox(height: 30),

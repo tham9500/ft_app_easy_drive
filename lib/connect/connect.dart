@@ -5,8 +5,8 @@ class Domain_name {
   // String domain = "http://10.0.2.2";//local Aum
   // String domain = //global server
   String domain =
-      "http://93fb-203-158-248-18.ngrok.io"; //use to ngrok forword port
+      "http://7dc7-203-158-248-18.ngrok.io"; //use to ngrok forword port
   String forword_port =
-      "https://93fb-203-158-248-18.ngrok.io"; //use to ngrok forword port
+      "https://7dc7-203-158-248-18.ngrok.io"; //use to ngrok forword port
   Domain_name();
 }

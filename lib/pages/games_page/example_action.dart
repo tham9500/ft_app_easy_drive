@@ -216,142 +216,143 @@ class _Example_actionState extends State<Example_action> {
     void show_color() {}
 
     return Scaffold(
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              SizedBox(height: 15),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Btn_exit(),
-                   
-                  ],
+      body: SafeArea(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                SizedBox(height: 15),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Btn_exit(),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Center(
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "คะเเนน ${score}/5",
-                      style: TextStyle(fontSize: 20),
+                Container(
+                  child: Center(
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "คะเเนน ${score}/5",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                child: Center(
-                  child: Container(
-                    height: 400,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      color: _color,
-                      borderRadius: _borderRadius,
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            child: Column(
-                              children: [
-                                light_1(),
-                                SizedBox(height: 20),
-                                light_2(),
-                                SizedBox(height: 20),
-                                light_3(),
-                              ],
+                Container(
+                  child: Center(
+                    child: Container(
+                      height: 400,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: _color,
+                        borderRadius: _borderRadius,
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Column(
+                                children: [
+                                  light_1(),
+                                  SizedBox(height: 20),
+                                  light_2(),
+                                  SizedBox(height: 20),
+                                  light_3(),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 7.5,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      LinearProgressIndicator(
+                        value: Counter / maxCount,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        child: Image(
+                          image: AssetImage(
+                              "assets/images/game_icon/notification4.png"),
+                        ),
+                      ),
+                      SizedBox(width: 15),
+                      Container(
+                        child: Text(
+                          ": ${Counter} วินาที",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "ครั้งที่ : ${Num_quiz}/5",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  child: Center(
+                    child: Container(
+                      height: 50,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: _color,
+                        borderRadius: _borderRadius,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Btn_1(),
+                          SizedBox(width: 25),
+                          Btn_2(),
+                          SizedBox(width: 25),
+                          Btn_3(),
                         ],
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 15),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 7.5,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: <Widget>[
-                    LinearProgressIndicator(
-                      value: Counter / maxCount,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 15),
-              Container(
-                padding: const EdgeInsets.all(8),
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Image(
-                        image: AssetImage(
-                            "assets/images/game_icon/notification4.png"),
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    Container(
-                      child: Text(
-                        ": ${Counter} วินาที",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 5),
-              Container(
-                padding: const EdgeInsets.all(8),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "ครั้งที่ : ${Num_quiz}/5",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(height: 15),
-              Container(
-                child: Center(
-                  child: Container(
-                    height: 50,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      color: _color,
-                      borderRadius: _borderRadius,
-                    ),
+                Container(
+                  child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Btn_1(),
-                        SizedBox(width: 25),
-                        Btn_2(),
-                        SizedBox(width: 25),
-                        Btn_3(),
+                      children: <Widget>[
+                        Container(
+                          child: Center(),
+                        ),
                       ],
                     ),
                   ),
-                ),
-              ),
-              Container(
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: Center(),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -565,8 +566,8 @@ class _Example_actionState extends State<Example_action> {
                   SizedBox(width: 20),
                   Container(
                     child: Text(
-                      "หากกดออกหรือปอดแอพพลิเคชัน\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
-                      style: TextStyle(color: Colors.black),
+                      "หากออกหรือปิดแอพพลิเคชัน\nระหว่างการทดสอบการ\nทดสอบจะสิ้นสุดลง",
+                      style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ),
                 ],
