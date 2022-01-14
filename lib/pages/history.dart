@@ -42,17 +42,12 @@ class _History_charageState extends State<History_charage> {
     // TODO: implement initState
     super.initState();
 
-    // test();
-
     Check_status();
     User_data();
     get_history();
   }
 
-  test() {
-    // DateTime now = DateTime.now();
-    // String formattate = DateFormat('yyyy=MM=dd - kk:mm').format(now);
-    // print("formattate = $formattate");
+  convert_Datetime() {
     for (int i = 0; i < history.length; i++) {
       DateTime testdate = DateTime.parse("${date_his[i]}");
 
@@ -127,21 +122,12 @@ class _History_charageState extends State<History_charage> {
           _hour.add(time_his[j].split(":")[0]);
           _min.add(time_his[j].split(":")[1]);
         }
-        print("hr = ${_hour}");
-        print("min = ${_min}");
-        test();
-        // print("list day = ${num_day.length}");
-        // print("list day = ${num_day}");
-
+        // print("hr = ${_hour}");
+        // print("min = ${_min}");
+        convert_Datetime();
       } else {}
-      // print("history_type = ${history.runtimeType}");
-      // print("history_type = ${history.length}");
+
       print("history_type = ${history}");
-
-      // print("date = ${date_his}");
-      // print("time = ${time_his}");
-
-      // check_day();
     } catch (e) {}
   }
 
@@ -260,10 +246,6 @@ class _History_charageState extends State<History_charage> {
               ),
             ),
           ),
-          // title: Text(
-          //   "ลงทะเบียนเข้าใช้งาน",
-          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          // ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -510,7 +492,6 @@ class _History_charageState extends State<History_charage> {
                   ),
                 ),
               ),
-              // color: Colors.amber.shade200,
             );
           },
         ),
@@ -625,15 +606,8 @@ class _History_charageState extends State<History_charage> {
 
   Widget Btn_day() {
     return Container(
-      // padding: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(12),
       alignment: Alignment.center,
-      // height: 50,
-      // width: MediaQuery.of(context).size.width,
-      // decoration: BoxDecoration(
-      //   color: Colors.amber.shade200,
-      //   borderRadius: BorderRadius.circular(60),
-      // ),
       child: Center(
         child: Row(
           children: <Widget>[

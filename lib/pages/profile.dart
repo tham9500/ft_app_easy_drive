@@ -163,184 +163,201 @@ class _Profile_userState extends State<Profile_user> {
     );
   }
 
+  //widget btn profiles
   Widget profile_setting() {
     return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
+      height: 80,
+      width: MediaQuery.of(context).size.width,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(255, 255, 255, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.orange.shade700,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image: AssetImage(
-                            "assets/images/logo/profile-setting.png"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 18),
-                  Container(
-                    width: 210,
-                    child: Text(
-                      "ตั้งค่าบัญชี",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ],
-              ),
+      // color: Colors.amber.shade200,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+          backgroundColor: MaterialStateProperty.all<Color>(
+            Color.fromRGBO(255, 255, 255, 1),
+          ),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
             ),
-            onPressed: () {
-              print("games colors click");
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Edit_profile()));
-            }));
+          ),
+        ),
+        child: Container(
+          child: Row(
+            children: <Widget>[
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: Colors.orange.shade700,
+                  borderRadius: BorderRadius.circular(12),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/logo/profile-setting.png"),
+                  ),
+                ),
+              ),
+              SizedBox(width: 18),
+              Container(
+                width: 210,
+                child: Text(
+                  "ตั้งค่าบัญชี",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+        ),
+        onPressed: () {
+          print("games colors click");
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Edit_profile()));
+        },
+      ),
+    );
   }
 
+  //setting app widget
   Widget app_setting() {
     return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
+      height: 80,
+      width: MediaQuery.of(context).size.width,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(255, 255, 255, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.orange.shade700,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/images/logo/app-setting.png"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 18),
-                  Container(
-                    width: 210,
-                    child: Text(
-                      "ตั้งค่าแอพพลิเคชัน",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ],
-              ),
+      // color: Colors.amber.shade200,
+      child: ElevatedButton(
+        style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Color.fromRGBO(255, 255, 255, 1),
             ),
-            onPressed: () {
-              print("games colors click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => example_eyecolo()));
-            }));
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ))),
+        child: Container(
+          child: Row(
+            children: <Widget>[
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: Colors.orange.shade700,
+                  borderRadius: BorderRadius.circular(12),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/logo/app-setting.png"),
+                  ),
+                ),
+              ),
+              SizedBox(width: 18),
+              Container(
+                width: 210,
+                child: Text(
+                  "ตั้งค่าแอพพลิเคชัน",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+        ),
+        onPressed: () {
+          print("games colors click");
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => example_eyecolo()));
+        },
+      ),
+    );
   }
 
+  //forget password widget
   Widget password_setting() {
     return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
+      height: 80,
+      width: MediaQuery.of(context).size.width,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(255, 255, 255, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(230, 238, 246, 1),
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image:
-                            AssetImage("assets/images/logo/pass-setting.png"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 18),
-                  Container(
-                    width: 210,
-                    child: Text(
-                      "แก้ไขรหัสผ่าน",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ],
-              ),
+      // color: Colors.amber.shade200,
+      child: ElevatedButton(
+        style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Color.fromRGBO(255, 255, 255, 1),
             ),
-            onPressed: () {
-              print("games colors click");
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Edit_password()));
-            }));
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ))),
+        child: Container(
+          child: Row(
+            children: <Widget>[
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(230, 238, 246, 1),
+                  borderRadius: BorderRadius.circular(12),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/logo/pass-setting.png"),
+                  ),
+                ),
+              ),
+              SizedBox(width: 18),
+              Container(
+                width: 210,
+                child: Text(
+                  "แก้ไขรหัสผ่าน",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ],
+          ),
+        ),
+        onPressed: () {
+          print("games colors click");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Edit_password()));
+        },
+      ),
+    );
   }
 
+  //widget btn logout
   Widget Btn_logout() {
     return Container(
-        height: 50,
-        width: MediaQuery.of(context).size.width,
+      height: 50,
+      width: MediaQuery.of(context).size.width,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ))),
-            child: Text(
-              "ออกจากระบบ",
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.orange.shade800,
-              ),
-            ),
-            onPressed: () {
-              print("lgout");
-              routeService();
-            }));
+      // color: Colors.amber.shade200,
+      child: ElevatedButton(
+        style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ))),
+        child: Text(
+          "ออกจากระบบ",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.orange.shade800,
+          ),
+        ),
+        onPressed: () {
+          print("lgout");
+          routeService();
+        },
+      ),
+    );
   }
 
+  //set new data
   Future<Null> routeService() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.clear();
     preferences.setString('STATUS', "logout");
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Home_page()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => Home_page(),
+      ),
+    );
   }
 }

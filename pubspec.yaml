@@ -51,7 +51,6 @@ dependencies:
   better_player: ^0.0.48
 
   intl: ^0.17.0-nullsafety.2
-  cached_network_image: ^3.2.0
   flutter_localizations: 
     sdk: flutter
   url_launcher: ^6.0.17

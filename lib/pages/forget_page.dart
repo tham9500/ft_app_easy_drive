@@ -55,10 +55,6 @@ class _forget_pageState extends State<forget_page> {
               ),
             ),
           ),
-          // title: Text(
-          //   "ลงทะเบียนเข้าใช้งาน",
-          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          // ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -194,10 +190,6 @@ class _forget_pageState extends State<forget_page> {
 
               if (form_key.currentState!.validate()) {
                 forgot_password();
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => Home_login()));
-                // postdataUser();
-
               }
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Registor_page()));
@@ -205,11 +197,7 @@ class _forget_pageState extends State<forget_page> {
   }
 
   Future<void> forgot_password() async {
-    // var dio = Dio();
-    // final response = await dio.get('https://google.com');
-    // print(response.data);
     Dio dio = new Dio();
-    // String url = "http://172.27.7.226/easy_drive_backend/user/mobile/login.php";
     String url =
         "${Domain_name().domain}/easy_drive_backend/user/mobile/forgot_password.php";
     var dataReq = {};
