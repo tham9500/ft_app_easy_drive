@@ -6,6 +6,7 @@ import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
 import 'package:ft_app_easy_drive/pages/verify_email.dart';
 import 'package:ft_app_easy_drive/widget/custom_shape.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../pages/test_page/time_countdown.dart';
 
@@ -17,7 +18,11 @@ class Home_page extends StatefulWidget {
 }
 
 class _Home_pageState extends State<Home_page> {
+  //url open link covid 19 home
   String _url = '';
+  //data open article main
+  String id_cate = "1641395148";
+  String name_cate = "รอบรู้เรื่องขับขี่";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,8 +80,10 @@ class _Home_pageState extends State<Home_page> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
+                                //widget buttom login
                                 Btn_Login(),
                                 SizedBox(width: 25),
+                                //widget buttom register
                                 Btn_registor()
                               ],
                             ),
@@ -89,10 +96,7 @@ class _Home_pageState extends State<Home_page> {
               ),
             ),
           ),
-          // title: Text(
-          //   "ลงทะเบียนเข้าใช้งาน",
-          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          // ),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -106,10 +110,10 @@ class _Home_pageState extends State<Home_page> {
             padding: const EdgeInsets.all(30),
             child: Column(
               children: <Widget>[
-                Scroll_Article_horizon(),
-                SizedBox(
-                  height: 20,
-                ),
+                //menu scroll horizantal
+                Scroll_Article_horizon(), //widget scroll horizantal
+                SizedBox(height: 20),
+                //main menu
                 Scroll_menu()
               ],
             ),
@@ -127,19 +131,11 @@ class _Home_pageState extends State<Home_page> {
             Container(
               child: Row(
                 children: <Widget>[
+                  //widget open page game
                   Games_Page(),
                   SizedBox(width: 20),
+                  //widget open page catergory
                   Article_Page(),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              child: Row(
-                children: <Widget>[
-                  // Timer_count(),
-                  // SizedBox(width: 20),
-                  // verify_test(),
                 ],
               ),
             ),
@@ -155,8 +151,10 @@ class _Home_pageState extends State<Home_page> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
+          //open article main widget
           Article_Page_scroll(),
           SizedBox(width: 12),
+          //open web article sample
           Article_Page_scroll2(),
         ],
       ),
@@ -253,6 +251,7 @@ class _Home_pageState extends State<Home_page> {
   Widget Article_Page_scroll() {
     return GestureDetector(
       onTap: () {
+        cateService();
         print("click");
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Sub_article()));
@@ -441,7 +440,14 @@ class _Home_pageState extends State<Home_page> {
       ),
     );
   }
+  //thead save date to open page article
+  Future<Null> cateService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('CATERGORY_ID', id_cate);
+    preferences.setString('CATERGORY_NAME', name_cate);
+  }
 
+  //function check link
   check_link() {
     if (_url != '') {
       _launchURL();
@@ -450,6 +456,7 @@ class _Home_pageState extends State<Home_page> {
     }
   }
 
+  //open link with URL launcher
   void _launchURL() async => await canLaunch(_url)
       ? await launch(_url)
       : throw "could not launch $_url";

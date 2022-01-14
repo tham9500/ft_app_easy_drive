@@ -71,7 +71,6 @@ class _Verify_emailState extends State<Verify_email> {
                         children: [
                           Container(
                             child: Column(
-                              // mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Container(
                                   child: Text(
@@ -101,10 +100,6 @@ class _Verify_emailState extends State<Verify_email> {
               ),
             ),
           ),
-          // title: Text(
-          //   "ลงทะเบียนเข้าใช้งาน",
-          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          // ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -214,8 +209,6 @@ class _Verify_emailState extends State<Verify_email> {
     return Container(
       height: 50,
       width: MediaQuery.of(context).size.width,
-
-      // color: Colors.amber.shade200,
       child: ElevatedButton(
         style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -236,10 +229,7 @@ class _Verify_emailState extends State<Verify_email> {
           if (form_key.currentState!.validate()) {
             print("verify OTP");
             print("OTP = ${codeOTP}");
-            //regitorThead();
             regitor_OTP();
-            // postdataUser();
-
           }
           // Navigator.push(context,
           //     MaterialPageRoute(builder: (context) => Login_page()));
@@ -251,10 +241,6 @@ class _Verify_emailState extends State<Verify_email> {
   Future<Null> regitor_OTP() async {
     String url =
         '${Domain_name().domain}/easy_drive_backend/user/mobile/activate_email.php';
-    // String url =
-    //     'http://127.0.0.1/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
-    //String url =
-    //'http://172.27.7.226/easy_drive_backend/user/mobile/register.php';
     var dataReq = {};
     dataReq["email"] = displayEmail;
     dataReq["otp"] = codeOTP;
@@ -304,27 +290,11 @@ class _Verify_emailState extends State<Verify_email> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          // content: SingleChildScrollView(
-          //   child: ListBody(
-          //     children: <Widget>[
-          //       Container(
-          //           // child: Center(
-          //           //   child: Text("$content"),
-          //           // ),
-          //           ),
-          //     ],
-          //   ),
-          // ),
           actions: <Widget>[
             Container(
               padding: const EdgeInsets.all(12),
               child: Row(
                 children: <Widget>[
-                  // Container(
-                  //   padding: const EdgeInsets.all(12),
-                  //   child: Image(
-                  //       image: AssetImage("assets/images/game_icon/exit.png")),
-                  // ),
                   SizedBox(width: 20),
                   Container(
                     child: Text(

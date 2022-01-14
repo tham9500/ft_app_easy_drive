@@ -239,13 +239,15 @@ class _Registor_pageState extends State<Registor_page> {
       // color: Colors.amber.shade200,
       child: ElevatedButton(
         style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-            backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.orange.shade800),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.orange.shade800),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(35.0),
-            ))),
+            ),
+          ),
+        ),
         child: Text(
           "ยืนยันลงทะเบียน",
           style: TextStyle(fontSize: 16, color: Colors.white),
@@ -276,12 +278,11 @@ class _Registor_pageState extends State<Registor_page> {
     );
   }
 
+  //check user in system
   Future<Null> checkUser() async {
     Dio dio = new Dio();
     String url =
         '${Domain_name().domain}/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
-    // String url =
-    //     'http://127.0.0.1/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
     try {
       Response response = await Dio().get(url);
       print("response = ${response}");
@@ -296,14 +297,12 @@ class _Registor_pageState extends State<Registor_page> {
     }
   }
 
+  //register api
   Future<Null> regitorThead() async {
     Dio dio = new Dio();
     String url =
         '${Domain_name().domain}/easy_drive_backend/user/mobile/register.php';
-    // String url =
-    //     'http://127.0.0.1/easy_drive_backend/user/mobile/register.php?New_user=true&email=$e_mail&password=$Password&first_name=$firstName&last_name=$lastName';
-    //String url =
-    //'http://172.27.7.226/easy_drive_backend/user/mobile/register.php';
+
     var dataReq = {};
     dataReq["email"] = e_mail;
     dataReq["password"] = passWord;
@@ -329,6 +328,7 @@ class _Registor_pageState extends State<Registor_page> {
     }
   }
 
+  //check have user in system
   Widget Check_verify() {
     return Container(
       child: Row(
@@ -349,6 +349,7 @@ class _Registor_pageState extends State<Registor_page> {
     );
   }
 
+  //show dialog alert submit
   Future<void> _showMyDialogVerify(content) async {
     return showDialog<void>(
       context: this.context,
@@ -356,27 +357,11 @@ class _Registor_pageState extends State<Registor_page> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          // content: SingleChildScrollView(
-          //   child: ListBody(
-          //     children: <Widget>[
-          //       Container(
-          //           // child: Center(
-          //           //   child: Text("$content"),
-          //           // ),
-          //           ),
-          //     ],
-          //   ),
-          // ),
           actions: <Widget>[
             Container(
               padding: const EdgeInsets.all(12),
               child: Row(
                 children: <Widget>[
-                  // Container(
-                  //   padding: const EdgeInsets.all(12),
-                  //   child: Image(
-                  //       image: AssetImage("assets/images/game_icon/exit.png")),
-                  // ),
                   SizedBox(width: 20),
                   Container(
                     child: Text(
@@ -420,28 +405,11 @@ class _Registor_pageState extends State<Registor_page> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          // content: SingleChildScrollView(
-          //   child: ListBody(
-          //     children: <Widget>[
-          //       Container(
-          //           // child: Center(
-          //           //   child: Text("$content"),
-          //           // ),
-          //           ),
-          //     ],
-          //   ),
-          // ),
           actions: <Widget>[
             Container(
               padding: const EdgeInsets.all(12),
               child: Row(
                 children: <Widget>[
-                  // Container(
-                  //   padding: const EdgeInsets.all(12),
-                  //   child: Image(
-                  //       image: AssetImage("assets/images/game_icon/exit.png")),
-                  // ),
-                  SizedBox(width: 20),
                   Container(
                     child: Text(
                       "${content}",

@@ -24,10 +24,16 @@ class Home_login extends StatefulWidget {
 }
 
 class _Home_loginState extends State<Home_login> {
+  //user data
   String displayName = "";
   String displayID = "";
+  //data save history
   String history = "";
+  //data url open
   String _url = '';
+  //data open article main
+  String id_cate = "1641395148";
+  String name_cate = "รอบรู้เรื่องขับขี่";
   @override
   void initState() {
     // TODO: implement initState
@@ -65,6 +71,7 @@ class _Home_loginState extends State<Home_login> {
                 ),
                 child: IconButton(
                     onPressed: () {
+                      //save history
                       history = "E";
                       User_history();
                       Navigator.push(
@@ -132,10 +139,6 @@ class _Home_loginState extends State<Home_login> {
               ),
             ),
           ),
-          // title: Text(
-          //   "ลงทะเบียนเข้าใช้งาน",
-          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          // ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -149,10 +152,13 @@ class _Home_loginState extends State<Home_login> {
             padding: const EdgeInsets.all(30),
             child: Column(
               children: <Widget>[
+                //menu scroll horizantal
                 Scroll_Article_horizon(),
                 SizedBox(height: 20),
+                //main menu
                 Scroll_menu(),
                 SizedBox(height: 20),
+                //list menu title
                 tittle_menu(),
               ],
             ),
@@ -175,8 +181,10 @@ class _Home_loginState extends State<Home_login> {
               ),
             ),
             SizedBox(height: 20),
+            //article example
             article_charange(),
             SizedBox(height: 20),
+            //history widget
             history_charange(),
           ],
         ),
@@ -192,8 +200,10 @@ class _Home_loginState extends State<Home_login> {
             Container(
               child: Row(
                 children: <Widget>[
+                  //widget open game page
                   Games_Page(),
                   SizedBox(width: 20),
+                  //wiget open article page
                   Article_Page(),
                 ],
               ),
@@ -202,6 +212,7 @@ class _Home_loginState extends State<Home_login> {
             Container(
               child: Row(
                 children: <Widget>[
+                  //wiget open charage page
                   Charage_Page(),
                   SizedBox(width: 20),
                   // Article_Page(),
@@ -220,8 +231,10 @@ class _Home_loginState extends State<Home_login> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
+          //article main open widget
           Article_Page_scroll(),
           SizedBox(width: 12),
+          //widget open link covid 19
           Article_Page_scroll2(),
         ],
       ),
@@ -266,6 +279,7 @@ class _Home_loginState extends State<Home_login> {
               ],
             ),
             onPressed: () {
+              //save data history
               history = "G";
               print("games page click");
               User_history();
@@ -279,8 +293,6 @@ class _Home_loginState extends State<Home_login> {
     return Container(
         height: 120,
         width: 150,
-
-        // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -313,6 +325,7 @@ class _Home_loginState extends State<Home_login> {
               ],
             ),
             onPressed: () {
+              //save data history
               history = "R";
               User_history();
               Navigator.push(context,
@@ -358,6 +371,7 @@ class _Home_loginState extends State<Home_login> {
               ],
             ),
             onPressed: () {
+              //save data history
               history = "T";
               User_history();
               Navigator.push(context,
@@ -368,8 +382,10 @@ class _Home_loginState extends State<Home_login> {
   Widget Article_Page_scroll() {
     return GestureDetector(
       onTap: () {
+        //save history
         history = "R";
         User_data();
+        cateService();
         print("click");
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Sub_article()));
@@ -433,8 +449,6 @@ class _Home_loginState extends State<Home_login> {
   Future<Null> User_history() async {
     String url =
         '${Domain_name().domain}/easy_drive_backend/user/mobile/last_menu.php?user_id=$displayID';
-    // String url =
-    //     'http://127.0.0.1/easy_drive_backend/user/mobile/validateUser.php?isAdd=true&email=$e_mail';
     var dataReq = {};
     dataReq["last_menu"] = history;
     String data = jsonEncode(dataReq);
@@ -454,6 +468,7 @@ class _Home_loginState extends State<Home_login> {
   Widget Article_Page_scroll2() {
     return GestureDetector(
       onTap: () {
+        //save history
         history = "R";
         User_data();
         User_history();
@@ -486,8 +501,6 @@ class _Home_loginState extends State<Home_login> {
     return Container(
         height: MediaQuery.of(context).size.height * 0.18,
         width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -521,8 +534,6 @@ class _Home_loginState extends State<Home_login> {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -557,6 +568,7 @@ class _Home_loginState extends State<Home_login> {
               ),
             ),
             onPressed: () {
+              //save history
               history = "P";
               User_history();
               print("games colors click");
@@ -569,8 +581,6 @@ class _Home_loginState extends State<Home_login> {
     return Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
-
-        // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -604,6 +614,7 @@ class _Home_loginState extends State<Home_login> {
               ),
             ),
             onPressed: () {
+              //save history
               history = "H";
               User_history();
               print("games colors click");
@@ -612,6 +623,14 @@ class _Home_loginState extends State<Home_login> {
             }));
   }
 
+  //thead save data open main article
+  Future<Null> cateService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('CATERGORY_ID', id_cate);
+    preferences.setString('CATERGORY_NAME', name_cate);
+  }
+
+  //function check link
   check_link() {
     if (_url != '') {
       _launchURL();
@@ -620,6 +639,7 @@ class _Home_loginState extends State<Home_login> {
     }
   }
 
+  //open link with URL luancher
   void _launchURL() async => await canLaunch(_url)
       ? await launch(_url)
       : throw "could not launch $_url";
