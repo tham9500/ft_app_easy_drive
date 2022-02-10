@@ -163,7 +163,11 @@ class _ContentState extends State<Content> {
                                             ? First_page(index)
                                             : Next_page(index),
                                   ),
-                                  Comment_article()
+                                  Container(
+                                    child: status == 'login'
+                                        ? Comment_article()
+                                        : null,
+                                  ),
                                 ],
                               ),
                             );
@@ -328,15 +332,21 @@ class _ContentState extends State<Content> {
             Positioned(
               left: 15.0,
               top: 60.0,
-              child: TextButton(
-                child: const Text(
-                  'ปิด',
-                  style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                onPressed: () => Navigator.pop(context, true),
+                child: TextButton(
+                  child: const Text(
+                    'ปิด',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  onPressed: () => Navigator.pop(context, true),
+                ),
               ),
             ),
           ],
