@@ -440,6 +440,7 @@ class _Home_pageState extends State<Home_page> {
       ),
     );
   }
+
   //thead save date to open page article
   Future<Null> cateService() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

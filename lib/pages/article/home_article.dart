@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article.dart';
-import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_video.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/video_aricle.dart';
 import 'package:ft_app_easy_drive/pages/home.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';

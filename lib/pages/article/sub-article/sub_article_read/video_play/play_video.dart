@@ -121,37 +121,20 @@ class _Play_videoState extends State<Play_video> {
                           "${Domain_name().forword_port}/easy_drive_backend/video/${file_video}",
                           betterPlayerConfiguration: BetterPlayerConfiguration(
                             aspectRatio: 16 / 9,
+                            autoPlay: true,
                           ),
                         ),
                       ),
                     ),
-
                     SizedBox(height: 20),
                     Container(
-                      child: Text("${head_video}"),
+                      padding: const EdgeInsets.all(8),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "${head_video}",
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
-                    // Container(
-                    //   child: AspectRatio(
-                    //     aspectRatio: 16 / 9,
-                    //     child: BetterPlayer.network(
-                    //       "https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4",
-                    //       betterPlayerConfiguration: BetterPlayerConfiguration(
-                    //         aspectRatio: 16 / 9,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // Container(
-                    //   child: AspectRatio(
-                    //     aspectRatio: 16 / 9,
-                    //     child: BetterPlayer.file(
-                    //       "../../../../../../assets/video/1640790649.mp4",
-                    //       betterPlayerConfiguration: BetterPlayerConfiguration(
-                    //         aspectRatio: 16 / 9,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

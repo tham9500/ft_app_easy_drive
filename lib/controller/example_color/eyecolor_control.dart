@@ -101,8 +101,8 @@ class Question {
       'questionText': 'Q4. Who created Dart programing language?',
       'image': 'assets/Example_Colors/plat10.png',
       'answers': [
-        {'ID': 1, 'text': 'ไม่สามารถลากเส้นจาก X ไป X ได้', 'score': 0},
-        {'ID': 2, 'text': 'สามารถลากเส้นจาก X ไป X ได้', 'score': 3},
+        {'ID': 1, 'text': 'ไม่สามารถลากเส้นจาก X ไป X ได้', 'score': 3},
+        {'ID': 2, 'text': 'สามารถลากเส้นจาก X ไป X ได้', 'score': 0},
       ],
     },
     {
@@ -110,8 +110,8 @@ class Question {
       'questionText': 'Q4. Who created Dart programing language?',
       'image': 'assets/Example_Colors/plat11.png',
       'answers': [
-        {'ID': 1, 'text': 'ไม่สามารถลากเส้นจาก X ไป X ได้', 'score': 0},
-        {'ID': 2, 'text': 'สามารถลากเส้นจาก X ไป X ได้', 'score': 3},
+        {'ID': 1, 'text': 'ไม่สามารถลากเส้นจาก X ไป X ได้', 'score': 3},
+        {'ID': 2, 'text': 'สามารถลากเส้นจาก X ไป X ได้', 'score': 0},
       ],
     },
     {
@@ -119,8 +119,8 @@ class Question {
       'questionText': 'Q4. Who created Dart programing language?',
       'image': 'assets/Example_Colors/plat12.png',
       'answers': [
-        {'ID': 1, 'text': 'ไม่สามารถลากเส้นจาก X ไป X ได้', 'score': 0},
-        {'ID': 2, 'text': 'สามารถลากเส้นจาก X ไป X ได้', 'score': 3},
+        {'ID': 1, 'text': 'ไม่สามารถลากเส้นจาก X ไป X ได้', 'score': 3},
+        {'ID': 2, 'text': 'สามารถลากเส้นจาก X ไป X ได้', 'score': 0},
       ],
     },
   ];
