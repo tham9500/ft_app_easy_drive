@@ -1,5 +1,6 @@
 class Select_choice {
-  int? id_quiz;
-  int? id_answers;
-  Select_choice(this.id_quiz,this.id_answers);
+  String? id_quiz;
+  String? id_answers;
+  String? answer;
+  Select_choice(this.id_quiz,this.id_answers,this.answer);
 }
