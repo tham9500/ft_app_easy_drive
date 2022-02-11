@@ -1,16 +1,5 @@
 class User_model {
-  // String? userId;
-  // String? email;
-  // String? password;
-  // String? firstName;
-  // String? lastName;
-  // String? role;
-  // String? statusUser;
-  // String? createDate;
-  // String? editDate;
-  // String? activateDate;
-  // String? lastDate;
-  // String? lastMenu;
+  
   String userId = "";
   String email = "";
   String password = "";

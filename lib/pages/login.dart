@@ -252,7 +252,7 @@ class _Login_pageState extends State<Login_page> {
           context, MaterialPageRoute(builder: (context) => Verify_email()));
     } else if (response.toString() == "suspended") {
       _showMyDialogPass(
-          "บัญชีของท่านถูระงับการใช้งาน \nกรุณาติดต่อ \nserviceeasydrive@gmail.com");
+          "บัญชีของท่านถูกระงับการใช้งาน \nกรุณาติดต่อ \nserviceeasydrive@gmail.com");
     } else {
       var result = json.decode(response.data);
       print("result = ${result}");
