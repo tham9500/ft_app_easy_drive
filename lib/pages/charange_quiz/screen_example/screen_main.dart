@@ -7,8 +7,10 @@ import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/controller/test_charange/test_chrrange.dart';
 import 'package:ft_app_easy_drive/models/selcetchoice_model.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/guide_charange.dart';
+import 'package:ft_app_easy_drive/pages/charange_quiz/screen_example/end_test.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Screen_main extends StatefulWidget {
   Screen_main({Key? key}) : super(key: key);
@@ -27,15 +29,24 @@ class _Screen_mainState extends State<Screen_main> {
   Charange data = Charange();
   final interval = const Duration(seconds: 1);
 
-  final int timerMaxSeconds = 3600;
+  int timerMaxSeconds = 0;
   final int timerMaxMinute = 0;
-
+  String displayID = "";
+  String status = "";
   int currentSeconds = 0;
   int currentMinute = 0;
   List<dynamic> Quiz = [];
   List<Select_choice> selections = [];
+  List<dynamic> list_Ans = [];
+  List<dynamic> tatol_ans = [];
+  List<dynamic> setting_list = [];
+  // "pass_criteria":"1","set_time":"3600"
+  int pass = 0;
+  int score = 0;
+  int maxScore = 0;
+
   String get timerText =>
-      '${((timerMaxMinute - currentMinute) ~/ 60).toString().padLeft(2, '0')}:${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
+      '${((timerMaxSeconds - ((timerMaxSeconds - currentSeconds) % 3600) ~/ 60) ~/ 3600).toString().padLeft(2, '0')}:${(((timerMaxSeconds - currentSeconds) % 3600) ~/ 60).toString().padLeft(2, '0')}:${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
 
   startTimeout([int milliseconds = 0]) {
     var duration = interval;
@@ -43,7 +54,11 @@ class _Screen_mainState extends State<Screen_main> {
       setState(() {
         //print(timer.tick);
         currentSeconds = timer.tick;
-        if (timer.tick >= timerMaxSeconds) timer.cancel();
+        // print(currentSeconds);
+        if (timer.tick >= timerMaxSeconds) {
+          count_score();
+          timer.cancel();
+        }
       });
     });
   }
@@ -51,9 +66,31 @@ class _Screen_mainState extends State<Screen_main> {
   void initState() {
     // startTimeout();
     super.initState();
-    get_quiz();
+    Check_status();
     // Quiz_charage();
     // Choice();
+  }
+
+  Future<Null> Check_status() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      status = preferences.getString("STATUS")!;
+    });
+    if (status == "login") {
+      print("login complete");
+      User_data();
+    } else {
+      print("Not login");
+    }
+  }
+
+  Future<Null> User_data() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      displayID = preferences.getString("ID")!;
+    });
+    print("ID = ${displayID}");
+    get_quiz();
   }
 
   Future<Null> get_quiz() async {
@@ -63,8 +100,8 @@ class _Screen_mainState extends State<Screen_main> {
 
     var response = await Dio().get(url);
     var data = json.decode(response.data);
-    print("data type ${data.runtimeType}");
-    print("data  ${json.decode(response.data)}");
+    // print("data type ${data.runtimeType}");
+    // print("data  ${json.decode(response.data)}");
     Quiz = data;
     for (int i = 0; i < 5; i++) {
       Quiz.shuffle();
@@ -79,7 +116,7 @@ class _Screen_mainState extends State<Screen_main> {
       Quiz[i]["answers"].shuffle();
     }
 
-    print("Quiz data total = ${Quiz}");
+    // print("Quiz data total = ${Quiz}");
     Choice();
   }
 
@@ -87,11 +124,28 @@ class _Screen_mainState extends State<Screen_main> {
     for (var i = 0; i < Quiz.length; i++) {
       selections.add(Select_choice(Quiz[i]["question_id"], "0", "0"));
     }
-    print(selections.length);
-    print("selection = ${selections.first.id_answers}");
+    // print(selections.length);
+    // print("selection = ${selections.first.id_answers}");
+    get_setting();
+  }
+
+  Future<Null> get_setting() async {
+    Dio dio = new Dio();
+    String url =
+        '${Domain_name().domain}/easy_drive_backend/exam_setting/mobile/get_setting.php';
+
+    var response = await Dio().get(url);
+    var data_setting = json.decode(response.data);
+    setting_list = data_setting;
+    print("data : ${setting_list}");
+    pass = int.parse(setting_list[0]["pass_criteria"]);
+    maxScore = int.parse(setting_list[0]["num_test"]);
+    timerMaxSeconds = int.parse(setting_list[0]["set_time"]);
+    print(pass);
     setState(() {
       load = false;
     });
+    startTimeout();
   }
 
   @override
@@ -144,7 +198,7 @@ class _Screen_mainState extends State<Screen_main> {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 700,
+                      height: 687,
                       child: PageView.builder(
                         controller: controller,
                         itemCount: Quiz.length,
@@ -154,32 +208,35 @@ class _Screen_mainState extends State<Screen_main> {
                             child: Column(
                               children: <Widget>[
                                 Qeustion_show(index),
+                                Spacer(),
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        child: Quiz.last == Quiz[index]
+                                            ? Submit_test(index)
+                                            : null,
+                                      ),
+                                      SizedBox(width: 15),
+                                      Container(
+                                        child: FloatingActionButton(
+                                          backgroundColor:
+                                              Colors.amberAccent.shade700,
+                                          child: Icon(Icons.list_alt),
+                                          onPressed: () {
+                                            zoomPictureDialog();
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           );
                         },
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Container(
-                            child: FloatingActionButton(
-                              backgroundColor: Colors.amberAccent.shade700,
-                              child: Icon(Icons.chat),
-                              onPressed: () {
-                                zoomPictureDialog();
-                              },
-                            ),
-                          ),
-                          SizedBox(width: 15),
-                          Container(
-                            child: Quiz.length == controller
-                                ? Submit_test()
-                                : null,
-                          ),
-                          Submit_test(),
-                        ],
                       ),
                     ),
                   ],
@@ -198,8 +255,6 @@ class _Screen_mainState extends State<Screen_main> {
       child: IconButton(
         color: Colors.red,
         onPressed: () {
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => Home_game()));
           _showMyDialogPass("ออก");
         },
         icon: Icon(
@@ -211,10 +266,6 @@ class _Screen_mainState extends State<Screen_main> {
   }
 
   Widget Qeustion_show(index) {
-    // print("img quiz = ${Quiz[index]["image"]}");
-    // print("choice = ${Quiz[index]["image"]}");
-    //print(Quiz[index]["answers"][0]["choice_url"].isEmpty);
-    //print(Quiz[index]["answers"][0]["choice_url"]);
     return Container(
       child: Column(
         children: [
@@ -315,21 +366,17 @@ class _Screen_mainState extends State<Screen_main> {
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
-                      if (index != Quiz.length) {
+                      if (index != Quiz.length - 1) {
                         controller.jumpToPage(index + 1);
                       } else {
                         print("condition Last page");
                       }
-                      //changePageViewPostion(index);
-                      controller.jumpToPage(index + 1);
-                      //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
-                      selections[index] = Select_choice(
-                          Quiz[index]["question_id"],
-                          Quiz[index]["answers"][i]["choice_id"],
-                          Quiz[index]["answers"][i]["value_choice"]);
-                      print("Quiz = ${selections[index].id_quiz}");
-                      print(i);
-                      print("select = ${selections[index].id_answers}");
+                      setState(() {
+                        selections[index] = Select_choice(
+                            Quiz[index]["question_id"],
+                            Quiz[index]["answers"][i]["choice_id"],
+                            Quiz[index]["answers"][i]["value_choice"]);
+                      });
                     }
 
                     // color: Colors.amber.shade200,
@@ -360,7 +407,7 @@ class _Screen_mainState extends State<Screen_main> {
         itemBuilder: (BuildContext context, int i) {
           return Container(
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
@@ -416,21 +463,17 @@ class _Screen_mainState extends State<Screen_main> {
                       ],
                     ),
                     onPressed: () {
-                      if (index != Quiz.length) {
+                      if (index != Quiz.length - 1) {
                         controller.jumpToPage(index + 1);
                       } else {
                         print("condition Last page");
                       }
-                      //changePageViewPostion(index);
-                      //controller.jumpToPage(index + 1);
-                      //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
-                      selections[index] = Select_choice(
-                          Quiz[index]["ID"],
-                          Quiz[index]["answers"][i]["choice_id"],
-                          Quiz[index]["answers"][i]["value_choice"]);
-                      print("Quiz = ${selections[index].id_quiz}");
-                      print(i);
-                      print("select = ${selections[index].id_answers}");
+                      setState(() {
+                        selections[index] = Select_choice(
+                            Quiz[index]["ID"],
+                            Quiz[index]["answers"][i]["choice_id"],
+                            Quiz[index]["answers"][i]["value_choice"]);
+                      });
                     }
 
                     // color: Colors.amber.shade200,
@@ -594,6 +637,7 @@ class _Screen_mainState extends State<Screen_main> {
                   child: Column(
                     children: [
                       Container(
+                        padding: const EdgeInsets.all(8),
                         child: GridView.builder(
                             shrinkWrap: true,
                             physics: ClampingScrollPhysics(),
@@ -651,28 +695,106 @@ class _Screen_mainState extends State<Screen_main> {
     );
   }
 
-  Widget Submit_test() {
+  Widget Submit_test(index) {
     return Container(
-        width: 120,
-        height: 55,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.green.shade500),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ))),
-            child: Text(
-              "ส่งข้อสอบ",
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
-            onPressed: () {
-              for (int i = 0; i < selections.length; i++) {
-                print("all select loop ${selections[i].answer}");
+      width: 280,
+      height: 55,
+      child: ElevatedButton(
+        style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Colors.green.shade500),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ))),
+        child: Text(
+          "ส่งข้อสอบ",
+          style: TextStyle(fontSize: 18, color: Colors.white),
+        ),
+        onPressed: () {
+          setState(() {
+            timerMaxSeconds = 0;
+          });
+
+          tatol_ans.clear();
+          // count_score();
+
+          print("all select ${selections.length}");
+        },
+      ),
+    );
+  }
+
+  count_score() {
+    for (int i = 0; i < Quiz.length; i++) {
+      for (int a = 0; a < selections.length; a++) {
+        if (selections[a].id_quiz == Quiz[i]["question_id"]) {
+          for (int ans = 0; ans < Quiz[i]["answers"].length; ans++) {
+            if (selections[a].id_answers ==
+                Quiz[i]["answers"][ans]["choice_id"]) {
+              print("true");
+              if (Quiz[i]["answers"][ans]["value_choice"] == "1") {
+                tatol_ans.add({
+                  "question_id": selections[a].id_quiz,
+                  "value_choice": "1"
+                });
+                score++;
+              } else {
+                tatol_ans.add({
+                  "question_id": selections[a].id_quiz,
+                  "value_choice": "0"
+                });
+                list_Ans.add(Quiz[i]);
               }
-              print("all select ${selections.length}");
-            }));
+            } else {}
+          }
+        } else if (selections[a].id_answers == "0") {
+          tatol_ans
+              .add({"question_id": selections[a].id_quiz, "value_choice": "0"});
+          list_Ans.add(Quiz[i]);
+        }
+      }
+    }
+    print("score = ${score}");
+    print("tatol_ans ${tatol_ans}");
+    regitorThead();
+  }
+
+  Future<Null> regitorThead() async {
+    Dio dio = new Dio();
+    String url =
+        '${Domain_name().domain}/easy_drive_backend/test/mobile/submit.php?user_id=$displayID';
+
+    var dataReq = tatol_ans;
+
+    var data = jsonEncode(dataReq);
+    var response = await Dio().post(url, data: data);
+    print(response.toString());
+    try {
+      print(url);
+
+      if (response.toString() == 'complete') {
+        checkService();
+      } else if (response.toString() == 'error') {}
+    } catch (e) {
+      print("ERROR");
+    }
+  }
+
+  Future<Null> checkService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var list_ans = jsonEncode(list_Ans);
+    preferences.setString('LIST_QUIZ', list_ans);
+    preferences.setInt('MAX_SCORE', maxScore);
+    if (score >= pass) {
+      print("pass");
+      preferences.setString('CONDITION', "pass");
+    } else {
+      print("fail");
+      preferences.setString('CONDITION', "fail");
+    }
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => End_test()));
   }
 }
