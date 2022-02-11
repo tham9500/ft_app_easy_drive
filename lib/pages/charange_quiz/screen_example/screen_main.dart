@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/controller/test_charange/test_chrrange.dart';
 import 'package:ft_app_easy_drive/models/selcetchoice_model.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/guide_charange.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
+import 'package:ft_app_easy_drive/widget/show_progress.dart';
 
 class Screen_main extends StatefulWidget {
   Screen_main({Key? key}) : super(key: key);
@@ -14,6 +18,7 @@ class Screen_main extends StatefulWidget {
 }
 
 class _Screen_mainState extends State<Screen_main> {
+  bool load = true;
   var currentPageValue;
   var present_page;
   var jumpPosition;
@@ -46,30 +51,47 @@ class _Screen_mainState extends State<Screen_main> {
   void initState() {
     // startTimeout();
     super.initState();
+    get_quiz();
+    // Quiz_charage();
+    // Choice();
+  }
+
+  Future<Null> get_quiz() async {
+    Dio dio = new Dio();
+    String url =
+        '${Domain_name().domain}/easy_drive_backend/test/mobile/get_test.php';
+
+    var response = await Dio().get(url);
+    var data = json.decode(response.data);
+    print("data type ${data.runtimeType}");
+    print("data  ${json.decode(response.data)}");
+    Quiz = data;
+    for (int i = 0; i < 5; i++) {
+      Quiz.shuffle();
+    }
+
     Quiz_charage();
-    Choice();
   }
 
   Quiz_charage() {
-    data.charange.shuffle();
-
-    print("data_list = ${data.charange.length}");
-    for (int i = 0; i < data.charange.length; i++) {
-      Quiz.add(data.charange[i]);
+    print("data_list = ${Quiz.length}");
+    for (int i = 0; i < Quiz.length; i++) {
       Quiz[i]["answers"].shuffle();
     }
-    //print("Quiz list total = ${Quiz.length}");
 
     print("Quiz data total = ${Quiz}");
+    Choice();
   }
 
   Choice() {
-    for (var i = 0; i < data.charange.length; i++) {
-      selections.add(Select_choice(Quiz[i]["ID"], 0));
+    for (var i = 0; i < Quiz.length; i++) {
+      selections.add(Select_choice(Quiz[i]["question_id"], "0", "0"));
     }
     print(selections.length);
     print("selection = ${selections.first.id_answers}");
-    //print("select = ${selections}");
+    setState(() {
+      load = false;
+    });
   }
 
   @override
@@ -83,29 +105,8 @@ class _Screen_mainState extends State<Screen_main> {
           leading: Btn_exit(),
           actions: <Widget>[
             Timer_count(),
-            // Container(
-            //   child: Column(
-            //     children: [
-            //       Container(
-            //         child: ListView.builder(
-            //           shrinkWrap: true,
-            //           physics: ClampingScrollPhysics(),
-            //           itemCount: 3,
-            //           scrollDirection: Axis.horizontal,
-            //           itemBuilder: (BuildContext context, int index) {
-            //             return Btn_Quiz(index);
-            //           },
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
-
           flexibleSpace: ClipRRect(
-            // borderRadius: BorderRadius.only(
-            //     bottomLeft: Radius.circular(50),
-            //     bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -120,21 +121,9 @@ class _Screen_mainState extends State<Screen_main> {
                           Container(
                             child: Column(
                               // mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                // Container(
-                                //   child: Text(
-                                //     "เครื่องหมายนจราจร",
-                                //     style: TextStyle(
-                                //         fontSize: 28,
-                                //         fontWeight: FontWeight.bold,
-                                //         color: Colors.white),
-                                //     textAlign: TextAlign.left,
-                                //   ),
-                                // ),
-                              ],
+                              children: <Widget>[],
                             ),
                           ),
-                          SizedBox(height: 30),
                         ],
                       ),
                     ),
@@ -143,51 +132,60 @@ class _Screen_mainState extends State<Screen_main> {
               ),
             ),
           ),
-          // title: Text(
-          //   "ลงทะเบียนเข้าใช้งาน",
-          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          // ),
-          shape: RoundedRectangleBorder(
-              // borderRadius: BorderRadius.only(
-              //     bottomLeft: Radius.circular(50),
-              //     bottomRight: Radius.circular(50)),
-              ),
+          shape: RoundedRectangleBorder(),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 700,
-                child: PageView.builder(
-                  controller: controller,
-                  itemCount: Quiz.length,
-                  itemBuilder: (context, index) {
-                    //print(Quiz[index]["ID"]);
-                    return Container(
-                      child: Column(
-                        children: <Widget>[
-                          Qeustion_show(index),
+      body: load
+          ? ShowProgress()
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(12),
+              child: Center(
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 700,
+                      child: PageView.builder(
+                        controller: controller,
+                        itemCount: Quiz.length,
+                        itemBuilder: (context, index) {
+                          //print(Quiz[index]["ID"]);
+                          return Container(
+                            child: Column(
+                              children: <Widget>[
+                                Qeustion_show(index),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        children: [
+                          Container(
+                            child: FloatingActionButton(
+                              backgroundColor: Colors.amberAccent.shade700,
+                              child: Icon(Icons.chat),
+                              onPressed: () {
+                                zoomPictureDialog();
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 15),
+                          Container(
+                            child: Quiz.length == controller
+                                ? Submit_test()
+                                : null,
+                          ),
+                          Submit_test(),
                         ],
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.amberAccent.shade700,
-        child: Icon(Icons.chat),
-        onPressed: () {
-          zoomPictureDialog();
-        },
-      ),
+            ),
     );
   }
 
@@ -221,12 +219,12 @@ class _Screen_mainState extends State<Screen_main> {
       child: Column(
         children: [
           Container(
-            child: Quiz[index]["image"] == ""
+            child: Quiz[index]["image_question"] == ""
                 ? Qeustion_NoImage(index)
                 : Qeustion_HaveImage(index),
           ),
           Container(
-            child: Quiz[index]["answers"][0]["choice_url"] == ""
+            child: Quiz[index]["answers"][0]["image_choice"] == ""
                 ? Choice_NoIamge(index)
                 : Choice_HaveIamge(index),
           ),
@@ -239,7 +237,7 @@ class _Screen_mainState extends State<Screen_main> {
     //print("NO");
     return Container(
       child: Text(
-        "${Quiz[index]["ID"]}",
+        "${index + 1}. ${Quiz[index]["question"]}",
         style: TextStyle(fontSize: 24),
       ),
     );
@@ -248,9 +246,36 @@ class _Screen_mainState extends State<Screen_main> {
   Widget Qeustion_HaveImage(index) {
     //print("YES");
     return Container(
-      child: Text(
-        "${Quiz[index]["ID"]}",
-        style: TextStyle(fontSize: 24),
+      child: Column(
+        children: <Widget>[
+          Container(
+            child: Text(
+              "${index + 1}. ${Quiz[index]["question"]}",
+              style: TextStyle(fontSize: 24),
+            ),
+          ),
+          Container(
+            child: Image.network(
+              "${Domain_name().domain}/easy_drive_backend/image/question/${Quiz[index]["image_question"]}",
+              width: 400,
+              height: 200,
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                }
+                return Center(
+                  child: LinearProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -275,8 +300,8 @@ class _Screen_mainState extends State<Screen_main> {
                     style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor: selections[index].id_answers != 0 &&
-                                Quiz[index]["answers"][i]["ID"] ==
+                        backgroundColor: selections[index].id_answers != '0' &&
+                                Quiz[index]["answers"][i]["choice_id"] ==
                                     selections[index].id_answers
                             ? MaterialStateProperty.all<Color>(Colors.green)
                             : MaterialStateProperty.all<Color>(Colors.white),
@@ -286,7 +311,7 @@ class _Screen_mainState extends State<Screen_main> {
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
                     child: Text(
-                      "${Quiz[index]["answers"][i]["ID"]}",
+                      "${Quiz[index]["answers"][i]["choice"]}",
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
@@ -299,7 +324,9 @@ class _Screen_mainState extends State<Screen_main> {
                       controller.jumpToPage(index + 1);
                       //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
                       selections[index] = Select_choice(
-                          Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
+                          Quiz[index]["question_id"],
+                          Quiz[index]["answers"][i]["choice_id"],
+                          Quiz[index]["answers"][i]["value_choice"]);
                       print("Quiz = ${selections[index].id_quiz}");
                       print(i);
                       print("select = ${selections[index].id_answers}");
@@ -319,9 +346,15 @@ class _Screen_mainState extends State<Screen_main> {
     print("select on= ${selections[index].id_answers}");
     print("haveImage");
     return Container(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical, //defualt
-        shrinkWrap: true, //defualt
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 5.0,
+          crossAxisSpacing: 5.0,
+        ), //defualt
         itemCount: Quiz[index]["answers"].length,
 
         itemBuilder: (BuildContext context, int i) {
@@ -329,14 +362,14 @@ class _Screen_mainState extends State<Screen_main> {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.08,
+                height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                     style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor: selections[index].id_answers != 0 &&
-                                Quiz[index]["answers"][i]["ID"] ==
+                        backgroundColor: selections[index].id_answers != '0' &&
+                                Quiz[index]["answers"][i]["choice_id"] ==
                                     selections[index].id_answers
                             ? MaterialStateProperty.all<Color>(Colors.green)
                             : MaterialStateProperty.all<Color>(Colors.white),
@@ -345,9 +378,42 @@ class _Screen_mainState extends State<Screen_main> {
                                 RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
-                    child: Text(
-                      "${Quiz[index]["answers"][i]["ID"]}",
-                      style: TextStyle(fontSize: 18),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "${Quiz[index]["answers"][i]["choice"]}",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Image.network(
+                              "${Domain_name().domain}/easy_drive_backend/image/choice/${Quiz[index]["answers"][i]["image_choice"]}",
+                              width: 400,
+                              height: 200,
+                              fit: BoxFit.contain,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                }
+                                return Center(
+                                  child: LinearProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     onPressed: () {
                       if (index != Quiz.length) {
@@ -359,7 +425,9 @@ class _Screen_mainState extends State<Screen_main> {
                       //controller.jumpToPage(index + 1);
                       //selections.replaceRange(index,index,Select_choice(Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]));
                       selections[index] = Select_choice(
-                          Quiz[index]["ID"], Quiz[index]["answers"][i]["ID"]);
+                          Quiz[index]["ID"],
+                          Quiz[index]["answers"][i]["choice_id"],
+                          Quiz[index]["answers"][i]["value_choice"]);
                       print("Quiz = ${selections[index].id_quiz}");
                       print(i);
                       print("select = ${selections[index].id_answers}");
@@ -456,7 +524,7 @@ class _Screen_mainState extends State<Screen_main> {
                   SizedBox(width: 20),
                   Container(
                     child: Text(
-                      "หากกดออกหรือปอดแอพพลิเคชัน\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
+                      "หากออกจากการทำสอบ\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
@@ -547,7 +615,7 @@ class _Screen_mainState extends State<Screen_main> {
                                               Colors.black),
                                       backgroundColor: selections[index]
                                                   .id_answers !=
-                                              0
+                                              "0"
                                           ? MaterialStateProperty.all<Color>(
                                               Colors.lightGreen.shade500)
                                           : MaterialStateProperty.all<Color>(
@@ -581,5 +649,30 @@ class _Screen_mainState extends State<Screen_main> {
         );
       },
     );
+  }
+
+  Widget Submit_test() {
+    return Container(
+        width: 120,
+        height: 55,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.green.shade500),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ))),
+            child: Text(
+              "ส่งข้อสอบ",
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+            onPressed: () {
+              for (int i = 0; i < selections.length; i++) {
+                print("all select loop ${selections[i].answer}");
+              }
+              print("all select ${selections.length}");
+            }));
   }
 }
