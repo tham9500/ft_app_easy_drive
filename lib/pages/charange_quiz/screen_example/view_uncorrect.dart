@@ -102,8 +102,10 @@ class _View_uncorrectState extends State<View_uncorrect> {
                 children: [
                   Container(
                     child: ListView.builder(
-                      scrollDirection: Axis.vertical, //defualt
+                      // scrollDirection: Axis.vertical, //defualt
                       shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      scrollDirection: Axis.vertical,
 
                       itemCount: Quiz.length,
                       itemBuilder: (BuildContext context, int index) {
