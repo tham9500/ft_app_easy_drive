@@ -40,6 +40,8 @@ class _Screen_mainState extends State<Screen_main> {
   List<dynamic> list_Ans = [];
   List<dynamic> tatol_ans = [];
   List<dynamic> setting_list = [];
+  List<dynamic> article_list = [];
+
   // "pass_criteria":"1","set_time":"3600"
   int pass = 0;
   int score = 0;
@@ -126,6 +128,28 @@ class _Screen_mainState extends State<Screen_main> {
     }
     // print(selections.length);
     // print("selection = ${selections.first.id_answers}");
+    get_article_cate();
+  }
+
+  Future<Null> get_article_cate() async {
+    Dio dio = new Dio();
+    String url =
+        '${Domain_name().domain}/easy_drive_backend/test/mobile/get_article_cate_test.php';
+
+    var response = await Dio().get(url);
+    var data_article = json.decode(response.data);
+    for (int i = 0; i < data_article.length; i++) {
+      article_list.add({
+        "article_cate_id": data_article[i]["article_cate_id"],
+        "article_cate_name": data_article[i]["article_cate_name"],
+        "score_cate": 0
+      });
+    }
+    // article_list = data_article;
+    print("data : ${setting_list}");
+
+    print(pass);
+
     get_setting();
   }
 
@@ -200,6 +224,7 @@ class _Screen_mainState extends State<Screen_main> {
                       width: double.infinity,
                       height: 687,
                       child: PageView.builder(
+                        physics: ScrollPhysics(),
                         controller: controller,
                         itemCount: Quiz.length,
                         itemBuilder: (context, index) {
@@ -267,19 +292,21 @@ class _Screen_mainState extends State<Screen_main> {
 
   Widget Qeustion_show(index) {
     return Container(
-      child: Column(
-        children: [
-          Container(
-            child: Quiz[index]["image_question"] == ""
-                ? Qeustion_NoImage(index)
-                : Qeustion_HaveImage(index),
-          ),
-          Container(
-            child: Quiz[index]["answers"][0]["image_choice"] == ""
-                ? Choice_NoIamge(index)
-                : Choice_HaveIamge(index),
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              child: Quiz[index]["image_question"] == ""
+                  ? Qeustion_NoImage(index)
+                  : Qeustion_HaveImage(index),
+            ),
+            Container(
+              child: Quiz[index]["answers"][0]["image_choice"] == ""
+                  ? Choice_NoIamge(index)
+                  : Choice_HaveIamge(index),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -308,8 +335,8 @@ class _Screen_mainState extends State<Screen_main> {
           Container(
             child: Image.network(
               "${Domain_name().domain}/easy_drive_backend/image/question/${Quiz[index]["image_question"]}",
-              width: 400,
-              height: 200,
+              width: 350,
+              height: 150,
               fit: BoxFit.contain,
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress == null) {
@@ -395,7 +422,7 @@ class _Screen_mainState extends State<Screen_main> {
     return Container(
       child: GridView.builder(
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: ScrollPhysics(),
         scrollDirection: Axis.vertical,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -438,9 +465,9 @@ class _Screen_mainState extends State<Screen_main> {
                             padding: const EdgeInsets.all(8),
                             child: Image.network(
                               "${Domain_name().domain}/easy_drive_backend/image/choice/${Quiz[index]["answers"][i]["image_choice"]}",
-                              width: 400,
-                              height: 200,
-                              fit: BoxFit.contain,
+                              width: 350,
+                              height: 150,
+                              fit: BoxFit.cover,
                               loadingBuilder:
                                   (context, child, loadingProgress) {
                                 if (loadingProgress == null) {
@@ -735,12 +762,23 @@ class _Screen_mainState extends State<Screen_main> {
                 Quiz[i]["answers"][ans]["choice_id"]) {
               print("true");
               if (Quiz[i]["answers"][ans]["value_choice"] == "1") {
+                score++;
                 tatol_ans.add({
                   "question_id": selections[a].id_quiz,
                   "value_choice": "1"
                 });
-                score++;
+                print("true");
+
+                for (int cate = 0; cate < article_list.length; cate++) {
+                  if (article_list[cate]["article_cate_id"] ==
+                      Quiz[i]["article_cate_id"]) {
+                    print("true");
+                    article_list[cate]["score_cate"] =
+                        ++article_list[cate]["score_cate"];
+                  }
+                }
               } else {
+                print("false");
                 tatol_ans.add({
                   "question_id": selections[a].id_quiz,
                   "value_choice": "0"
@@ -758,6 +796,8 @@ class _Screen_mainState extends State<Screen_main> {
     }
     print("score = ${score}");
     print("tatol_ans ${tatol_ans}");
+    print("article_score ${article_list}");
+
     regitorThead();
   }
 
@@ -785,7 +825,10 @@ class _Screen_mainState extends State<Screen_main> {
   Future<Null> checkService() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var list_ans = jsonEncode(list_Ans);
+    var list_article = jsonEncode(article_list);
     preferences.setString('LIST_QUIZ', list_ans);
+    preferences.setInt('SCORE', score);
+    preferences.setString('LIST_CATE', list_article);
     preferences.setInt('MAX_SCORE', maxScore);
     if (score >= pass) {
       print("pass");
