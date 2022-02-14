@@ -115,13 +115,13 @@ class _Screen_exampleState extends State<Screen_example> {
       body: load
           ? ShowProgress()
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(18),
               child: Center(
                 child: Column(
                   children: [
                     Container(
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.85,
                       child: PageView.builder(
                         controller: controller,
                         itemCount: list_example.length,
@@ -129,6 +129,7 @@ class _Screen_exampleState extends State<Screen_example> {
                           return Container(
                             child: Column(
                               children: <Widget>[
+                                SizedBox(height: 5),
                                 Qeustion_show(index),
                                 // SizedBox(height: 15),
                                 Spacer(),
@@ -150,10 +151,27 @@ class _Screen_exampleState extends State<Screen_example> {
     return Container(
       child: Column(
         children: [
+          SizedBox(height: 10),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "คำถาม",
+              style: TextStyle(fontSize: 24, color: Colors.blue.shade900),
+            ),
+          ),
+          SizedBox(height: 5),
           Container(
             child: list_example[index]["image_question"] == ""
                 ? Qeustion_NoImage(index)
                 : Qeustion_HaveImage(index),
+          ),
+          SizedBox(height: 5),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "คำตอบ",
+              style: TextStyle(fontSize: 24, color: Colors.red.shade900),
+            ),
           ),
           Container(
             child: list_example[index]["answers"][0]["image_choice"] == ""
@@ -167,6 +185,7 @@ class _Screen_exampleState extends State<Screen_example> {
 
   Widget Btn_page(index) {
     return Container(
+      padding: const EdgeInsets.all(12),
       child: FloatingActionButton(
         backgroundColor: Colors.amberAccent.shade700,
         child: Text("${index + 1}/${list_example.length}"),
@@ -180,9 +199,10 @@ class _Screen_exampleState extends State<Screen_example> {
   Widget Qeustion_NoImage(index) {
     //print("NO");
     return Container(
+      alignment: Alignment.centerLeft,
       child: Text(
         "${index + 1}. ${list_example[index]["question"]}",
-        style: TextStyle(fontSize: 24),
+        style: TextStyle(fontSize: 18),
       ),
     );
   }
@@ -193,9 +213,10 @@ class _Screen_exampleState extends State<Screen_example> {
       child: Column(
         children: <Widget>[
           Container(
+            alignment: Alignment.centerLeft,
             child: Text(
               "${index + 1}. ${list_example[index]["question"]}",
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 18),
             ),
           ),
           Container(
@@ -237,7 +258,7 @@ class _Screen_exampleState extends State<Screen_example> {
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.08,
+                height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                     style: ButtonStyle(
@@ -252,7 +273,7 @@ class _Screen_exampleState extends State<Screen_example> {
                         ))),
                     child: Text(
                       "${list_example[index]["answers"][i]["choice"]}",
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 16),
                     ),
                     onPressed: () {}
 
@@ -269,80 +290,39 @@ class _Screen_exampleState extends State<Screen_example> {
   Widget Choice_HaveIamge(index) {
     print("haveImage");
     return Container(
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          mainAxisSpacing: 5.0,
-          crossAxisSpacing: 5.0,
-        ), //defualt
-        itemCount: list_example[index]["answers"].length,
-
-        itemBuilder: (BuildContext context, int i) {
-          return Container(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            "${list_example[index]["answers"][i]["choice"]}",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Image.network(
-                              "${Domain_name().domain}/easy_drive_backend/image/choice/${list_example[index]["answers"][i]["image_choice"]}",
-                              width: 400,
-                              height: 200,
-                              fit: BoxFit.contain,
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
-                                }
-                                return Center(
-                                  child: LinearProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {}
-
-                    // color: Colors.amber.shade200,
-                    ),
-              ),
+      child: Column(
+        children: <Widget>[
+          Container(
+            child: list_example[index]["answers"][index]["choice"] == null
+                ? Text(
+                    "${list_example[index]["answers"][index]["choice"]}",
+                    style: TextStyle(fontSize: 16),
+                  )
+                : null,
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: Image.network(
+              "${Domain_name().domain}/easy_drive_backend/image/choice/${list_example[index]["answers"][index]["image_choice"]}",
+              width: 300,
+              height: 150,
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                }
+                return Center(
+                  child: LinearProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }

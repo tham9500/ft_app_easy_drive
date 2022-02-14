@@ -54,7 +54,7 @@ class _home_sampleState extends State<home_sample> {
   Future<Null> get_example() async {
     Dio dio = new Dio();
     String url =
-        '${Domain_name().domain}/easy_drive_backend/test/mobile/get_article_cate_test.php';
+        '${Domain_name().domain}/easy_drive_backend/test/mobile/get_article_cate_answer.php';
 
     var response = await Dio().get(url);
     var data_example = json.decode(response.data);
@@ -202,7 +202,7 @@ class _home_sampleState extends State<home_sample> {
     return Container(
       height: 80,
       width: MediaQuery.of(context).size.width,
-
+      padding: const EdgeInsets.all(4),
       // color: Colors.amber.shade200,
       child: ElevatedButton(
         style: ButtonStyle(
@@ -246,5 +246,4 @@ class _home_sampleState extends State<home_sample> {
     preferences.setString('ID_ARTICLE_CATE_ID', id_article_cate_id);
     print("ID_ACI = $id_article_cate_id");
   }
-  
 }

@@ -316,7 +316,7 @@ class _Screen_mainState extends State<Screen_main> {
     return Container(
       child: Text(
         "${index + 1}. ${Quiz[index]["question"]}",
-        style: TextStyle(fontSize: 24),
+        style: TextStyle(fontSize: 18),
       ),
     );
   }
@@ -329,7 +329,7 @@ class _Screen_mainState extends State<Screen_main> {
           Container(
             child: Text(
               "${index + 1}. ${Quiz[index]["question"]}",
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 18),
             ),
           ),
           Container(
@@ -389,8 +389,8 @@ class _Screen_mainState extends State<Screen_main> {
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
                     child: Text(
-                      "${Quiz[index]["answers"][i]["choice"]}",
-                      style: TextStyle(fontSize: 18),
+                      "${i + 1}. ${Quiz[index]["answers"][i]["choice"]}",
+                      style: TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
                       if (index != Quiz.length - 1) {
@@ -456,7 +456,7 @@ class _Screen_mainState extends State<Screen_main> {
                       children: <Widget>[
                         Container(
                           child: Text(
-                            "${Quiz[index]["answers"][i]["choice"]}",
+                            "${i + 1}. ${Quiz[index]["answers"][i]["choice"]}",
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
