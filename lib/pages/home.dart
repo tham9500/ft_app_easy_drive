@@ -4,7 +4,10 @@ import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
+import 'package:ft_app_easy_drive/pages/verify_email.dart';
 import 'package:ft_app_easy_drive/widget/custom_shape.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../pages/test_page/time_countdown.dart';
 
 class Home_page extends StatefulWidget {
@@ -15,6 +18,11 @@ class Home_page extends StatefulWidget {
 }
 
 class _Home_pageState extends State<Home_page> {
+  //url open link covid 19 home
+  String _url = '';
+  //data open article main
+  String id_cate = "1641395148";
+  String name_cate = "รอบรู้เรื่องขับขี่";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +30,14 @@ class _Home_pageState extends State<Home_page> {
         preferredSize: Size.fromHeight(220.0),
         child: AppBar(
           centerTitle: true,
+          automaticallyImplyLeading: false, //move back button
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => Home_game()));
+          //   },
+          //   icon: Icon(Icons.arrow_back_ios),
+          // ),
           flexibleSpace: ClipRRect(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -64,8 +80,10 @@ class _Home_pageState extends State<Home_page> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
+                                //widget buttom login
                                 Btn_Login(),
                                 SizedBox(width: 25),
+                                //widget buttom register
                                 Btn_registor()
                               ],
                             ),
@@ -78,10 +96,7 @@ class _Home_pageState extends State<Home_page> {
               ),
             ),
           ),
-          // title: Text(
-          //   "ลงทะเบียนเข้าใช้งาน",
-          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          // ),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -89,17 +104,19 @@ class _Home_pageState extends State<Home_page> {
           ),
         ),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Scroll_Article_horizon(),
-              SizedBox(
-                height: 20,
-              ),
-              Scroll_menu()
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: <Widget>[
+                //menu scroll horizantal
+                Scroll_Article_horizon(), //widget scroll horizantal
+                SizedBox(height: 20),
+                //main menu
+                Scroll_menu()
+              ],
+            ),
           ),
         ),
       ),
@@ -114,8 +131,10 @@ class _Home_pageState extends State<Home_page> {
             Container(
               child: Row(
                 children: <Widget>[
+                  //widget open page game
                   Games_Page(),
                   SizedBox(width: 20),
+                  //widget open page catergory
                   Article_Page(),
                 ],
               ),
@@ -132,8 +151,10 @@ class _Home_pageState extends State<Home_page> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
+          //open article main widget
           Article_Page_scroll(),
           SizedBox(width: 12),
+          //open web article sample
           Article_Page_scroll2(),
         ],
       ),
@@ -230,6 +251,7 @@ class _Home_pageState extends State<Home_page> {
   Widget Article_Page_scroll() {
     return GestureDetector(
       onTap: () {
+        cateService();
         print("click");
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Sub_article()));
@@ -290,7 +312,13 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Article_Page_scroll2() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          _url = 'https://www.dlt.go.th/th/public-news/view.php?_did=2858';
+        });
+        print("games page click");
+        check_link();
+      },
       child: Card(
         shadowColor: Colors.black,
         elevation: 8,
@@ -312,9 +340,8 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Timer_count() {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.18,
-        width: MediaQuery.of(context).size.width,
-
+        height: 120,
+        width: 150,
         // color: Colors.amber.shade200,
         child: ElevatedButton(
             style: ButtonStyle(
@@ -325,11 +352,33 @@ class _Home_pageState extends State<Home_page> {
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
                 ))),
-            child: Text("ทดสอบนับถอยหลัง"),
+            child: Text("ทดสอบนับถอยหลัง\nทดสอบ WIDGET"),
             onPressed: () {
               print("timer countdown click");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Time_countdown()));
+            }));
+  }
+
+  Widget verify_test() {
+    return Container(
+        height: 120,
+        width: 150,
+        // color: Colors.amber.shade200,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amber.shade300),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Text("ทดสอบ verrfy"),
+            onPressed: () {
+              print("timer countdown click");
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => Verify_email()));
             }));
   }
 
@@ -391,4 +440,25 @@ class _Home_pageState extends State<Home_page> {
       ),
     );
   }
+
+  //thead save date to open page article
+  Future<Null> cateService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('CATERGORY_ID', id_cate);
+    preferences.setString('CATERGORY_NAME', name_cate);
+  }
+
+  //function check link
+  check_link() {
+    if (_url != '') {
+      _launchURL();
+    } else {
+      print("Url id empty");
+    }
+  }
+
+  //open link with URL launcher
+  void _launchURL() async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw "could not launch $_url";
 }

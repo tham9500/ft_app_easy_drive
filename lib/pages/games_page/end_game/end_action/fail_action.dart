@@ -22,11 +22,13 @@ class _Fail_actionState extends State<Fail_action> {
                 height: 150,
                 width: 150,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(230, 238, 246, 1),
+                  color: Colors.red,
                   shape: BoxShape.circle,
-                  image: const DecorationImage(
-                      image: AssetImage("assets/animation/fail-animation.gif"),
-                      fit: BoxFit.cover),
+                ),
+                child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 128,
                 ),
               ),
               SizedBox(height: 30),

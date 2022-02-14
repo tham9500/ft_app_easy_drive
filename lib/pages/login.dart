@@ -1,6 +1,16 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ft_app_easy_drive/connect/connect.dart';
+import 'package:ft_app_easy_drive/models/user_madel.dart';
+import 'package:ft_app_easy_drive/pages/forget_page.dart';
+import 'package:ft_app_easy_drive/pages/home.dart';
+import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
+import 'package:ft_app_easy_drive/pages/verify_email.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/custom_shape.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -12,9 +22,11 @@ class Login_page extends StatefulWidget {
 }
 
 class _Login_pageState extends State<Login_page> {
-  String username = "", password = "";
+  String username = "", Password = "";
   final form_key = GlobalKey<FormState>();
-  bool _isVisible = false;
+  List<dynamic> data_user = [];
+  bool _isVisible = true;
+  var user_data;
 
   void updateStatus() {
     setState(() {
@@ -62,10 +74,6 @@ class _Login_pageState extends State<Login_page> {
               ),
             ),
           ),
-          // title: Text(
-          //   "ลงทะเบียนเข้าใช้งาน",
-          //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          // ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
@@ -73,29 +81,32 @@ class _Login_pageState extends State<Login_page> {
           ),
         ),
       ),
-      body: Container(
-        child: Form(
-          key: form_key,
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              children: <Widget>[
-                Form_username(),
-                Form_password(),
-                Container(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Column(
-                      children: <Widget>[
-                        Btn_ForgetPassword(),
-                      ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Form(
+            //variable formfieldbulder
+            key: form_key,
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                children: <Widget>[
+                  Form_username(),
+                  Form_password(),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Column(
+                        children: <Widget>[
+                          Btn_ForgetPassword(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Btn_StateLogin(),
-                SizedBox(height: 20),
-                Btn_registor(),
-              ],
+                  Btn_StateLogin(),
+                  SizedBox(height: 20),
+                  Btn_registor(),
+                ],
+              ),
             ),
           ),
         ),
@@ -168,16 +179,22 @@ class _Login_pageState extends State<Login_page> {
 
   Widget Form_password() {
     return TextFormField(
-      obscureText: _isVisible ? false : true,
-      decoration: const InputDecoration(
-        icon: Icon(Icons.lock),
-        hintText: 'Password',
-        labelText: 'Password *',
-      ),
-      onSaved: (String? value) {
-        // This optional block of code can be used to run
-        // code when the user saves the form.
-      },
+      obscureText: _isVisible,
+      decoration: InputDecoration(
+          icon: Icon(Icons.lock),
+          hintText: 'Password',
+          labelText: 'Password *',
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  _isVisible = !_isVisible;
+                });
+              },
+              icon:
+                  Icon(_isVisible ? Icons.visibility_off : Icons.visibility))),
+      onChanged: (value) => setState(() {
+        Password = value;
+      }),
       validator: (String? value) {
         return (value != null && value.contains('@'))
             ? 'Do not use the @ char.'
@@ -206,9 +223,71 @@ class _Login_pageState extends State<Login_page> {
             ),
             onPressed: () {
               print("registor click");
+
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Registor_page()));
             }));
+  }
+
+  Future<void> login() async {
+    // var dio = Dio();
+    // final response = await dio.get('https://google.com');
+    // print(response.data);
+    Dio dio = new Dio();
+    // String url = "http://172.27.7.226/easy_drive_backend/user/mobile/login.php";
+    String url =
+        "${Domain_name().domain}/easy_drive_backend/user/mobile/login.php";
+    var dataReq = {};
+    dataReq["email"] = username;
+    dataReq["password"] = Password;
+    String data = jsonEncode(dataReq);
+    var response = await Dio().post(url, data: data);
+    print("response = ${response.toString()}");
+    if (response.toString() == "email or passwoed incorret") {
+      _showMyDialogPass("email และ password ของท่าน\nไม่ถูกต้องกรุณาลองใหม่");
+    } else if (response.toString() == "email not verified") {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('verify_email', username);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Verify_email()));
+    } else if (response.toString() == "suspended") {
+      _showMyDialogPass(
+          "บัญชีของท่านถูกระงับการใช้งาน \nกรุณาติดต่อ \nserviceeasydrive@gmail.com");
+    } else {
+      var result = json.decode(response.data);
+      print("result = ${result}");
+      print(result.runtimeType);
+      for (var map in result) {
+        try {
+          User_model user_model = User_model.fromJson(map);
+          routeService(user_model);
+          print("login complete");
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Home_login()));
+        } catch (e) {
+          print("ERROR LOGIN");
+        }
+      }
+    }
+
+    print("user_data=${data_user.toString()}");
+  }
+
+//verify query datbase check active OTP
+
+//set account to device
+  Future<Null> routeService(User_model user_model) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('ID', user_model.userId);
+    preferences.setString('EMAIL', user_model.email);
+    preferences.setString('FIRSTNAME', user_model.firstName);
+    preferences.setString('LASTNAME', user_model.lastName);
+    preferences.setString('STATUS', "login");
+  }
+
+  Future<Null> setemail_verify() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('Email', username);
   }
 
   Widget Btn_ForgetPassword() {
@@ -220,7 +299,10 @@ class _Login_pageState extends State<Login_page> {
             fontSize: 16,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => forget_page()));
+        },
         child: Text(
           'ลืมรหัสผ่าน ?',
           textAlign: TextAlign.right,
@@ -249,15 +331,69 @@ class _Login_pageState extends State<Login_page> {
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onPressed: () {
-              print("registor click");
+              print("login click");
               form_key.currentState!.save();
 
               if (form_key.currentState!.validate()) {
+                print("username = ${username}");
+                print("username = ${Password}");
+                setemail_verify();
+                login();
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => Home_login()));
                 // postdataUser();
 
               }
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => Registor_page()));
             }));
+  }
+
+  Future<void> _showMyDialogPass(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          actions: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 20),
+                  Container(
+                    child: Text(
+                      "${content}",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'ตกลง',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      onPressed: () => Navigator.pop(context, true),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

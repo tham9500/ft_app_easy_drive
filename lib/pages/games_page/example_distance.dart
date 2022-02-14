@@ -16,95 +16,125 @@ class Example_distance extends StatefulWidget {
 class _Example_distanceState extends State<Example_distance> {
   double default_W = 24;
   double default_H = 150;
-  Color _color = Colors.green;
+  Color _color = Colors.lightGreen.shade400;
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
 
   double set_W = 48;
   double set_H = 300;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: Text("เกมส์ทดสอบสายตาทางลึก"),
-      // ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              Container(
-                child: Row(
-                  children: <Widget>[Btn_exit()],
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                height: 400,
-                width: 350,
-                color: Colors.amber.shade100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      child: AnimatedContainer(
-                        // Use the properties stored in the State class.
-                        width: default_W,
-                        height: default_H,
-                        decoration: BoxDecoration(
-                          color: _color,
-                          borderRadius: _borderRadius,
+    return SafeArea(
+      child: Scaffold(
+        // appBar: AppBar(
+        //   centerTitle: true,
+        //   title: Text("เกมส์ทดสอบสายตาทางลึก"),
+        // ),
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  Container(
+                    child: Row(
+                      children: <Widget>[Btn_exit()],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    height: 400,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue.shade100,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          child: AnimatedContainer(
+                            // Use the properties stored in the State class.
+                            width: default_W,
+                            height: default_H,
+                            decoration: BoxDecoration(
+                              color: _color,
+                              borderRadius: _borderRadius,
+                            ),
+                            // Define how long the animation should take.
+                            duration: const Duration(seconds: 1),
+                            // Provide an optional curve to make the animation feel smoother.
+                            curve: Curves.fastOutSlowIn,
+                          ),
                         ),
-                        // Define how long the animation should take.
-                        duration: const Duration(seconds: 1),
-                        // Provide an optional curve to make the animation feel smoother.
-                        curve: Curves.fastOutSlowIn,
+                        SizedBox(width: 50),
+                        Container(
+                          child: AnimatedContainer(
+                            // Use the properties stored in the State class.
+                            width: set_W,
+                            height: set_H,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: _borderRadius,
+                            ),
+                            // Define how long the animation should take.
+                            duration: const Duration(seconds: 1),
+                            // Provide an optional curve to make the animation feel smoother.
+                            curve: Curves.fastOutSlowIn,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Text(
+                              "A",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(width: 75),
+                          Container(
+                            child: Text(
+                              "B",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(width: 50),
-                    Container(
-                      child: AnimatedContainer(
-                        // Use the properties stored in the State class.
-                        width: set_W,
-                        height: set_H,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade500,
-                          borderRadius: _borderRadius,
-                        ),
-                        // Define how long the animation should take.
-                        duration: const Duration(seconds: 1),
-                        // Provide an optional curve to make the animation feel smoother.
-                        curve: Curves.fastOutSlowIn,
-                      ),
+                  ),
+                  SizedBox(height: 25),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Btn_up(),
+                        SizedBox(width: 25),
+                        Btn_down(),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Btn_reset(),
+                        SizedBox(width: 25),
+                        Btn_submit(),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Spacer(),
-              SizedBox(height: 50),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Btn_up(),
-                    SizedBox(width: 25),
-                    Btn_down(),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Btn_reset(),
-                    SizedBox(width: 25),
-                    Btn_submit(),
-                  ],
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),
@@ -228,17 +258,6 @@ class _Example_distanceState extends State<Example_distance> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          // content: SingleChildScrollView(
-          //   child: ListBody(
-          //     children: <Widget>[
-          //       Container(
-          //           // child: Center(
-          //           //   child: Text("$content"),
-          //           // ),
-          //           ),
-          //     ],
-          //   ),
-          // ),
           actions: <Widget>[
             Container(
               padding: const EdgeInsets.all(12),
@@ -252,8 +271,8 @@ class _Example_distanceState extends State<Example_distance> {
                   SizedBox(width: 20),
                   Container(
                     child: Text(
-                      "หากกดออกหรือปอดแอพพลิเคชัน\nระหว่างการทดสอบ การทดสอบ\nจะสิ้นสุดลง",
-                      style: TextStyle(color: Colors.black),
+                      "หากออกหรือปิดแอพพลิเคชัน\nระหว่างการทดสอบการ\nทดสอบจะสิ้นสุดลง",
+                      style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ),
                 ],
