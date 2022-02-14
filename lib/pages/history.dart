@@ -319,9 +319,9 @@ class _History_charageState extends State<History_charage> {
                                 child: Center(
                                   //score
                                   child: Text(
-                                    "${history[index]["score"]}",
+                                    "${history[index]["score"]}/${history[index]["max_score"]}",
                                     style: TextStyle(
-                                        fontSize: 30,
+                                        fontSize: 28,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
@@ -424,9 +424,9 @@ class _History_charageState extends State<History_charage> {
                                 child: Center(
                                   //score
                                   child: Text(
-                                    "${history[index]["score"]}",
+                                    "${history[index]["score"]}/${history[index]["max_score"]}",
                                     style: TextStyle(
-                                        fontSize: 30,
+                                        fontSize: 28,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
@@ -528,9 +528,9 @@ class _History_charageState extends State<History_charage> {
                                 //score
                                 child: Center(
                                   child: Text(
-                                    "${history[index]["score"]}",
+                                    "${history[index]["score"]}/${history[index]["max_score"]}",
                                     style: TextStyle(
-                                        fontSize: 30,
+                                        fontSize: 28,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),

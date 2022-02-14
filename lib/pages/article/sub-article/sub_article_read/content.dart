@@ -149,7 +149,9 @@ class _ContentState extends State<Content> {
                     children: <Widget>[
                       //First_page(),
                       Container(
-                        height: MediaQuery.of(context).size.height * 1.25,
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height,
+                        ),
                         child: PageView.builder(
                           itemCount: list_content.length,
                           itemBuilder: (context, index) {
@@ -163,16 +165,15 @@ class _ContentState extends State<Content> {
                                             ? First_page(index)
                                             : Next_page(index),
                                   ),
-                                  Container(
-                                    child: status == 'login'
-                                        ? Comment_article()
-                                        : null,
-                                  ),
                                 ],
                               ),
                             );
                           },
                         ),
+                      ),
+
+                      Container(
+                        child: status == 'login' ? Comment_article() : null,
                       ),
                     ],
                   ),
