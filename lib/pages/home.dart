@@ -147,7 +147,7 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Scroll_Article_horizon() {
     return Container(
-      height: 130,
+      height: MediaQuery.of(context).size.height * 0.17,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
@@ -163,8 +163,8 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Games_Page() {
     return Container(
-        height: 120,
-        width: 150,
+        height: MediaQuery.of(context).size.height * 0.17,
+        width: MediaQuery.of(context).size.width * 0.39,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -189,7 +189,7 @@ class _Home_pageState extends State<Home_page> {
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
+                Spacer(),
                 Container(
                   child: Text(
                     "เกมทดสอบสมรรถภาพ",
@@ -207,8 +207,8 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Article_Page() {
     return Container(
-        height: 120,
-        width: 150,
+        height: MediaQuery.of(context).size.height * 0.17,
+        width: MediaQuery.of(context).size.width * 0.39,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -233,10 +233,10 @@ class _Home_pageState extends State<Home_page> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                Spacer(),
                 Container(
                   child: Text(
-                    "เกี่ยวกับใบขับขี่",
+                    "เกี่ยวกับใบขับขี่   ",
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
@@ -254,7 +254,7 @@ class _Home_pageState extends State<Home_page> {
         cateService();
         print("click");
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Sub_article()));
+            context, MaterialPageRoute(builder: (context) => Home_article()));
       },
       child: Card(
         shadowColor: Colors.black,

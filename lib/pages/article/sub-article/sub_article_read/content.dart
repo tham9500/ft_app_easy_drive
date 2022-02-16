@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/controller/article_test/article_sign.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/comment_article.dart';
+import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/article_sign.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -99,7 +100,8 @@ class _ContentState extends State<Content> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Article()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
@@ -143,37 +145,45 @@ class _ContentState extends State<Content> {
           //child: Text("${widget.data[0]["sub_article"]}"),
           Align(
               child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
                 child: Padding(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(1),
                   child: Column(
                     children: <Widget>[
                       //First_page(),
                       Container(
-                        constraints: BoxConstraints(
-                          maxHeight: MediaQuery.of(context).size.height,
-                        ),
-                        child: PageView.builder(
-                          itemCount: list_content.length,
-                          itemBuilder: (context, index) {
-                            print(list_content[index]);
-                            return Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child:
-                                        list_content[index] == list_content[0]
+                        height: MediaQuery.of(context).size.height * 0.84,
+                        child: Expanded(
+                          child: PageView.builder(
+                            itemCount: list_content.length,
+                            itemBuilder: (context, index) {
+                              print(list_content[index]);
+                              return SingleChildScrollView(
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                1,
+                                        child: list_content[index] ==
+                                                list_content[0]
                                             ? First_page(index)
                                             : Next_page(index),
+                                      ),
+                                      Container(
+                                        child: status == 'login'
+                                            ? Comment_article()
+                                            : null,
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            );
-                          },
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-
-                      Container(
-                        child: status == 'login' ? Comment_article() : null,
                       ),
                     ],
                   ),
@@ -212,7 +222,7 @@ class _ContentState extends State<Content> {
             ),
           ),
           Container(
-            child: list_content[index]['image_content'] != null
+            child: list_content[index]['image_content'] != ""
                 ? Image_article(index)
                 : Empty_image(),
           ),
@@ -220,7 +230,7 @@ class _ContentState extends State<Content> {
             padding: const EdgeInsets.all(16),
             child: Text(
               "${list_content[index]['text_content']}",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
           ),
         ],
@@ -233,7 +243,7 @@ class _ContentState extends State<Content> {
       child: Column(
         children: [
           Container(
-            child: list_content[index]['image_content'] != null
+            child: list_content[index]['image_content'] != ""
                 ? Image_article(index)
                 : Empty_image(),
           ),
@@ -241,7 +251,7 @@ class _ContentState extends State<Content> {
             padding: const EdgeInsets.all(20),
             child: Text(
               "${list_content[index]['text_content']}",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
           ),
         ],

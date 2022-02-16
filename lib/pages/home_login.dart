@@ -227,7 +227,7 @@ class _Home_loginState extends State<Home_login> {
 
   Widget Scroll_Article_horizon() {
     return Container(
-      height: 130,
+      height: MediaQuery.of(context).size.height * 0.17,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
@@ -243,8 +243,8 @@ class _Home_loginState extends State<Home_login> {
 
   Widget Games_Page() {
     return Container(
-        height: 120,
-        width: 150,
+        height: MediaQuery.of(context).size.height * 0.17,
+        width: MediaQuery.of(context).size.width * 0.39,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -269,7 +269,7 @@ class _Home_loginState extends State<Home_login> {
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
+                Spacer(),
                 Container(
                   child: Text(
                     "เกมทดสอบสมรรถภาพ",
@@ -291,8 +291,8 @@ class _Home_loginState extends State<Home_login> {
 
   Widget Article_Page() {
     return Container(
-        height: 120,
-        width: 150,
+        height: MediaQuery.of(context).size.height * 0.17,
+        width: MediaQuery.of(context).size.width * 0.39,
         child: ElevatedButton(
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -315,7 +315,7 @@ class _Home_loginState extends State<Home_login> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                Spacer(),
                 Container(
                   child: Text(
                     "เกี่ยวกับใบขับขี่   ",
@@ -335,8 +335,8 @@ class _Home_loginState extends State<Home_login> {
 
   Widget Charage_Page() {
     return Container(
-        height: 120,
-        width: 150,
+        height: MediaQuery.of(context).size.height * 0.17,
+        width: MediaQuery.of(context).size.width * 0.39,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -355,16 +355,14 @@ class _Home_loginState extends State<Home_login> {
                 Container(
                   height: 40,
                   width: 40,
-                  child: Center(
-                    child: Image(
-                      image: AssetImage("assets/images/logo/charange.png"),
-                    ),
+                  child: Image(
+                    image: AssetImage("assets/images/logo/charange.png"),
                   ),
                 ),
-                SizedBox(height: 20),
+                Spacer(),
                 Container(
                   child: Text(
-                    "แบบทดสอบ     ",
+                    "แบบทดสอบ        ",
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
@@ -388,7 +386,7 @@ class _Home_loginState extends State<Home_login> {
         cateService();
         print("click");
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Sub_article()));
+            context, MaterialPageRoute(builder: (context) => Home_article()));
       },
       child: Card(
         shadowColor: Colors.black,
