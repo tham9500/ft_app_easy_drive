@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/charange_quiz/load_example/load_example.dart';
+import 'package:ft_app_easy_drive/pages/history.dart';
 import 'package:ft_app_easy_drive/pages/home_login.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,9 +75,7 @@ class _Guide_charangeState extends State<Guide_charange> {
     timerMaxSeconds = int.parse(setting_list[0]["set_time"]);
     print(timerMaxSeconds);
     intToTimeLeft();
-    setState(() {
-      load = false;
-    });
+    
   }
 
   intToTimeLeft() {
@@ -90,7 +89,9 @@ class _Guide_charangeState extends State<Guide_charange> {
     }
 
     print(result);
-
+    setState(() {
+      load = false;
+    });
     return result;
   }
 
@@ -391,8 +392,8 @@ class _Guide_charangeState extends State<Guide_charange> {
             ),
             onPressed: () {
               print("Submit click");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => Loading_color()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => History_charage()));
             }));
   }
 }

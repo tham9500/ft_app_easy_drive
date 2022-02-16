@@ -100,8 +100,8 @@ class _ArticleState extends State<Article> {
             icon: Icon(Icons.arrow_back_ios),
           ),
           title: Text(
-            "${articleCate_name}".length > 30
-                ? "${articleCate_name}".substring(0, 30) + "..."
+            "${articleCate_name}".length > 45
+                ? "${articleCate_name}".substring(0, 45) + "..."
                 : "${articleCate_name}",
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
@@ -184,11 +184,11 @@ class _ArticleState extends State<Article> {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.all(8),
-                    width: 260,
+                    width: MediaQuery.of(context).size.width * 0.7,
                     child: Text(
-                      "${list_article[index]["article_title"]}".length > 30
+                      "${list_article[index]["article_title"]}".length > 45
                           ? "${list_article[index]["article_title"]}"
-                              .substring(0, 30)
+                              .substring(0, 45)
                           : "${list_article[index]["article_title"]}",
                       style: TextStyle(fontSize: 16),
                     ),
