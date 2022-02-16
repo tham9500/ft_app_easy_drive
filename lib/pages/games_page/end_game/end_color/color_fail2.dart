@@ -66,7 +66,7 @@ class _Color_fail2State extends State<Color_fail2> {
   Widget Btn_again() {
     return Container(
         height: 50,
-        width: 150,
+        width: MediaQuery.of(context).size.width * 0.4,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -92,7 +92,7 @@ class _Color_fail2State extends State<Color_fail2> {
   Widget Btn_back() {
     return Container(
         height: 50,
-        width: 150,
+        width: MediaQuery.of(context).size.width * 0.4,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -105,7 +105,7 @@ class _Color_fail2State extends State<Color_fail2> {
                   borderRadius: BorderRadius.circular(30),
                 ))),
             child: Text(
-              "กลับสู่หน้าจอหลัก",
+              "กลับสู่หน้าแรก",
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             onPressed: () {

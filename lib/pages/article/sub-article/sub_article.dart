@@ -194,8 +194,6 @@ class _Sub_articleState extends State<Sub_article> {
                           ),
                         ),
                       ),
-                      SubArticle_sign(),
-                      SizedBox(height: 10),
                       List_articlecate(),
                     ],
                   ),

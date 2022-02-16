@@ -59,7 +59,7 @@ class _Pass_actionState extends State<Pass_action> {
   Widget Btn_again() {
     return Container(
         height: 50,
-        width: 150,
+        width: MediaQuery.of(context).size.width * 0.4,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -85,7 +85,7 @@ class _Pass_actionState extends State<Pass_action> {
   Widget Btn_back() {
     return Container(
         height: 50,
-        width: 150,
+        width: MediaQuery.of(context).size.width * 0.4,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -98,7 +98,7 @@ class _Pass_actionState extends State<Pass_action> {
                   borderRadius: BorderRadius.circular(30),
                 ))),
             child: Text(
-              "กลับสู่หน้าจอหลัก",
+              "กลับสู่หน้าแรก",
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             onPressed: () {
