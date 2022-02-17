@@ -227,7 +227,7 @@ class _Home_loginState extends State<Home_login> {
 
   Widget Scroll_Article_horizon() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.17,
+      height: MediaQuery.of(context).size.height * 0.16,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
@@ -243,7 +243,7 @@ class _Home_loginState extends State<Home_login> {
 
   Widget Games_Page() {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.17,
+        height: MediaQuery.of(context).size.height * 0.14,
         width: MediaQuery.of(context).size.width * 0.39,
 
         // color: Colors.amber.shade200,
@@ -291,7 +291,7 @@ class _Home_loginState extends State<Home_login> {
 
   Widget Article_Page() {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.17,
+        height: MediaQuery.of(context).size.height * 0.14,
         width: MediaQuery.of(context).size.width * 0.39,
         child: ElevatedButton(
             style: ButtonStyle(
@@ -335,7 +335,7 @@ class _Home_loginState extends State<Home_login> {
 
   Widget Charage_Page() {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.17,
+        height: MediaQuery.of(context).size.height * 0.14,
         width: MediaQuery.of(context).size.width * 0.39,
 
         // color: Colors.amber.shade200,
