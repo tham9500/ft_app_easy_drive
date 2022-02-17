@@ -100,8 +100,8 @@ class _ArticleState extends State<Article> {
             icon: Icon(Icons.arrow_back_ios),
           ),
           title: Text(
-            "${articleCate_name}".length > 45
-                ? "${articleCate_name}".substring(0, 45) + "..."
+            "${articleCate_name}".length > 55
+                ? "${articleCate_name}".substring(0, 55) + "..."
                 : "${articleCate_name}",
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
@@ -188,7 +188,8 @@ class _ArticleState extends State<Article> {
                     child: Text(
                       "${list_article[index]["article_title"]}".length > 45
                           ? "${list_article[index]["article_title"]}"
-                              .substring(0, 45)
+                                  .substring(0, 45) +
+                              " ..."
                           : "${list_article[index]["article_title"]}",
                       style: TextStyle(fontSize: 16),
                     ),

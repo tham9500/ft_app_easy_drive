@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:ft_app_easy_drive/connect/connect.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
+import 'package:ft_app_easy_drive/pages/verify_read.dart';
 
 class Registor_page extends StatefulWidget {
   Registor_page({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class Registor_page extends StatefulWidget {
 }
 
 class _Registor_pageState extends State<Registor_page> {
+  bool loading = false;
   String firstName = "",
       lastName = "",
       e_mail = "",
@@ -202,6 +204,21 @@ class _Registor_pageState extends State<Registor_page> {
     );
   }
 
+  Widget verify_BTN() {
+    return Container(
+      child: TextButton(
+        child: Text(
+          "เพิ่มเติม",
+          style: TextStyle(color: Colors.red),
+        ),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Verify_read()));
+        },
+      ),
+    );
+  }
+
   Widget Form_confirm() {
     return TextFormField(
       obscureText: _isVisible_confirm,
@@ -248,10 +265,12 @@ class _Registor_pageState extends State<Registor_page> {
             ),
           ),
         ),
-        child: Text(
-          "ยืนยันลงทะเบียน",
-          style: TextStyle(fontSize: 16, color: Colors.white),
-        ),
+        child: loading
+            ? CircularProgressIndicator(color: Colors.white)
+            : Text(
+                "ยืนยันลงทะเบียน",
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
         onPressed: () {
           print("Submit click");
           form_key.currentState!.save();
@@ -260,13 +279,20 @@ class _Registor_pageState extends State<Registor_page> {
             if (isChecked == false) {
               _showMyDialogVerify("กรุณายีนยันนโยบายก่อนทำ\nการลงทะเบียน");
             } else {
-              print("verify register");
-              print("firstname = ${firstName}");
-              print("lastname = ${lastName}");
-              print("email = ${e_mail}");
-              print("password = ${passWord}");
-              //regitorThead();
-              checkUser();
+              if (loading == false) {
+                setState(() {
+                  loading = true;
+                });
+                print("verify register");
+                print("firstname = ${firstName}");
+                print("lastname = ${lastName}");
+                print("email = ${e_mail}");
+                print("password = ${passWord}");
+                //regitorThead();
+                checkUser();
+              } else if (loading == true) {
+                print("loading");
+              }
             }
             // postdataUser();
 
@@ -287,10 +313,10 @@ class _Registor_pageState extends State<Registor_page> {
       Response response = await Dio().get(url);
       print("response = ${response}");
       if (response.toString() == "checkusernull") {
-        _showMyDialogVerify("มี Email อยู่ในระบบกรุณาใช้ \nEmail อื่น");
+        regitorThead();
       } else if (response.toString() != "null") {
         print("response = checkusernull");
-        regitorThead();
+        _showMyDialogVerify("มี Email อยู่ในระบบกรุณาใช้ \nEmail อื่น");
       }
     } catch (e) {
       print("ERROR check");
@@ -342,8 +368,9 @@ class _Registor_pageState extends State<Registor_page> {
                     });
                   })),
           Container(
-            child: Text("data"),
+            child: Text("ยอมรับเงื่อนไข"),
           ),
+          verify_BTN(),
         ],
       ),
     );
@@ -379,15 +406,19 @@ class _Registor_pageState extends State<Registor_page> {
                 children: <Widget>[
                   Container(
                     child: TextButton(
-                      child: const Text(
-                        'ตกลง',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red),
-                      ),
-                      onPressed: () => Navigator.pop(context, true),
-                    ),
+                        child: const Text(
+                          'ตกลง',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            loading = false;
+                          });
+                          Navigator.pop(context, true);
+                        }),
                   ),
                 ],
               ),

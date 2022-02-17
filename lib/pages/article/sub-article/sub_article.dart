@@ -286,7 +286,8 @@ class _Sub_articleState extends State<Sub_article> {
                       "${list_articleCate[index]["article_cate_name"]}".length >
                               30
                           ? "${list_articleCate[index]["article_cate_name"]}"
-                              .substring(0, 30)
+                                  .substring(0, 30) +
+                              " ..."
                           : "${list_articleCate[index]["article_cate_name"]}",
                       style: TextStyle(fontSize: 16),
                     ),

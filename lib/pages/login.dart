@@ -22,6 +22,7 @@ class Login_page extends StatefulWidget {
 }
 
 class _Login_pageState extends State<Login_page> {
+  bool loading = false;
   String username = "", Password = "";
   final form_key = GlobalKey<FormState>();
   List<dynamic> data_user = [];
@@ -243,16 +244,20 @@ class _Login_pageState extends State<Login_page> {
     String data = jsonEncode(dataReq);
     var response = await Dio().post(url, data: data);
     print("response = ${response.toString()}");
+    //-----------------incorrect password
     if (response.toString() == "email or passwoed incorret") {
       _showMyDialogPass("email และ password ของท่าน\nไม่ถูกต้องกรุณาลองใหม่");
+      //---------------Account not verify
     } else if (response.toString() == "email not verified") {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString('verify_email', username);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Verify_email()));
+      //----------------ban acctount
     } else if (response.toString() == "suspended") {
       _showMyDialogPass(
           "บัญชีของท่านถูกระงับการใช้งาน \nกรุณาติดต่อ \nserviceeasydrive@gmail.com");
+      //---------------complete login
     } else {
       var result = json.decode(response.data);
       print("result = ${result}");
@@ -326,19 +331,29 @@ class _Login_pageState extends State<Login_page> {
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ))),
-            child: Text(
-              "เข้าสู่ระบบ",
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
+            child: loading
+                ? CircularProgressIndicator(color: Colors.white)
+                : Text(
+                    "เข้าสู่ระบบ",
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
             onPressed: () {
               print("login click");
               form_key.currentState!.save();
 
               if (form_key.currentState!.validate()) {
-                print("username = ${username}");
-                print("username = ${Password}");
-                setemail_verify();
-                login();
+                if (loading == false) {
+                  setState(() {
+                    loading = true;
+                  });
+                  print("username = ${username}");
+                  print("username = ${Password}");
+                  setemail_verify();
+                  login();
+                } else if (loading == true) {
+                  print("loading");
+                }
+
                 // Navigator.push(context,
                 //     MaterialPageRoute(builder: (context) => Home_login()));
                 // postdataUser();
