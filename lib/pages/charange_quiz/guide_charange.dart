@@ -74,15 +74,33 @@ class _Guide_charangeState extends State<Guide_charange> {
     maxScore = int.parse(setting_list[0]["num_test"]);
     timerMaxSeconds = int.parse(setting_list[0]["set_time"]);
     print(timerMaxSeconds);
-    intToTimeLeft();
-    
+    get_quiz();
+  }
+
+  Future<Null> get_quiz() async {
+    Dio dio = new Dio();
+    String url =
+        '${Domain_name().domain}/easy_drive_backend/test/mobile/get_test.php';
+
+    var response = await Dio().get(url);
+    print("response = ${response}");
+    if (response.toString() == "error") {
+      print("numberice not many");
+      intToTimeLeft();
+      _showMyDialogWorking("แบบทดสอบพร้อมใช้งาน");
+    } else {
+      intToTimeLeft();
+    }
+
+    // print("data type ${data.runtimeType}");
+    // print("data  ${json.decode(response.data)}");
   }
 
   intToTimeLeft() {
     h = timerMaxSeconds ~/ 3600;
 
     m = ((timerMaxSeconds - h * 3600)) ~/ 60;
-    if (h > 1) {
+    if (h >= 1) {
       result = "$h : $m ชั่วโมง";
     } else if (h < 1) {
       result = "${m} นาที";
@@ -395,5 +413,58 @@ class _Guide_charangeState extends State<Guide_charange> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => History_charage()));
             }));
+  }
+
+  Future<void> _showMyDialogWorking(content) async {
+    return showDialog<void>(
+      context: this.context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          actions: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 20),
+                  Container(
+                    child: Text(
+                      "${content}",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    child: TextButton(
+                      child: const Text(
+                        'ตกลง',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Home_login()));
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

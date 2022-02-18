@@ -107,8 +107,8 @@ class _ContentState extends State<Content> {
           ),
           title: Text(
             "${article_HEAD}".length > 30
-                ? "${article_NAME}".substring(0, 30) + " ..."
-                : "${article_NAME}",
+                ? "${article_HEAD}".substring(0, 30) + " ..."
+                : "${article_HEAD}",
             style: TextStyle(
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),

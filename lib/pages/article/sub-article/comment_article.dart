@@ -14,6 +14,7 @@ class Comment_articl extends StatefulWidget {
 }
 
 class _Comment_articlState extends State<Comment_articl> {
+  bool loading = false;
   bool load = true;
   String displayID = "";
   String status = "";
@@ -202,19 +203,25 @@ class _Comment_articlState extends State<Comment_articl> {
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ))),
-            child: Text(
-              "ส่งความคิดเห็น",
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
+            child: loading
+                ? CircularProgressIndicator(
+                    color: Colors.white,
+                  )
+                : Text(
+                    "ส่งความคิดเห็น",
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
             onPressed: () {
-              print("submit click");
-              form_key.currentState!.save();
-              if (score == 0) {
-                _showMyDialogWorking(
-                    "กรุณาให้คะแนนก่อน\nทำการส่งแสดงความคิดเห็น");
-              } else {
-                print("comment complete");
-                Send_comment();
+              if (loading == false) {
+                print("submit click");
+                form_key.currentState!.save();
+                if (score == 0) {
+                  _showMyDialogWorking(
+                      "กรุณาให้คะแนนก่อน\nทำการส่งแสดงความคิดเห็น");
+                } else {
+                  print("comment complete");
+                  Send_comment();
+                }
               }
             }));
   }
@@ -258,6 +265,9 @@ class _Comment_articlState extends State<Comment_articl> {
                       onPressed: () {
                         if (content ==
                             "กรุณาให้คะแนนก่อน\nทำการส่งแสดงความคิดเห็น") {
+                          setState(() {
+                            loading = false;
+                          });
                           Navigator.pop(context, true);
                         } else if (content == "ขอบคุณที่แสดงความคิดเห็น") {
                           Navigator.push(

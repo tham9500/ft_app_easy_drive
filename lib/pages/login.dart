@@ -400,7 +400,12 @@ class _Login_pageState extends State<Login_page> {
                             fontWeight: FontWeight.bold,
                             color: Colors.red),
                       ),
-                      onPressed: () => Navigator.pop(context, true),
+                      onPressed: () {
+                        setState(() {
+                          loading = false;
+                        });
+                        Navigator.pop(context, true);
+                      },
                     ),
                   ),
                 ],
