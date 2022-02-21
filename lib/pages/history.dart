@@ -131,36 +131,6 @@ class _History_charageState extends State<History_charage> {
     } catch (e) {}
   }
 
-  // check_day() {
-  //   num_day = day;
-  //   print("AAAAAAAAAAAAAAAAA = ${day}");
-  //   print("AAAAAAAAAAAAAAAAAAA = ${num_day.length}");
-
-  //   for (int i = 0; i < num_day.length; i++) {
-  //     print("num_day[i] = ${num_day[i]}");
-  //     for (int j = 1; j < num_day.length; j++) {
-  //       print("num_day[j] = ${num_day[j]}");
-  //       if (num_day[i] != num_day[j]) {
-  //         print("sssssssssssss");
-  //         /* print(num_day[i] == num_day[j]); */
-  //       } else {
-  //         print("aaaaaaaaa");
-  //         num_day.removeAt(j);
-  //       }
-  //     }
-  //   }
-  //   print("list day s = ${num_day.length}");
-  //   print("list day s = ${num_day}");
-
-  //   // DateTime testdate = DateTime.parse("2022-01-04 22:58:39");
-  //   // var convertdate =
-  //   //     DateTime(testdate.year + 543, testdate.month, testdate.day);
-  //   // var convertTh = DateFormat.yMMMd().format(testdate).toString();
-  //   // print("convertdate = ${convertdate}");
-
-  //   // print("convertTh = $convertTh");
-  // }
-
   remove_list() {
     history.removeRange(0, history.length);
     date_his.removeRange(0, date_his.length);
@@ -258,7 +228,7 @@ class _History_charageState extends State<History_charage> {
           : SingleChildScrollView(
               child: Container(
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(4),
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -279,7 +249,6 @@ class _History_charageState extends State<History_charage> {
       child: Column(
         children: [
           Btn_day(),
-          SizedBox(height: 15),
           btn_s1 == true
               ? list_week()
               : btn_s2 == true
@@ -301,15 +270,15 @@ class _History_charageState extends State<History_charage> {
           itemBuilder: (BuildContext context, int index) {
             return Container(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                height: MediaQuery.of(context).size.height * 0.20,
+                padding: const EdgeInsets.all(8),
+                height: MediaQuery.of(context).size.height * 0.15,
                 child: Card(
                   color: Color.fromRGBO(230, 238, 246, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(8),
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -321,13 +290,14 @@ class _History_charageState extends State<History_charage> {
                                   child: Text(
                                     "${history[index]["score"]}/${history[index]["max_score"]}",
                                     style: TextStyle(
-                                        fontSize: 28,
+                                        fontSize: 24,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
                                 ),
-                                width: 90,
-                                height: 90,
+                                width: MediaQuery.of(context).size.width * 0.27,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
                                 decoration: BoxDecoration(
                                   //pass & fail color
                                   color: history[index]["result"] == "0"
@@ -336,7 +306,7 @@ class _History_charageState extends State<History_charage> {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              SizedBox(width: 15),
+                              SizedBox(width: 12),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -358,7 +328,7 @@ class _History_charageState extends State<History_charage> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              SizedBox(width: 12),
                               Container(
                                 child: Center(
                                   //condition word pass and fail
@@ -366,7 +336,7 @@ class _History_charageState extends State<History_charage> {
                                       ? Text(
                                           "ไม่ผ่าน",
                                           style: TextStyle(
-                                              fontSize: 24,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red),
                                         )
@@ -374,7 +344,7 @@ class _History_charageState extends State<History_charage> {
                                           "ผ่าน",
                                           style: TextStyle(
                                               color: Colors.green,
-                                              fontSize: 24,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         ),
                                 ),
@@ -387,7 +357,6 @@ class _History_charageState extends State<History_charage> {
                   ),
                 ),
               ),
-              // color: Colors.amber.shade200,
             );
           },
         ),
@@ -406,15 +375,15 @@ class _History_charageState extends State<History_charage> {
           itemBuilder: (BuildContext context, int index) {
             return Container(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                height: MediaQuery.of(context).size.height * 0.20,
+                padding: const EdgeInsets.all(8),
+                height: MediaQuery.of(context).size.height * 0.15,
                 child: Card(
                   color: Color.fromRGBO(230, 238, 246, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(8),
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -426,13 +395,14 @@ class _History_charageState extends State<History_charage> {
                                   child: Text(
                                     "${history[index]["score"]}/${history[index]["max_score"]}",
                                     style: TextStyle(
-                                        fontSize: 28,
+                                        fontSize: 24,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
                                 ),
-                                width: 90,
-                                height: 90,
+                                width: MediaQuery.of(context).size.width * 0.27,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
                                 decoration: BoxDecoration(
                                   //pass & fail color
                                   color: history[index]["result"] == "0"
@@ -441,7 +411,7 @@ class _History_charageState extends State<History_charage> {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              SizedBox(width: 15),
+                              SizedBox(width: 12),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -463,7 +433,7 @@ class _History_charageState extends State<History_charage> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              SizedBox(width: 12),
                               Container(
                                 child: Center(
                                   //condition word pass and fail
@@ -471,7 +441,7 @@ class _History_charageState extends State<History_charage> {
                                       ? Text(
                                           "ไม่ผ่าน",
                                           style: TextStyle(
-                                              fontSize: 24,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red),
                                         )
@@ -479,7 +449,7 @@ class _History_charageState extends State<History_charage> {
                                           "ผ่าน",
                                           style: TextStyle(
                                               color: Colors.green,
-                                              fontSize: 24,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         ),
                                 ),
@@ -510,56 +480,57 @@ class _History_charageState extends State<History_charage> {
           itemBuilder: (BuildContext context, int index) {
             return Container(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                height: MediaQuery.of(context).size.height * 0.20,
+                padding: const EdgeInsets.all(8),
+                height: MediaQuery.of(context).size.height * 0.15,
                 child: Card(
                   color: Color.fromRGBO(230, 238, 246, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(8),
                     child: Column(
                       children: <Widget>[
                         Container(
                           child: Row(
                             children: <Widget>[
                               Container(
-                                //score
                                 child: Center(
+                                  //score
                                   child: Text(
                                     "${history[index]["score"]}/${history[index]["max_score"]}",
                                     style: TextStyle(
-                                        fontSize: 28,
+                                        fontSize: 24,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
                                 ),
-                                width: 90,
-                                height: 90,
+                                width: MediaQuery.of(context).size.width * 0.27,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
                                 decoration: BoxDecoration(
-                                  //color pass fail
+                                  //pass & fail color
                                   color: history[index]["result"] == "0"
                                       ? Colors.red
                                       : Colors.green.shade400,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              SizedBox(width: 15),
+                              SizedBox(width: 12),
                               Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
+                                    //date
                                     Container(
-                                      //date
                                       child: Text(
                                         "วันที่ ${date_th[index]}",
                                         style: TextStyle(fontSize: 14),
                                       ),
                                     ),
+                                    //time
                                     Container(
-                                      //time
                                       child: Text(
                                           "เวลา ${_hour[index]}:${_min[index]}",
                                           style: TextStyle(fontSize: 14)),
@@ -567,15 +538,15 @@ class _History_charageState extends State<History_charage> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              SizedBox(width: 12),
                               Container(
                                 child: Center(
-                                  //word pass fail
+                                  //condition word pass and fail
                                   child: history[index]["result"] == "0"
                                       ? Text(
                                           "ไม่ผ่าน",
                                           style: TextStyle(
-                                              fontSize: 24,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red),
                                         )
@@ -583,7 +554,7 @@ class _History_charageState extends State<History_charage> {
                                           "ผ่าน",
                                           style: TextStyle(
                                               color: Colors.green,
-                                              fontSize: 24,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         ),
                                 ),
@@ -596,7 +567,6 @@ class _History_charageState extends State<History_charage> {
                   ),
                 ),
               ),
-              // color: Colors.amber.shade200,
             );
           },
         ),
