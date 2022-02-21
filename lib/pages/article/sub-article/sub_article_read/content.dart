@@ -150,43 +150,59 @@ class _ContentState extends State<Content> {
                   padding: const EdgeInsets.all(4),
                   child: Column(
                     children: <Widget>[
-                      //First_page(),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.84,
-                        child: PageView.builder(
-                          itemCount: list_content.length,
-                          itemBuilder: (context, index) {
-                            print(list_content[index]);
-                            return SingleChildScrollView(
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      width:
-                                          MediaQuery.of(context).size.width * 1,
-                                      child:
-                                          list_content[index] == list_content[0]
-                                              ? First_page(index)
-                                              : Next_page(index),
-                                    ),
-                                    Container(
-                                      child: status == 'login'
-                                          ? Comment_article()
-                                          : null,
-                                    ),
-                                  ],
+                        child: article_HEAD == "" && list_content.length == 0
+                            ? Empty_data()
+                            : Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.84,
+                                child: PageView.builder(
+                                  itemCount: list_content.length,
+                                  itemBuilder: (context, index) {
+                                    print(list_content[index]);
+                                    return SingleChildScrollView(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  1,
+                                              child: list_content[index] ==
+                                                      list_content[0]
+                                                  ? First_page(index)
+                                                  : Next_page(index),
+                                            ),
+                                            Container(
+                                              child: status == 'login'
+                                                  ? Comment_article()
+                                                  : null,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                      )
+                      //First_page(),
                     ],
                   ),
                 ),
               ),
             ),
+    );
+  }
+
+  Widget Empty_data() {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      child: Center(
+        child: Text("ยังไม่มีเนื้อหาที่แสดงขณะนี้"),
+      ),
     );
   }
 

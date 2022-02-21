@@ -147,7 +147,7 @@ class _Home_pageState extends State<Home_page> {
 
   Widget Scroll_Article_horizon() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.16,
+      height: MediaQuery.of(context).size.height * 0.18,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
