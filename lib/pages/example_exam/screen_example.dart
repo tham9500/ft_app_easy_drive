@@ -338,60 +338,87 @@ class _Screen_exampleState extends State<Screen_example> {
       //         400), // How long it takes to popup dialog after button click
       pageBuilder: (_, __, ___) {
         // Makes widget fullscreen
-        return SizedBox.expand(
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        child: GridView.builder(
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 70,
-                                    childAspectRatio: 3 / 2,
-                                    crossAxisSpacing: 20,
-                                    mainAxisSpacing: 20),
-                            itemCount: list_example.length,
-                            itemBuilder: (BuildContext ctx, index) {
-                              return Container(
-                                alignment: Alignment.center,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      foregroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Colors.black),
-                                      backgroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Colors.white),
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                      ))),
-                                  child: Text("${index + 1}"),
-                                  onPressed: () {
-                                    controller.jumpToPage(index);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                // decoration: BoxDecoration(
-                                //     color: Colors.amber,
-                                //     borderRadius: BorderRadius.circular(15)),
-                              );
-                            }),
+        return Stack(
+          children: [
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(18),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: ClampingScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 70,
+                                        childAspectRatio: 3 / 2,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20),
+                                itemCount: list_example.length,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  return Container(
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.black),
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.white),
+                                          shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                          ))),
+                                      child: Text("${index + 1}"),
+                                      onPressed: () {
+                                        controller.jumpToPage(index);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    // decoration: BoxDecoration(
+                                    //     color: Colors.amber,
+                                    //     borderRadius: BorderRadius.circular(15)),
+                                  );
+                                }),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              left: 1.0,
+              top: 30.0,
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.04,
+                width: MediaQuery.of(context).size.width * 0.1,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextButton(
+                  child: const Text(
+                    'X',
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  onPressed: () => Navigator.pop(context, true),
+                ),
+              ),
+            ),
+          ],
         );
       },
     );

@@ -118,7 +118,7 @@ class _Screen_mainState extends State<Screen_main> {
       Quiz[i]["answers"].shuffle();
     }
 
-    // print("Quiz data total = ${Quiz}");
+    print("Quiz data total = ${Quiz}");
     Choice();
   }
 
@@ -126,7 +126,7 @@ class _Screen_mainState extends State<Screen_main> {
     for (var i = 0; i < Quiz.length; i++) {
       selections.add(Select_choice(Quiz[i]["question_id"], "0", "0"));
     }
-    // print(selections.length);
+    print(selections.length);
     // print("selection = ${selections.first.id_answers}");
     get_article_cate();
   }
@@ -497,7 +497,7 @@ class _Screen_mainState extends State<Screen_main> {
                       }
                       setState(() {
                         selections[index] = Select_choice(
-                            Quiz[index]["ID"],
+                            Quiz[index]["question_id"],
                             Quiz[index]["answers"][i]["choice_id"],
                             Quiz[index]["answers"][i]["value_choice"]);
                       });
@@ -791,6 +791,7 @@ class _Screen_mainState extends State<Screen_main> {
           tatol_ans
               .add({"question_id": selections[a].id_quiz, "value_choice": "0"});
           list_Ans.add(Quiz[i]);
+          a = selections.length;
         }
       }
     }

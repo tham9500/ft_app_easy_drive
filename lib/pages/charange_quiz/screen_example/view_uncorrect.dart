@@ -97,7 +97,7 @@ class _View_uncorrectState extends State<View_uncorrect> {
       body: load
           ? ShowProgress()
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   Container(
@@ -144,6 +144,8 @@ class _View_uncorrectState extends State<View_uncorrect> {
   Widget Qeustion_show(index) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             child: Quiz[index]["image_question"] == ""
@@ -151,10 +153,18 @@ class _View_uncorrectState extends State<View_uncorrect> {
                 : Qeustion_HaveImage(index),
           ),
           Container(
+            child: Text(
+              "ตอบ",
+              style: TextStyle(
+                  fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
             child: Quiz[index]["answers"][0]["image_choice"] == ""
                 ? Choice_NoIamge(index)
                 : Choice_HaveIamge(index),
           ),
+          SizedBox(height: 10)
         ],
       ),
     );
@@ -166,7 +176,7 @@ class _View_uncorrectState extends State<View_uncorrect> {
       alignment: Alignment.centerLeft,
       child: Text(
         "${index + 1}. ${Quiz[index]["question"]}",
-        style: TextStyle(fontSize: 24),
+        style: TextStyle(fontSize: 18),
       ),
     );
   }
@@ -180,7 +190,7 @@ class _View_uncorrectState extends State<View_uncorrect> {
             alignment: Alignment.centerLeft,
             child: Text(
               "${index + 1}. ${Quiz[index]["question"]}",
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 18),
             ),
           ),
           Container(
@@ -213,35 +223,24 @@ class _View_uncorrectState extends State<View_uncorrect> {
     print("noImage");
     return Container(
       child: ListView.builder(
-        scrollDirection: Axis.vertical, //defualt
+        //defualt
+        physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true, //defualt
-        itemCount: Quiz[index]["answers"][index]["value_choice"].length,
+        itemCount: Quiz[index]["answers"].length,
 
         itemBuilder: (BuildContext context, int i) {
           return Container(
             child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.08,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
-                    child: Text("${Quiz[index]["answers"][i]["choice"]}",
-                        style: TextStyle(fontSize: 18)),
-                    onPressed: () {}
+              padding: const EdgeInsets.all(4),
+              child: Quiz[index]["answers"][i]["value_choice"] == "1"
+                  ? Container(
+                      child: Text("${Quiz[index]["answers"][i]["choice"]}",
+                          style: TextStyle(
+                              fontSize: 16, color: Colors.blue.shade900)),
 
-                    // color: Colors.amber.shade200,
-                    ),
-              ),
+                      // color: Colors.amber.shade200,
+                    )
+                  : null,
             ),
           );
         },
@@ -252,35 +251,15 @@ class _View_uncorrectState extends State<View_uncorrect> {
   Widget Choice_HaveIamge(index) {
     print("haveImage");
     return Container(
-      child: GridView.builder(
+      child: ListView.builder(
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         scrollDirection: Axis.vertical,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          mainAxisSpacing: 5.0,
-          crossAxisSpacing: 5.0,
-        ), //defualt
-        itemCount: Quiz[index]["answers"][index]["value_choice"].length,
-
+        itemCount: Quiz[index]["answers"].length,
         itemBuilder: (BuildContext context, int i) {
           return Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
+            child: Quiz[index]["answers"][i]["value_choice"] == "1"
+                ? Container(
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -289,41 +268,33 @@ class _View_uncorrectState extends State<View_uncorrect> {
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Image.network(
-                              "${Domain_name().domain}/easy_drive_backend/image/choice/${Quiz[index]["answers"][i]["image_choice"]}",
-                              width: 200,
-                              height: 100,
-                              fit: BoxFit.contain,
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
-                                }
-                                return Center(
-                                  child: LinearProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                );
-                              },
-                            ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          child: Image.network(
+                            "${Domain_name().domain}/easy_drive_backend/image/choice/${Quiz[index]["answers"][i]["image_choice"]}",
+                            width: 200,
+                            height: 100,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              return Center(
+                                child: LinearProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],
                     ),
-                    onPressed: () {}
-
-                    // color: Colors.amber.shade200,
-                    ),
-              ),
-            ),
+                  )
+                : null,
           );
         },
       ),

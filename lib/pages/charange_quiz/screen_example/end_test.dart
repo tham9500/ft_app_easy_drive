@@ -64,76 +64,82 @@ class _End_testState extends State<End_test> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            padding: const EdgeInsets.all(30),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    height: 150,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      color: condition == "pass"
-                          ? Colors.lightGreen.shade400
-                          : Colors.red.shade700,
-                      shape: BoxShape.circle,
-                    ),
-                    child: condition == "pass"
-                        ? Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 128,
-                          )
-                        : Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: 128,
-                          ),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 150,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: condition == "pass"
+                        ? Colors.lightGreen.shade400
+                        : Colors.red.shade700,
+                    shape: BoxShape.circle,
                   ),
-                  SizedBox(height: 10),
-                  Container(
-                    child: condition == "pass"
-                        ? Text(
-                            "ผ่าน",
-                            style: TextStyle(
-                                fontSize: 48, color: Colors.green.shade500),
-                          )
-                        : Text(
-                            "ไม่ผ่าน",
-                            style: TextStyle(
-                                fontSize: 48, color: Colors.red.shade700),
-                          ),
+                  child: condition == "pass"
+                      ? Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 128,
+                        )
+                      : Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 128,
+                        ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  child: condition == "pass"
+                      ? Text(
+                          "ผ่าน",
+                          style: TextStyle(
+                              fontSize: 48, color: Colors.green.shade500),
+                        )
+                      : Text(
+                          "ไม่ผ่าน",
+                          style: TextStyle(
+                              fontSize: 48, color: Colors.red.shade700),
+                        ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  child: Text(
+                    "คะแนน ${score}/${maxScore}",
+                    style: TextStyle(
+                        fontSize: 28,
+                        color: condition == "pass"
+                            ? Colors.green.shade500
+                            : Colors.red.shade500),
                   ),
-                  SizedBox(height: 5),
-                  Container(
-                    child: Text(
-                      "คะแนน ${score}/${maxScore}",
-                      style: TextStyle(
-                          fontSize: 28,
-                          color: condition == "pass"
-                              ? Colors.green.shade500
-                              : Colors.red.shade500),
-                    ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Btn_again(),
+                      SizedBox(width: 10),
+                      Btn_back(),
+                    ],
                   ),
-                  SizedBox(height: 10),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Btn_again(),
-                        SizedBox(width: 30),
-                        Btn_back(),
-                      ],
-                    ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  child: list_show.length == 0 ? null : Btn_view(),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      article_score(),
+                    ],
                   ),
-                  SizedBox(height: 20),
-                  Container(
-                    child: list_show.length == 0 ? null : Btn_view(),
-                  ),
-                  SizedBox(height: 10),
-                  article_score(),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -202,7 +208,7 @@ class _End_testState extends State<End_test> {
   Widget Btn_view() {
     return Container(
         height: 50,
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width * 0.85,
 
         // color: Colors.amber.shade200,
         child: ElevatedButton(
@@ -217,7 +223,7 @@ class _End_testState extends State<End_test> {
                   borderRadius: BorderRadius.circular(30),
                 ))),
             child: Text(
-              "ดูเฉลยข้อที่คำตอบไม่ถูกต้อง",
+              "ดูเฉลยคำตอบไม่ถูกต้อง",
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             onPressed: () {
@@ -229,41 +235,55 @@ class _End_testState extends State<End_test> {
 
   Widget article_score() {
     return Container(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical, //defualt
-        shrinkWrap: true, //defualt
-        itemCount: list_article.length,
-
-        itemBuilder: (BuildContext context, index) {
-          return Container(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.08,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
-                    child: Text(
-                      "${list_article[index]["article_cate_name"]} : ${list_article[index]["score_cate"]} คะแนน",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    onPressed: () {}
-
-                    // color: Colors.amber.shade200,
-                    ),
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            child: Text(
+              "รายละเอียดคะเเนนหมวดข้อสอบ",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          );
-        },
+          ),
+          Container(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical, //defualt
+              shrinkWrap: true, //defualt
+              itemCount: list_article.length,
+
+              itemBuilder: (BuildContext context, index) {
+                return Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: Text(
+                              "${list_article[index]["article_cate_name"]}",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w800),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              "${list_article[index]["score_cate"]} คะแนน",
+                              style: TextStyle(fontSize: 16),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
