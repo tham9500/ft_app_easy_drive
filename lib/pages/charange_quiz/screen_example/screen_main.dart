@@ -372,10 +372,11 @@ class _Screen_mainState extends State<Screen_main> {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.08,
+                height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                     style: ButtonStyle(
+                        alignment: Alignment.centerLeft,
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.black),
                         backgroundColor: selections[index].id_answers != '0' &&
@@ -432,81 +433,101 @@ class _Screen_mainState extends State<Screen_main> {
         itemCount: Quiz[index]["answers"].length,
 
         itemBuilder: (BuildContext context, int i) {
-          return Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor: selections[index].id_answers != '0' &&
-                                Quiz[index]["answers"][i]["choice_id"] ==
-                                    selections[index].id_answers
-                            ? MaterialStateProperty.all<Color>(Colors.green)
-                            : MaterialStateProperty.all<Color>(Colors.white),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
+          return Stack(
+            children: [
+              Container(
+                child: SingleChildScrollView(
                     child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            "${i + 1}. ${Quiz[index]["answers"][i]["choice"]}",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Image.network(
-                              "${Domain_name().domain}/easy_drive_backend/image/choice/${Quiz[index]["answers"][i]["image_choice"]}",
-                              width: 350,
-                              height: 150,
-                              fit: BoxFit.cover,
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
-                                }
-                                return Center(
-                                  child: LinearProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
+                  children: [
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  alignment: Alignment.centerLeft,
+                                  foregroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.black),
+                                  backgroundColor:
+                                      selections[index].id_answers != '0' &&
+                                              Quiz[index]["answers"][i]
+                                                      ["choice_id"] ==
+                                                  selections[index].id_answers
+                                          ? MaterialStateProperty.all<Color>(
+                                              Colors.green)
+                                          : MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ))),
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Text(
+                                      "${i + 1}. ${Quiz[index]["answers"][i]["choice"]}",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      if (index != Quiz.length - 1) {
-                        controller.jumpToPage(index + 1);
-                      } else {
-                        print("condition Last page");
-                      }
-                      setState(() {
-                        selections[index] = Select_choice(
-                            Quiz[index]["question_id"],
-                            Quiz[index]["answers"][i]["choice_id"],
-                            Quiz[index]["answers"][i]["value_choice"]);
-                      });
-                    }
+                                  Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Image.network(
+                                        "${Domain_name().domain}/easy_drive_backend/image/choice/${Quiz[index]["answers"][i]["image_choice"]}",
+                                        width: 350,
+                                        height: 150,
+                                        fit: BoxFit.cover,
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return Center(
+                                            child: LinearProgressIndicator(
+                                              value: loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () {
+                                if (index != Quiz.length - 1) {
+                                  controller.jumpToPage(index + 1);
+                                } else {
+                                  print("condition Last page");
+                                }
+                                setState(() {
+                                  selections[index] = Select_choice(
+                                      Quiz[index]["question_id"],
+                                      Quiz[index]["answers"][i]["choice_id"],
+                                      Quiz[index]["answers"][i]
+                                          ["value_choice"]);
+                                });
+                              }
 
-                    // color: Colors.amber.shade200,
+                              // color: Colors.amber.shade200,
+                              ),
+                        ),
+                      ),
                     ),
+                  ],
+                )),
               ),
-            ),
+            ],
           );
         },
       ),
@@ -656,67 +677,84 @@ class _Screen_mainState extends State<Screen_main> {
       //         400), // How long it takes to popup dialog after button click
       pageBuilder: (_, __, ___) {
         // Makes widget fullscreen
-        return SizedBox.expand(
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: GridView.builder(
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 70,
-                                    childAspectRatio: 3 / 2,
-                                    crossAxisSpacing: 20,
-                                    mainAxisSpacing: 20),
-                            itemCount: Quiz.length,
-                            itemBuilder: (BuildContext ctx, index) {
-                              return Container(
-                                alignment: Alignment.center,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      foregroundColor:
-                                          MaterialStateProperty.all<Color>(
-                                              Colors.black),
-                                      backgroundColor: selections[index]
-                                                  .id_answers !=
-                                              "0"
-                                          ? MaterialStateProperty.all<Color>(
-                                              Colors.lightGreen.shade500)
-                                          : MaterialStateProperty.all<Color>(
-                                              Colors.white),
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                      ))),
-                                  child: Text("${index + 1}"),
-                                  onPressed: () {
-                                    print(
-                                        "condition floating BTN = ${selections[index].id_answers}");
-                                    controller.jumpToPage(index);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                // decoration: BoxDecoration(
-                                //     color: Colors.amber,
-                                //     borderRadius: BorderRadius.circular(15)),
-                              );
-                            }),
-                      ),
-                    ],
-                  ),
+        return Stack(
+          children: <Widget>[
+            Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(18),
+                      child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 70,
+                                  childAspectRatio: 3 / 2,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20),
+                          itemCount: Quiz.length,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return Container(
+                              alignment: Alignment.center,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all<
+                                        Color>(Colors.black),
+                                    backgroundColor:
+                                        selections[index].id_answers != "0"
+                                            ? MaterialStateProperty.all<Color>(
+                                                Colors.lightGreen.shade500)
+                                            : MaterialStateProperty.all<Color>(
+                                                Colors.white),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ))),
+                                child: Text("${index + 1}"),
+                                onPressed: () {
+                                  print(
+                                      "condition floating BTN = ${selections[index].id_answers}");
+                                  controller.jumpToPage(index);
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              // decoration: BoxDecoration(
+                              //     color: Colors.amber,
+                              //     borderRadius: BorderRadius.circular(15)),
+                            );
+                          }),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              left: 1.0,
+              top: 30.0,
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.04,
+                width: MediaQuery.of(context).size.width * 0.1,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextButton(
+                  child: const Text(
+                    'X',
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  onPressed: () => Navigator.pop(context, true),
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
