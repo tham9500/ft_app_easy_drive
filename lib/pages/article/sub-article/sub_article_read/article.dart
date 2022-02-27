@@ -112,9 +112,13 @@ class _ArticleState extends State<Article> {
                 bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.fill),
+                image: status == "login"
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar1.png"),
+                        fit: BoxFit.fill)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar.png"),
+                        fit: BoxFit.cover),
               ),
             ),
           ),

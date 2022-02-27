@@ -92,7 +92,7 @@ class _Comment_articlState extends State<Comment_articl> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
+                    image: AssetImage("assets/images/appbars/appbar1.png"),
                     fit: BoxFit.fill),
               ),
               child: Column(

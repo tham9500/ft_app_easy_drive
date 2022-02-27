@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/games_page/guide_games/guide_color.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Color_fail2 extends StatefulWidget {
   Color_fail2({Key? key}) : super(key: key);
@@ -10,6 +11,26 @@ class Color_fail2 extends StatefulWidget {
 }
 
 class _Color_fail2State extends State<Color_fail2> {
+  String status = "";
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Check_status();
+  }
+
+  Future<Null> Check_status() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      status = preferences.getString("STATUS")!;
+    });
+    if (status == "login") {
+      print("login complete");
+    } else {
+      print("Not login");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

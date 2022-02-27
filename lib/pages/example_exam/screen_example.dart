@@ -261,7 +261,9 @@ class _Screen_exampleState extends State<Screen_example> {
                 height: MediaQuery.of(context).size.height * 0.1,
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
+                  
                     style: ButtonStyle(
+                      alignment: Alignment.centerLeft,
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.black),
                         backgroundColor:

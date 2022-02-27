@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/games_page/guide_games/guide_action.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Fail_action extends StatefulWidget {
   Fail_action({Key? key}) : super(key: key);
@@ -10,6 +11,26 @@ class Fail_action extends StatefulWidget {
 }
 
 class _Fail_actionState extends State<Fail_action> {
+  String status = "";
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Check_status();
+  }
+
+  Future<Null> Check_status() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      status = preferences.getString("STATUS")!;
+    });
+    if (status == "login") {
+      print("login complete");
+    } else {
+      print("Not login");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
