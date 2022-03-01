@@ -129,7 +129,7 @@ class _Screen_exampleState extends State<Screen_example> {
                           return Container(
                             child: Column(
                               children: <Widget>[
-                                SizedBox(height: 5),
+                                SizedBox(height: 15),
                                 Qeustion_show(index),
                                 // SizedBox(height: 15),
                                 Spacer(),
@@ -159,13 +159,13 @@ class _Screen_exampleState extends State<Screen_example> {
               style: TextStyle(fontSize: 24, color: Colors.blue.shade900),
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 15),
           Container(
             child: list_example[index]["image_question"] == ""
                 ? Qeustion_NoImage(index)
                 : Qeustion_HaveImage(index),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 15),
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -173,6 +173,7 @@ class _Screen_exampleState extends State<Screen_example> {
               style: TextStyle(fontSize: 24, color: Colors.red.shade900),
             ),
           ),
+          SizedBox(height: 15),
           Container(
             child: list_example[index]["answers"][0]["image_choice"] == ""
                 ? Choice_NoIamge(index)
@@ -220,6 +221,7 @@ class _Screen_exampleState extends State<Screen_example> {
             ),
           ),
           Container(
+            padding: EdgeInsets.all(15),
             child: Image.network(
               "${Domain_name().domain}/easy_drive_backend/image/question/${list_example[index]["image_question"]}",
               width: 400,
@@ -258,29 +260,10 @@ class _Screen_exampleState extends State<Screen_example> {
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.1,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  
-                    style: ButtonStyle(
-                      alignment: Alignment.centerLeft,
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
-                    child: Text(
-                      "${list_example[index]["answers"][i]["choice"]}",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    onPressed: () {}
-
-                    // color: Colors.amber.shade200,
-                    ),
+                child: Text(
+                  "${list_example[index]["answers"][i]["choice"]}",
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
             ),
           );
@@ -290,44 +273,96 @@ class _Screen_exampleState extends State<Screen_example> {
   }
 
   Widget Choice_HaveIamge(index) {
-    print("haveImage");
     return Container(
-      child: Column(
-        children: <Widget>[
-          Container(
-            child: list_example[index]["answers"][index]["choice"] == null
-                ? Text(
-                    "${list_example[index]["answers"][index]["choice"]}",
-                    style: TextStyle(fontSize: 16),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical, //defualt
+        shrinkWrap: true, //defualt
+        itemCount: list_example[index]["answers"].length,
+
+        itemBuilder: (BuildContext context, int i) {
+          return Container(
+            child: list_example[index]["answers"][i]["value_choice"] == "1"
+                ? Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "${list_example[index]["answers"][i]["choice"]}",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          child: Image.network(
+                            "${Domain_name().domain}/easy_drive_backend/image/choice/${list_example[index]["answers"][i]["image_choice"]}",
+                            width: 400,
+                            height: 200,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              return Center(
+                                child: LinearProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 : null,
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: Image.network(
-              "${Domain_name().domain}/easy_drive_backend/image/choice/${list_example[index]["answers"][index]["image_choice"]}",
-              width: 300,
-              height: 150,
-              fit: BoxFit.contain,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                }
-                return Center(
-                  child: LinearProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
+
+  // Widget Choice_HaveIamge(index) {
+  //   print("haveImage");
+  //   return Container(
+  //     child: Column(
+  //       children: <Widget>[
+  //         Container(
+  //           child: list_example[index]["answers"][index]["choice"] == null
+  //               ? Text(
+  //                   "${list_example[index]["answers"][index]["choice"]}",
+  //                   style: TextStyle(fontSize: 16),
+  //                 )
+  //               : null,
+  //         ),
+  //         Container(
+  //           padding: const EdgeInsets.all(8),
+  //           child: Image.network(
+  //             "${Domain_name().domain}/easy_drive_backend/image/choice/${list_example[index]["answers"][index]["image_choice"]}",
+  //             width: 300,
+  //             height: 150,
+  //             fit: BoxFit.contain,
+  //             loadingBuilder: (context, child, loadingProgress) {
+  //               if (loadingProgress == null) {
+  //                 return child;
+  //               }
+  //               return Center(
+  //                 child: LinearProgressIndicator(
+  //                   value: loadingProgress.expectedTotalBytes != null
+  //                       ? loadingProgress.cumulativeBytesLoaded /
+  //                           loadingProgress.expectedTotalBytes!
+  //                       : null,
+  //                 ),
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Future<void> zoomPictureDialog() async {
     showGeneralDialog(
