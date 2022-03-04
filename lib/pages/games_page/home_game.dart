@@ -76,7 +76,7 @@ class _Home_gameState extends State<Home_game> {
                 image: status == "login"
                     ? DecorationImage(
                         image: AssetImage("assets/images/appbars/appbar1.png"),
-                        fit: BoxFit.fill)
+                        fit: BoxFit.cover)
                     : DecorationImage(
                         image: AssetImage("assets/images/appbars/appbar.png"),
                         fit: BoxFit.cover),

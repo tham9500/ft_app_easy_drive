@@ -55,7 +55,7 @@ class _Guide_distanceState extends State<Guide_distance> {
                 image: status == "login"
                     ? DecorationImage(
                         image: AssetImage("assets/images/appbars/appbar1.png"),
-                        fit: BoxFit.fill)
+                        fit: BoxFit.cover)
                     : DecorationImage(
                         image: AssetImage("assets/images/appbars/appbar.png"),
                         fit: BoxFit.cover),

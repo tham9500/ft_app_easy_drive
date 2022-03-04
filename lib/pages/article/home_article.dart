@@ -170,36 +170,39 @@ class _Home_articleState extends State<Home_article> {
       ),
       body: load
           ? ShowProgress()
-          : SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 70,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 255, 255, 1),
-                          shape: BoxShape.circle,
-                          image: const DecorationImage(
-                            image: AssetImage("assets/images/logo/article.png"),
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            shape: BoxShape.circle,
+                            image: const DecorationImage(
+                              image:
+                                  AssetImage("assets/images/logo/article.png"),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 25),
-                      Container(
-                        child: Center(
-                          child: Text(
-                            "เกี่ยวกับใบขับขี่",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Color.fromRGBO(13, 59, 102, 1)),
+                        SizedBox(height: 25),
+                        Container(
+                          child: Center(
+                            child: Text(
+                              "เกี่ยวกับใบขับขี่",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(13, 59, 102, 1)),
+                            ),
                           ),
                         ),
-                      ),
-                      List_cate(),
-                    ],
+                        List_cate(),
+                      ],
+                    ),
                   ),
                 ),
               ),

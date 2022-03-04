@@ -131,18 +131,20 @@ class _ArticleState extends State<Article> {
       ),
       body: load
           ? ShowProgress()
-          : SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: list_article.length == 0
-                            ? Empty_data()
-                            : List_article(),
-                      ),
-                    ],
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: list_article.length == 0
+                              ? Empty_data()
+                              : List_article(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
