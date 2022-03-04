@@ -173,9 +173,13 @@ class _History_charageState extends State<History_charage> {
                 bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.cover),
+                image: status == "login"
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar1.png"),
+                        fit: BoxFit.cover)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar.png"),
+                        fit: BoxFit.cover),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -225,18 +229,20 @@ class _History_charageState extends State<History_charage> {
       ),
       body: load
           ? ShowProgress()
-          : SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: history != null
-                            ? page()
-                            : CircularProgressIndicator(),
-                      ),
-                    ],
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: history != null
+                              ? page()
+                              : CircularProgressIndicator(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -308,6 +314,7 @@ class _History_charageState extends State<History_charage> {
                               ),
                               SizedBox(width: 12),
                               Container(
+                                width: MediaQuery.of(context).size.width * 0.35,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -330,24 +337,24 @@ class _History_charageState extends State<History_charage> {
                               ),
                               SizedBox(width: 12),
                               Container(
-                                child: Center(
-                                  //condition word pass and fail
-                                  child: history[index]["result"] == "0"
-                                      ? Text(
-                                          "ไม่ผ่าน",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.red),
-                                        )
-                                      : Text(
-                                          "ผ่าน",
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                ),
+                                alignment: Alignment.centerRight,
+
+                                //condition word pass and fail
+                                child: history[index]["result"] == "0"
+                                    ? Text(
+                                        "ไม่ผ่าน",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red),
+                                      )
+                                    : Text(
+                                        "ผ่าน",
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                               ),
                             ],
                           ),
@@ -413,6 +420,7 @@ class _History_charageState extends State<History_charage> {
                               ),
                               SizedBox(width: 12),
                               Container(
+                                width: MediaQuery.of(context).size.width * 0.35,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -518,6 +526,7 @@ class _History_charageState extends State<History_charage> {
                               ),
                               SizedBox(width: 12),
                               Container(
+                                width: MediaQuery.of(context).size.width * 0.35,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,

@@ -11,7 +11,7 @@ class Guide_action extends StatefulWidget {
 }
 
 class _Guide_actionState extends State<Guide_action> {
-   String status = "";
+  String status = "";
 
   void initState() {
     // TODO: implement initState
@@ -31,6 +31,7 @@ class _Guide_actionState extends State<Guide_action> {
       print("Not login");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +55,7 @@ class _Guide_actionState extends State<Guide_action> {
                 image: status == "login"
                     ? DecorationImage(
                         image: AssetImage("assets/images/appbars/appbar1.png"),
-                        fit: BoxFit.fill)
+                        fit: BoxFit.cover)
                     : DecorationImage(
                         image: AssetImage("assets/images/appbars/appbar.png"),
                         fit: BoxFit.cover),

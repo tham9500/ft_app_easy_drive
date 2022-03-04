@@ -146,17 +146,19 @@ class _Home_pageState extends State<Home_page> {
   }
 
   Widget Scroll_Article_horizon() {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.18,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          //open article main widget
-          Article_Page_scroll(),
-          SizedBox(width: 12),
-          //open web article sample
-          Article_Page_scroll2(),
-        ],
+    return Scrollbar(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.18,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            //open article main widget
+            Article_Page_scroll(),
+            SizedBox(width: 12),
+            //open web article sample
+            Article_Page_scroll2(),
+          ],
+        ),
       ),
     );
   }

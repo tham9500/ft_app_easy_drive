@@ -135,18 +135,20 @@ class _Video_aricleState extends State<Video_aricle> {
       ),
       body: load
           ? ShowProgress()
-          : SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: list_video.length == 0
-                            ? Empty_list()
-                            : List_video(),
-                      ),
-                    ],
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: list_video.length == 0
+                              ? Empty_list()
+                              : List_video(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

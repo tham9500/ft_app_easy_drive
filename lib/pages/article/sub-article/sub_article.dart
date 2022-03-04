@@ -169,37 +169,39 @@ class _Sub_articleState extends State<Sub_article> {
       ),
       body: load
           ? ShowProgress()
-          : SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 70,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 255, 255, 1),
-                          shape: BoxShape.circle,
-                          image: const DecorationImage(
-                            image: AssetImage(
-                                "assets/images/logo/article-read.png"),
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            shape: BoxShape.circle,
+                            image: const DecorationImage(
+                              image: AssetImage(
+                                  "assets/images/logo/article-read.png"),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 25),
-                      Container(
-                        child: Center(
-                          child: Text(
-                            "${cate_name}",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Color.fromRGBO(13, 59, 102, 1)),
+                        SizedBox(height: 25),
+                        Container(
+                          child: Center(
+                            child: Text(
+                              "${cate_name}",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(13, 59, 102, 1)),
+                            ),
                           ),
                         ),
-                      ),
-                      List_articlecate(),
-                    ],
+                        List_articlecate(),
+                      ],
+                    ),
                   ),
                 ),
               ),

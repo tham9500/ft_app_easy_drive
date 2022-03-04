@@ -216,13 +216,13 @@ class _Screen_mainState extends State<Screen_main> {
       body: load
           ? ShowProgress()
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(8),
               child: Center(
                 child: Column(
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 687,
+                      height: MediaQuery.of(context).size.height * 1,
                       child: PageView.builder(
                         physics: ScrollPhysics(),
                         controller: controller,
@@ -233,7 +233,6 @@ class _Screen_mainState extends State<Screen_main> {
                             child: Column(
                               children: <Widget>[
                                 Qeustion_show(index),
-                                Spacer(),
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   child: Row(
@@ -244,7 +243,7 @@ class _Screen_mainState extends State<Screen_main> {
                                             ? Submit_test(index)
                                             : null,
                                       ),
-                                      SizedBox(width: 15),
+                                      SizedBox(width: 5),
                                       Container(
                                         child: FloatingActionButton(
                                           backgroundColor:
@@ -292,28 +291,30 @@ class _Screen_mainState extends State<Screen_main> {
 
   Widget Qeustion_show(index) {
     return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              child: Quiz[index]["image_question"] == ""
-                  ? Qeustion_NoImage(index)
-                  : Qeustion_HaveImage(index),
-            ),
-            Container(
-              child: Quiz[index]["answers"][0]["image_choice"] == ""
-                  ? Choice_NoIamge(index)
-                  : Choice_HaveIamge(index),
-            ),
-          ],
-        ),
+      // height: MediaQuery.of(context).size.height * 0.8,
+      // child: SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            child: Quiz[index]["image_question"] == ""
+                ? Qeustion_NoImage(index)
+                : Qeustion_HaveImage(index),
+          ),
+          Container(
+            child: Quiz[index]["answers"][0]["image_choice"] == ""
+                ? Choice_NoIamge(index)
+                : Choice_HaveIamge(index),
+          ),
+        ],
       ),
+      // ),
     );
   }
 
   Widget Qeustion_NoImage(index) {
     //print("NO");
     return Container(
+      alignment: Alignment.centerLeft,
       child: Text(
         "${index + 1}. ${Quiz[index]["question"]}",
         style: TextStyle(fontSize: 18),
@@ -327,6 +328,7 @@ class _Screen_mainState extends State<Screen_main> {
       child: Column(
         children: <Widget>[
           Container(
+            alignment: Alignment.centerLeft,
             child: Text(
               "${index + 1}. ${Quiz[index]["question"]}",
               style: TextStyle(fontSize: 18),
@@ -363,6 +365,7 @@ class _Screen_mainState extends State<Screen_main> {
     print("noImage");
     return Container(
       child: ListView.builder(
+        physics: ScrollPhysics(),
         scrollDirection: Axis.vertical, //defualt
         shrinkWrap: true, //defualt
         itemCount: Quiz[index]["answers"].length,
@@ -372,7 +375,7 @@ class _Screen_mainState extends State<Screen_main> {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.13,
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                     style: ButtonStyle(
@@ -427,8 +430,8 @@ class _Screen_mainState extends State<Screen_main> {
         scrollDirection: Axis.vertical,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 5.0,
-          crossAxisSpacing: 5.0,
+          mainAxisSpacing: 0.5,
+          crossAxisSpacing: 0.5,
         ), //defualt
         itemCount: Quiz[index]["answers"].length,
 
@@ -436,15 +439,14 @@ class _Screen_mainState extends State<Screen_main> {
           return Stack(
             children: [
               Container(
-                child: SingleChildScrollView(
-                    child: Column(
+                child: Column(
                   children: [
                     Container(
                       child: Padding(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(12),
                         child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          width: MediaQuery.of(context).size.width * 0.5,
                           child: ElevatedButton(
                               style: ButtonStyle(
                                   alignment: Alignment.centerLeft,
@@ -468,40 +470,42 @@ class _Screen_mainState extends State<Screen_main> {
                               child: Column(
                                 children: <Widget>[
                                   Container(
+                                    alignment: Alignment.centerLeft,
                                     child: Text(
                                       "${i + 1}. ${Quiz[index]["answers"][i]["choice"]}",
-                                      style: TextStyle(fontSize: 18),
+                                      style: TextStyle(fontSize: 16),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Image.network(
-                                        "${Domain_name().domain}/easy_drive_backend/image/choice/${Quiz[index]["answers"][i]["image_choice"]}",
-                                        width: 350,
-                                        height: 150,
-                                        fit: BoxFit.cover,
-                                        loadingBuilder:
-                                            (context, child, loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
-                                          return Center(
-                                            child: LinearProgressIndicator(
-                                              value: loadingProgress
-                                                          .expectedTotalBytes !=
-                                                      null
-                                                  ? loadingProgress
-                                                          .cumulativeBytesLoaded /
-                                                      loadingProgress
-                                                          .expectedTotalBytes!
-                                                  : null,
-                                            ),
-                                          );
-                                        },
-                                      ),
+                                  // Expanded(
+                                  Container(
+                                    child: Image.network(
+                                      "${Domain_name().domain}/easy_drive_backend/image/choice/${Quiz[index]["answers"][i]["image_choice"]}",
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.1,
+                                      fit: BoxFit.cover,
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Center(
+                                          child: LinearProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
+                                  // ),
                                 ],
                               ),
                               onPressed: () {
@@ -525,7 +529,7 @@ class _Screen_mainState extends State<Screen_main> {
                       ),
                     ),
                   ],
-                )),
+                ),
               ),
             ],
           );
@@ -541,7 +545,7 @@ class _Screen_mainState extends State<Screen_main> {
           padding: const EdgeInsets.all(10),
           child: Container(
             height: 100,
-            width: 100,
+            width: MediaQuery.of(context).size.width * 0.3,
             child: ElevatedButton(
                 style: ButtonStyle(
                     foregroundColor:
@@ -762,7 +766,7 @@ class _Screen_mainState extends State<Screen_main> {
 
   Widget Submit_test(index) {
     return Container(
-      width: 280,
+      width: MediaQuery.of(context).size.width * 0.7,
       height: 55,
       child: ElevatedButton(
         style: ButtonStyle(
