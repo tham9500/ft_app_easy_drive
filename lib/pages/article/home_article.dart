@@ -237,56 +237,57 @@ class _Home_articleState extends State<Home_article> {
 
   Widget Link_cate(index) {
     return Container(
-        height: 80,
-        width: MediaQuery.of(context).size.width,
+      height: 80,
+      width: MediaQuery.of(context).size.width,
 
-        // color: Colors.amber.shade200,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(230, 238, 246, 1),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ))),
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image: AssetImage("assets/images/logo/article-fee.png"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Container(
-                    width: 210,
-                    child: Text(
-                      "${list_cate[index]["cate_name"]}",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ],
+      // color: Colors.amber.shade200,
+      child: ElevatedButton(
+          style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Color.fromRGBO(230, 238, 246, 1),
               ),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ))),
+          child: Container(
+            child: Row(
+              children: <Widget>[
+                Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    image: const DecorationImage(
+                      image: AssetImage("assets/images/logo/article-fee.png"),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Container(
+                  width: 210,
+                  child: Text(
+                    "${list_cate[index]["cate_name"]}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
-            onPressed: () {
-              print("games colors click");
-              setState(() {
-                id_cate = list_cate[index]["cate_id"];
-                name_cate = list_cate[index]["cate_name"];
-                _url = list_cate[index]["link"];
-                // _url = 'https://flutterdevs.com/';
-              });
-              check_link();
-              cateService();
-            }));
+          ),
+          onPressed: () {
+            print("games colors click");
+            setState(() {
+              id_cate = list_cate[index]["cate_id"];
+              name_cate = list_cate[index]["cate_name"];
+              _url = list_cate[index]["link"];
+              // _url = 'https://flutterdevs.com/';
+            });
+            check_link();
+            cateService();
+          }),
+    );
   }
 
   Widget Video_cate(index) {

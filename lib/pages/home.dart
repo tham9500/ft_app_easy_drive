@@ -27,7 +27,8 @@ class _Home_pageState extends State<Home_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(220.0),
+        preferredSize:
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.19),
         child: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false, //move back button
