@@ -149,8 +149,8 @@ class _Example_distanceState extends State<Example_distance> {
         onPressed: () {
           setState(() {
             if ((default_H >= 45) && (default_H < 230)) {
-              default_H = default_H + 1.25;
-              default_W = default_W + 0.1875;
+              default_H = default_H + 2.5;
+              default_W = default_W + 0.375;
               print(default_H);
               print(default_W);
               print("Zoom enable");
@@ -178,8 +178,8 @@ class _Example_distanceState extends State<Example_distance> {
         onPressed: () {
           setState(() {
             if ((default_H > 45) && (default_H <= 230)) {
-              default_H = default_H - 1.25;
-              default_W = default_W - 0.1875;
+              default_H = default_H - 2.5;
+              default_W = default_W - 0.375;
               print(default_H);
               print(default_W);
               print("Zoom enable");
