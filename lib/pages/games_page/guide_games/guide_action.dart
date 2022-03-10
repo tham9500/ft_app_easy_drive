@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:ft_app_easy_drive/pages/load_pages/load_game/loading_action.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Guide_action extends StatefulWidget {
   Guide_action({Key? key}) : super(key: key);
@@ -10,6 +11,27 @@ class Guide_action extends StatefulWidget {
 }
 
 class _Guide_actionState extends State<Guide_action> {
+  String status = "";
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Check_status();
+  }
+
+  Future<Null> Check_status() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      status = preferences.getString("STATUS")!;
+    });
+    if (status == "login") {
+      print("login complete");
+    } else {
+      print("Not login");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +52,13 @@ class _Guide_actionState extends State<Guide_action> {
                 bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.fill),
+                image: status == "login"
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar1.png"),
+                        fit: BoxFit.cover)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar.png"),
+                        fit: BoxFit.cover),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

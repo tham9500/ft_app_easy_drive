@@ -116,9 +116,13 @@ class _Video_aricleState extends State<Video_aricle> {
                 bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.fill),
+                image: status == "login"
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar1.png"),
+                        fit: BoxFit.fill)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar.png"),
+                        fit: BoxFit.cover),
               ),
             ),
           ),
@@ -131,18 +135,20 @@ class _Video_aricleState extends State<Video_aricle> {
       ),
       body: load
           ? ShowProgress()
-          : SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: list_video.length == 0
-                            ? Empty_list()
-                            : List_video(),
-                      ),
-                    ],
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: list_video.length == 0
+                              ? Empty_list()
+                              : List_video(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

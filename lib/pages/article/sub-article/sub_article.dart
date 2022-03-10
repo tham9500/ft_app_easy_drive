@@ -109,9 +109,13 @@ class _Sub_articleState extends State<Sub_article> {
                 bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.fill),
+                image: status == "login"
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar1.png"),
+                        fit: BoxFit.fill)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar.png"),
+                        fit: BoxFit.cover),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -165,37 +169,39 @@ class _Sub_articleState extends State<Sub_article> {
       ),
       body: load
           ? ShowProgress()
-          : SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 70,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 255, 255, 1),
-                          shape: BoxShape.circle,
-                          image: const DecorationImage(
-                            image: AssetImage(
-                                "assets/images/logo/article-read.png"),
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            shape: BoxShape.circle,
+                            image: const DecorationImage(
+                              image: AssetImage(
+                                  "assets/images/logo/article-read.png"),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 25),
-                      Container(
-                        child: Center(
-                          child: Text(
-                            "${cate_name}",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Color.fromRGBO(13, 59, 102, 1)),
+                        SizedBox(height: 25),
+                        Container(
+                          child: Center(
+                            child: Text(
+                              "${cate_name}",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(13, 59, 102, 1)),
+                            ),
                           ),
                         ),
-                      ),
-                      List_articlecate(),
-                    ],
+                        List_articlecate(),
+                      ],
+                    ),
                   ),
                 ),
               ),

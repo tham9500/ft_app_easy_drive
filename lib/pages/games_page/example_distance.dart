@@ -19,8 +19,8 @@ class _Example_distanceState extends State<Example_distance> {
   Color _color = Colors.lightGreen.shade400;
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
 
-  double set_W = 48;
-  double set_H = 300;
+  double set_W = 12;
+  double set_H = 75;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -67,7 +67,7 @@ class _Example_distanceState extends State<Example_distance> {
                             curve: Curves.fastOutSlowIn,
                           ),
                         ),
-                        SizedBox(width: 50),
+                        SizedBox(width: 130),
                         Container(
                           child: AnimatedContainer(
                             // Use the properties stored in the State class.
@@ -98,7 +98,7 @@ class _Example_distanceState extends State<Example_distance> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          SizedBox(width: 75),
+                          SizedBox(width: 130),
                           Container(
                             child: Text(
                               "B",
@@ -144,25 +144,25 @@ class _Example_distanceState extends State<Example_distance> {
   Widget Btn_up() {
     return Container(
       child: RaisedButton(
-        color: Colors.blueGrey.shade400,
+        color: Color.fromRGBO(43, 16, 132, 1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: () {
           setState(() {
-            if ((default_H >= 100) && (default_H < 380)) {
-              default_H = default_H + 10;
-              default_W = default_W + 1.5;
+            if ((default_H >= 45) && (default_H < 230)) {
+              default_H = default_H + 2.5;
+              default_W = default_W + 0.375;
               print(default_H);
               print(default_W);
               print("Zoom enable");
-            } else if (default_H >= 380) {
-              default_H = 370;
-              default_W = 58;
+            } else if (default_H >= 230) {
+              default_H = 230;
+              default_W = 36;
               print("max");
             }
           });
         },
         child: Icon(
-          Icons.arrow_upward,
+          Icons.arrow_downward,
           color: Colors.white,
           size: 70,
         ),
@@ -173,25 +173,25 @@ class _Example_distanceState extends State<Example_distance> {
   Widget Btn_down() {
     return Container(
       child: RaisedButton(
-        color: Colors.blueGrey.shade400,
+        color: Color.fromRGBO(43, 16, 132, 1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: () {
           setState(() {
-            if ((default_H > 100) && (default_H <= 380)) {
-              default_H = default_H - 10;
-              default_W = default_W - 1.5;
+            if ((default_H > 45) && (default_H <= 230)) {
+              default_H = default_H - 2.5;
+              default_W = default_W - 0.375;
               print(default_H);
               print(default_W);
               print("Zoom enable");
-            } else if (default_H <= 100) {
-              default_H = 100;
-              default_W = 17.5;
+            } else if (default_H <= 45) {
+              default_H = 45;
+              default_W = 7.5;
               print("max down");
             }
           });
         },
         child: Icon(
-          Icons.arrow_downward,
+          Icons.arrow_upward,
           color: Colors.white,
           size: 70,
         ),
@@ -228,7 +228,7 @@ class _Example_distanceState extends State<Example_distance> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: () {
           setState(() {
-            if ((default_H >= 260) && (default_H <= 340)) {
+            if ((default_H >= 60) && (default_H <= 80)) {
               print("PASS");
               // ignore: void_checks
               // _showMyDialogPass("ผ่าน");

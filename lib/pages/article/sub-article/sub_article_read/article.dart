@@ -112,9 +112,13 @@ class _ArticleState extends State<Article> {
                 bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.fill),
+                image: status == "login"
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar1.png"),
+                        fit: BoxFit.fill)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar.png"),
+                        fit: BoxFit.cover),
               ),
             ),
           ),
@@ -127,18 +131,33 @@ class _ArticleState extends State<Article> {
       ),
       body: load
           ? ShowProgress()
-          : SingleChildScrollView(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: <Widget>[
-                      List_article(),
-                    ],
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: list_article.length == 0
+                              ? Empty_data()
+                              : List_article(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
+    );
+  }
+
+  Widget Empty_data() {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      child: Center(
+        child: Text("ยังไม่มีเนื้อหาที่แสดงขณะนี้"),
+      ),
     );
   }
 
@@ -186,9 +205,9 @@ class _ArticleState extends State<Article> {
                     padding: const EdgeInsets.all(8),
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: Text(
-                      "${list_article[index]["article_title"]}".length > 45
+                      "${list_article[index]["article_title"]}".length > 60
                           ? "${list_article[index]["article_title"]}"
-                                  .substring(0, 45) +
+                                  .substring(0, 60) +
                               " ..."
                           : "${list_article[index]["article_title"]}",
                       style: TextStyle(fontSize: 16),

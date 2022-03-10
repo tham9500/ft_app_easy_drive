@@ -69,7 +69,7 @@ class _Guide_charangeState extends State<Guide_charange> {
     var response = await Dio().get(url);
     var data_setting = json.decode(response.data);
     setting_list = data_setting;
-    print("data : ${setting_list}");
+    // print("data : ${setting_list}");
     pass = int.parse(setting_list[0]["pass_criteria"]);
     maxScore = int.parse(setting_list[0]["num_test"]);
     timerMaxSeconds = int.parse(setting_list[0]["set_time"]);
@@ -83,7 +83,7 @@ class _Guide_charangeState extends State<Guide_charange> {
         '${Domain_name().domain}/easy_drive_backend/test/mobile/get_test.php';
 
     var response = await Dio().get(url);
-    print("response = ${response}");
+    // print("response = ${response}");
     if (response.toString() == "error") {
       print("numberice not many");
       intToTimeLeft();
@@ -106,7 +106,7 @@ class _Guide_charangeState extends State<Guide_charange> {
       result = "${m} นาที";
     }
 
-    print(result);
+    // print(result);
     setState(() {
       load = false;
     });
@@ -133,9 +133,13 @@ class _Guide_charangeState extends State<Guide_charange> {
                 bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.fill),
+                image: status == "login"
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar1.png"),
+                        fit: BoxFit.fill)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar.png"),
+                        fit: BoxFit.cover),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -27,7 +27,8 @@ class _Home_pageState extends State<Home_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(220.0),
+        preferredSize:
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.19),
         child: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false, //move back button
@@ -146,17 +147,19 @@ class _Home_pageState extends State<Home_page> {
   }
 
   Widget Scroll_Article_horizon() {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.16,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          //open article main widget
-          Article_Page_scroll(),
-          SizedBox(width: 12),
-          //open web article sample
-          Article_Page_scroll2(),
-        ],
+    return Scrollbar(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.18,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            //open article main widget
+            Article_Page_scroll(),
+            SizedBox(width: 12),
+            //open web article sample
+            Article_Page_scroll2(),
+          ],
+        ),
       ),
     );
   }

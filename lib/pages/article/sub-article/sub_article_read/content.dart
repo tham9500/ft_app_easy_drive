@@ -18,6 +18,7 @@ class Content extends StatefulWidget {
 }
 
 class _ContentState extends State<Content> {
+  String dropdownValue = 'ปกติ';
   bool load = true;
   String displayID = "";
   String status = "";
@@ -27,6 +28,8 @@ class _ContentState extends State<Content> {
   String article_ID = "";
   String article_NAME = "";
   String article_HEAD = "";
+  double headfont = 18;
+  double contentfont = 16;
 
   @override
   void initState() {
@@ -69,6 +72,19 @@ class _ContentState extends State<Content> {
     print("ID_article = ${article_ID}");
     get_article();
     // print("ID = ${cate_name}");
+  }
+
+  updatesize() {
+    if (dropdownValue == "เล็ก") {
+      headfont = 16;
+      contentfont = 14;
+    } else if (dropdownValue == "ปกติ") {
+      headfont = 18;
+      contentfont = 16;
+    } else if (dropdownValue == "ใหญ่") {
+      headfont = 20;
+      contentfont = 18;
+    }
   }
 
   Future<Null> get_article() async {
@@ -118,9 +134,13 @@ class _ContentState extends State<Content> {
                 bottomRight: Radius.circular(50)),
             child: Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/appbars/appbar.png"),
-                    fit: BoxFit.fill),
+                image: status == "login"
+                    ? DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar1.png"),
+                        fit: BoxFit.fill)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/appbars/appbar.png"),
+                        fit: BoxFit.cover),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -150,43 +170,104 @@ class _ContentState extends State<Content> {
                   padding: const EdgeInsets.all(4),
                   child: Column(
                     children: <Widget>[
-                      //First_page(),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.84,
-                        child: PageView.builder(
-                          itemCount: list_content.length,
-                          itemBuilder: (context, index) {
-                            print(list_content[index]);
-                            return SingleChildScrollView(
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      width:
-                                          MediaQuery.of(context).size.width * 1,
-                                      child:
-                                          list_content[index] == list_content[0]
-                                              ? First_page(index)
-                                              : Next_page(index),
-                                    ),
-                                    Container(
-                                      child: status == 'login'
-                                          ? Comment_article()
-                                          : null,
-                                    ),
-                                  ],
-                                ),
+                        alignment: Alignment.centerRight,
+                        child: Row(
+                          children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                "ขนาดตัวอักษร : ",
+                                style: TextStyle(
+                                    fontSize: contentfont,
+                                    color: Colors.black45),
                               ),
-                            );
-                          },
+                            ),
+                            SizedBox(width: 15),
+                            dropdown()
+                          ],
                         ),
                       ),
+                      Container(
+                        child: article_HEAD == "" && list_content.length == 0
+                            ? Empty_data()
+                            : Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.84,
+                                child: PageView.builder(
+                                  itemCount: list_content.length,
+                                  itemBuilder: (context, index) {
+                                    print(list_content[index]);
+                                    return SingleChildScrollView(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  1,
+                                              child: list_content[index] ==
+                                                      list_content[0]
+                                                  ? First_page(index)
+                                                  : Next_page(index),
+                                            ),
+                                            Container(
+                                              child: status == 'login'
+                                                  ? Comment_article()
+                                                  : null,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                      )
+                      //First_page(),
                     ],
                   ),
                 ),
               ),
             ),
+    );
+  }
+
+  Widget dropdown() {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_drop_down),
+      elevation: 10,
+      style: TextStyle(color: Colors.deepPurple, fontSize: contentfont),
+      underline: Container(
+        height: 2,
+        color: Colors.blueAccent,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+
+          updatesize();
+        });
+      },
+      items: <String>['เล็ก', 'ปกติ', 'ใหญ่']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget Empty_data() {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      child: Center(
+        child: Text("ยังไม่มีเนื้อหาที่แสดงขณะนี้"),
+      ),
     );
   }
 
@@ -216,7 +297,7 @@ class _ContentState extends State<Content> {
               "${article_HEAD}",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
+                  fontSize: headfont,
                   fontWeight: FontWeight.normal),
             ),
           ),
@@ -229,7 +310,7 @@ class _ContentState extends State<Content> {
             padding: const EdgeInsets.all(16),
             child: Text(
               "${list_content[index]['text_content']}",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: contentfont),
             ),
           ),
         ],
@@ -250,7 +331,7 @@ class _ContentState extends State<Content> {
             padding: const EdgeInsets.all(20),
             child: Text(
               "${list_content[index]['text_content']}",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: contentfont),
             ),
           ),
         ],
@@ -343,15 +424,17 @@ class _ContentState extends State<Content> {
               left: 15.0,
               top: 60.0,
               child: Container(
+                height: MediaQuery.of(context).size.height * 0.04,
+                width: MediaQuery.of(context).size.width * 0.1,
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: TextButton(
                   child: const Text(
-                    'ปิด',
+                    'X',
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),

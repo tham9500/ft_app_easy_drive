@@ -13,6 +13,7 @@ import 'package:ft_app_easy_drive/pages/history.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
 import 'package:ft_app_easy_drive/pages/profile.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
+import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,6 +26,7 @@ class Home_login extends StatefulWidget {
 
 class _Home_loginState extends State<Home_login> {
   //user data
+  bool load = true;
   String displayName = "";
   String displayID = "";
   //data save history
@@ -48,13 +50,17 @@ class _Home_loginState extends State<Home_login> {
       displayID = preferences.getString("ID")!;
     });
     print("login complete");
+    setState(() {
+      load = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(180.0),
+        preferredSize:
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.19),
         child: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false, //move back button
@@ -146,25 +152,29 @@ class _Home_loginState extends State<Home_login> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              children: <Widget>[
-                //menu scroll horizantal
-                Scroll_Article_horizon(),
-                SizedBox(height: 20),
-                //main menu
-                Scroll_menu(),
-                SizedBox(height: 20),
-                //list menu title
-                tittle_menu(),
-              ],
+      body: load
+          ? ShowProgress()
+          : Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        //menu scroll horizantal
+                        Scroll_Article_horizon(),
+                        SizedBox(height: 20),
+                        //main menu
+                        Scroll_menu(),
+                        SizedBox(height: 20),
+                        //list menu title
+                        tittle_menu(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -226,17 +236,19 @@ class _Home_loginState extends State<Home_login> {
   }
 
   Widget Scroll_Article_horizon() {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.16,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          //article main open widget
-          Article_Page_scroll(),
-          SizedBox(width: 12),
-          //widget open link covid 19
-          Article_Page_scroll2(),
-        ],
+    return Scrollbar(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.18,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            //article main open widget
+            Article_Page_scroll(),
+            SizedBox(width: 12),
+            //widget open link covid 19
+            Article_Page_scroll2(),
+          ],
+        ),
       ),
     );
   }
