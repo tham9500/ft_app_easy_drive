@@ -303,7 +303,7 @@ class _Home_gameState extends State<Home_game> {
                   SizedBox(width: 12),
                   Container(
                     width: 210,
-                    child: Text("ทดสอบการมองเห็นสี\nสำหรับการขับรถ"),
+                    child: Text("ทดสอบกปฏิกิริยาสีไฟ\nจราจร"),
                   ),
                   Container(
                     child: Container(
