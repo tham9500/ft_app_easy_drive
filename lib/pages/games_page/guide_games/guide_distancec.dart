@@ -178,7 +178,7 @@ class _Guide_distanceState extends State<Guide_distance> {
                 Container(
                   height: 500,
                   width: 460,
-                  child: Image.asset("assets/images/game_icon/title.png"),
+                  child: Image.asset("assets/images/game_icon/title.jpg"),
                 ),
               ],
             ),
