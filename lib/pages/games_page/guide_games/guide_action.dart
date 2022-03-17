@@ -131,7 +131,7 @@ class _Guide_actionState extends State<Guide_action> {
                 Container(
                   child: Center(
                     child: Text(
-                      "ทดสอบปฏิกริยา",
+                      "ทดสอบปฏิกิริยา",
                       style: TextStyle(
                           fontSize: 18, color: Color.fromRGBO(13, 59, 102, 1)),
                     ),

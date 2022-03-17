@@ -111,7 +111,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
   }
 
   end_quiz() {
-    if (answer.length == 3) {
+    if (answer.length == 5) {
       print("in condition");
       if (condition == 0) {
         print("pass");
@@ -194,7 +194,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                   onPressed: () {
-                                    if (count == 3) {
+                                    if (count == 5) {
                                       count + 0;
                                     } else {
                                       count++;
@@ -208,7 +208,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
                                     print(choice[index]["score"]);
                                     print("answer = ${answer}");
                                     selecter.add(choice[index]["ID"]);
-                                    if (counting >= 3) {
+                                    if (counting >= 5) {
                                       condition_ans();
                                       end_quiz();
                                     } else {}
@@ -322,7 +322,7 @@ class _example_eyecoloState extends State<example_eyecolo> {
     return Container(
       alignment: Alignment.center,
       child: Text(
-        "${count}/3",
+        "${count}/5",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );

@@ -19,7 +19,7 @@ class _forget_pageState extends State<forget_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(140.0),
+        preferredSize: Size.fromHeight(200.0),
         child: AppBar(
           centerTitle: true,
           leading: IconButton(
@@ -82,19 +82,13 @@ class _forget_pageState extends State<forget_page> {
                                   SizedBox(height: 20),
                                   Container(
                                     child: Text(
-                                      "กรุณากรอกอีเมลล์ที่ลงทะเบียนไว้กับเรา",
+                                      "กรุณากรอกอีเมลที่ลงทะเบียนไว้กับเรา",
                                       style: TextStyle(fontSize: 16),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
-                                      "ระบบจะส่งลิงค์ยืนยันการรีเซตรหัสผ่าน",
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      "ไปยังอีเมลของคุณ",
+                                      "ระบบจะส่งรหัสผ่านไปยังอีเมลของคุณ",
                                       style: TextStyle(fontSize: 16),
                                     ),
                                   ),
