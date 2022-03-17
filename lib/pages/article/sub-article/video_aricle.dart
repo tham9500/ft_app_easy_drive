@@ -211,9 +211,10 @@ class _Video_aricleState extends State<Video_aricle> {
                     padding: const EdgeInsets.all(8),
                     width: 260,
                     child: Text(
-                      "${list_video[index]["video_name"]}".length > 30
+                      "${list_video[index]["video_name"]}".length > 45
                           ? "${list_video[index]["video_name"]}"
-                              .substring(0, 30)
+                                  .substring(0, 45) +
+                              "..."
                           : "${list_video[index]["video_name"]}",
                       style: TextStyle(fontSize: 16),
                     ),

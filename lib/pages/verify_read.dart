@@ -17,7 +17,7 @@ class _Verify_readState extends State<Verify_read> {
         preferredSize: Size.fromHeight(60),
         child: AppBar(
           centerTitle: true,
-          title: Text("เงื่อไขการสมัครสมาชิก"),
+          title: Text("เงื่อนไขการสมัครสมาชิก"),
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
