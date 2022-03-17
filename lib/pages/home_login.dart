@@ -11,6 +11,7 @@ import 'package:ft_app_easy_drive/pages/example_exam/home_sample.dart';
 import 'package:ft_app_easy_drive/pages/games_page/home_game.dart';
 import 'package:ft_app_easy_drive/pages/history.dart';
 import 'package:ft_app_easy_drive/pages/login.dart';
+import 'package:ft_app_easy_drive/pages/pageSample.dart';
 import 'package:ft_app_easy_drive/pages/profile.dart';
 import 'package:ft_app_easy_drive/pages/registor.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
@@ -196,6 +197,9 @@ class _Home_loginState extends State<Home_login> {
             SizedBox(height: 20),
             //history widget
             history_charange(),
+            // SizedBox(height: 20),
+            // //history widget
+            // test(),
           ],
         ),
       ),
@@ -618,7 +622,7 @@ class _Home_loginState extends State<Home_login> {
                   SizedBox(width: 12),
                   Container(
                     width: 210,
-                    child: Text("ประวัติการทำข้อสอบ"),
+                    child: Text("ประวัติการทำแบบทดสอบ"),
                   ),
                 ],
               ),
@@ -630,6 +634,52 @@ class _Home_loginState extends State<Home_login> {
               print("games colors click");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => History_charage()));
+            }));
+  }
+
+  Widget test() {
+    return Container(
+        height: 80,
+        width: MediaQuery.of(context).size.width,
+        child: ElevatedButton(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(255, 255, 255, 1),
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(252, 183, 7, 1),
+                      borderRadius: BorderRadius.circular(12),
+                      image: const DecorationImage(
+                        image: AssetImage("assets/images/logo/history.png"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Container(
+                    width: 210,
+                    child: Text("test"),
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {
+              //save history
+              history = "H";
+              User_history();
+              print("games colors click");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Sample()));
             }));
   }
 
