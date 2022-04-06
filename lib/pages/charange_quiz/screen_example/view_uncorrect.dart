@@ -153,19 +153,23 @@ class _View_uncorrectState extends State<View_uncorrect> {
                 : Qeustion_HaveImage(index),
           ),
           Container(
-            child: Text(
-              "ตอบ",
-              style: TextStyle(
-                  fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(
             child: Quiz[index]["answers"][0]["image_choice"] == ""
                 ? Choice_NoIamge(index)
                 : Choice_HaveIamge(index),
           ),
           SizedBox(height: 10)
         ],
+      ),
+    );
+  }
+
+  Widget text_And() {
+    return Container(
+      child: Text(
+        "ตอบ",
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+        softWrap: false,
+        overflow: TextOverflow.fade,
       ),
     );
   }
@@ -234,16 +238,41 @@ class _View_uncorrectState extends State<View_uncorrect> {
               padding: const EdgeInsets.all(4),
               child: Quiz[index]["answers"][i]["value_choice"] == "1"
                   ? Container(
-                      child: Text("${Quiz[index]["answers"][i]["choice"]}",
+                      child: RichText(
+                          text: TextSpan(children: [
+                      TextSpan(
+                          text: "ตอบ ",
                           style: TextStyle(
-                              fontSize: 16, color: Colors.blue.shade900)),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                              fontFamily: "Prompt",
+                              fontSize: 16)),
+                      TextSpan(
+                          text: "${Quiz[index]["answers"][i]["choice"]}",
+                          style: TextStyle(
+                              color: Colors.blue.shade900,
+                              fontFamily: "Prompt",
+                              fontSize: 16)),
+                    ]))
+                      // child: Text(" ${Quiz[index]["answers"][i]["choice"]}",
+                      //     style: TextStyle(
+                      //         fontSize: 16, color: Colors.blue.shade900)),
 
                       // color: Colors.amber.shade200,
-                    )
+                      )
                   : null,
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget text_Ans() {
+    return Container(
+      child: Text(
+        "ตอบ",
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
       ),
     );
   }

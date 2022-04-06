@@ -375,7 +375,7 @@ class _Screen_mainState extends State<Screen_main> {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.13,
+                height: MediaQuery.of(context).size.height * 0.14,
                 width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                     style: ButtonStyle(
@@ -393,7 +393,7 @@ class _Screen_mainState extends State<Screen_main> {
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
                     child: Text(
-                      "${i + 1}. ${Quiz[index]["answers"][i]["choice"]}",
+                      "${Quiz[index]["answers"][i]["choice"]}",
                       style: TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
@@ -472,7 +472,7 @@ class _Screen_mainState extends State<Screen_main> {
                                   Container(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      "${i + 1}. ${Quiz[index]["answers"][i]["choice"]}",
+                                      "${Quiz[index]["answers"][i]["choice"]}",
                                       style: TextStyle(fontSize: 16),
                                     ),
                                   ),

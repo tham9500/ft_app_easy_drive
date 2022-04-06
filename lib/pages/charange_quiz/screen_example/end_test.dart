@@ -223,7 +223,7 @@ class _End_testState extends State<End_test> {
                   borderRadius: BorderRadius.circular(30),
                 ))),
             child: Text(
-              "ดูเฉลยคำตอบไม่ถูกต้อง",
+              "ดูเฉลยข้อที่ผิด",
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             onPressed: () {
