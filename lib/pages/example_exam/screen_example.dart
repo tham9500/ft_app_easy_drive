@@ -156,7 +156,10 @@ class _Screen_exampleState extends State<Screen_example> {
             alignment: Alignment.centerLeft,
             child: Text(
               "คำถาม",
-              style: TextStyle(fontSize: 24, color: Colors.blue.shade900),
+              style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.blue.shade900,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 15),
@@ -164,14 +167,6 @@ class _Screen_exampleState extends State<Screen_example> {
             child: list_example[index]["image_question"] == ""
                 ? Qeustion_NoImage(index)
                 : Qeustion_HaveImage(index),
-          ),
-          SizedBox(height: 15),
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "คำตอบ",
-              style: TextStyle(fontSize: 24, color: Colors.red.shade900),
-            ),
           ),
           SizedBox(height: 15),
           Container(
@@ -260,11 +255,27 @@ class _Screen_exampleState extends State<Screen_example> {
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Container(
-                child: Text(
-                  "${list_example[index]["answers"][i]["choice"]}",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
+                  child: RichText(
+                      text: TextSpan(children: [
+                TextSpan(
+                    text: "ตอบ ",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                        fontFamily: "Prompt",
+                        fontSize: 18)),
+                TextSpan(
+                    text: "${list_example[index]["answers"][i]["choice"]}",
+                    style: TextStyle(
+                        color: Colors.blue.shade900,
+                        fontFamily: "Prompt",
+                        fontSize: 18)),
+              ]))
+                  // child: Text(
+                  //   "${list_example[index]["answers"][i]["choice"]}",
+                  //   style: TextStyle(fontSize: 16),
+                  // ),
+                  ),
             ),
           );
         },
