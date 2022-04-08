@@ -23,6 +23,7 @@ class _Play_videoState extends State<Play_video> {
   String name_video = "";
   String head_video = "";
   String file_video = "";
+  String type_video = "";
 
   void initState() {
     // TODO: implement initState
@@ -52,6 +53,9 @@ class _Play_videoState extends State<Play_video> {
       name_video = preferences.getString("VIDEO_NAME")!;
       head_video = preferences.getString("VIDEO_HEAD")!;
       file_video = preferences.getString("VIDEO_FILE")!;
+      List type_result = file_video.split(".");
+      type_video = type_result[1];
+      print(type_video);
       load = false;
     });
     print("ID_article = ${name_video}");
@@ -115,30 +119,57 @@ class _Play_videoState extends State<Play_video> {
                 child: Column(
                   children: [
                     Container(
-                      child: AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: BetterPlayer.network(
-                          "${Domain_name().forword_port}/easy_drive_backend/video/${file_video}",
-                          betterPlayerConfiguration: BetterPlayerConfiguration(
-                            aspectRatio: 16 / 9,
-                            autoPlay: true,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "${head_video}",
-                        style: TextStyle(fontSize: 18),
-                      ),
+                      child: type_video == "mp4" ? show_video() : no_support(),
                     ),
                   ],
                 ),
               ),
             ),
+    );
+  }
+
+  Widget show_video() {
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: BetterPlayer.network(
+                "${Domain_name().forword_port}/easy_drive_backend/video/${file_video}",
+                betterPlayerConfiguration: BetterPlayerConfiguration(
+                  aspectRatio: 16 / 9,
+                  autoPlay: true,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.all(8),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "${head_video}",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget no_support() {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            alignment: Alignment.center,
+            child: Text("เนื้อหานี้ยังไม่พร้อมใช้งาน"),
+          ),
+        ],
+      ),
     );
   }
 }
