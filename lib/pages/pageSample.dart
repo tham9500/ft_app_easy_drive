@@ -43,7 +43,7 @@ class _SampleState extends State<Sample> {
                 SizedBox(height: 5),
                 Container(
                   child: Text(
-                    "46/50",
+                    "คะแนน 46/50",
                     style:
                         TextStyle(fontSize: 28, color: Colors.green.shade500),
                   ),
@@ -147,7 +147,7 @@ class _SampleState extends State<Sample> {
                   borderRadius: BorderRadius.circular(30),
                 ))),
             child: Text(
-              "ดูเฉลยคำตอบไม่ถูกต้อง",
+              "ดูเฉลยข้อที่ผิด",
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             onPressed: () {
