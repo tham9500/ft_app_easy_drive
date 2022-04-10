@@ -277,7 +277,7 @@ class _History_charageState extends State<History_charage> {
             return Container(
               child: Container(
                 padding: const EdgeInsets.all(8),
-                height: MediaQuery.of(context).size.height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.16,
                 child: Card(
                   color: Color.fromRGBO(230, 238, 246, 1),
                   shape: RoundedRectangleBorder(
@@ -383,7 +383,7 @@ class _History_charageState extends State<History_charage> {
             return Container(
               child: Container(
                 padding: const EdgeInsets.all(8),
-                height: MediaQuery.of(context).size.height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.16,
                 child: Card(
                   color: Color.fromRGBO(230, 238, 246, 1),
                   shape: RoundedRectangleBorder(
@@ -489,7 +489,7 @@ class _History_charageState extends State<History_charage> {
             return Container(
               child: Container(
                 padding: const EdgeInsets.all(8),
-                height: MediaQuery.of(context).size.height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.16,
                 child: Card(
                   color: Color.fromRGBO(230, 238, 246, 1),
                   shape: RoundedRectangleBorder(
