@@ -277,7 +277,7 @@ class _Registor_pageState extends State<Registor_page> {
 
           if (form_key.currentState!.validate()) {
             if (isChecked == false) {
-              _showMyDialogVerify("กรุณายีนยันนโยบายก่อนทำ\nการลงทะเบียน");
+              _showMyDialogVerify("กรุณายืนยันนโยบายก่อนทำ\nการลงทะเบียน");
             } else {
               if (loading == false) {
                 setState(() {
