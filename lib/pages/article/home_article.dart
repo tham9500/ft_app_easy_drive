@@ -416,4 +416,4 @@ class _Home_articleState extends State<Home_article> {
   void _launchURL() async => await canLaunch(_url)
       ? await launch(_url)
       : throw "could not launch $_url";
-}
+  }

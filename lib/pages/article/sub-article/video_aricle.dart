@@ -8,6 +8,7 @@ import 'package:ft_app_easy_drive/pages/article/home_article.dart';
 import 'package:ft_app_easy_drive/pages/article/sub-article/sub_article_read/video_play/play_video.dart';
 import 'package:ft_app_easy_drive/widget/show_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Video_aricle extends StatefulWidget {
   Video_aricle({Key? key}) : super(key: key);
@@ -26,8 +27,10 @@ class _Video_aricleState extends State<Video_aricle> {
   String name_video = "";
   String head_video = "";
   String file_video = "";
+  String type_video = "";
   List<dynamic> list_video = [];
   List<dynamic> result = [];
+  String _url = '';
 
   void initState() {
     // TODO: implement initState
@@ -228,12 +231,22 @@ class _Video_aricleState extends State<Video_aricle> {
                 name_video = list_video[index]["video_name"];
                 head_video = list_video[index]["video_head"];
                 file_video = list_video[index]["video"];
+                List type_result = file_video.split(".");
+                type_video = type_result[1];
               });
-              cateService();
-              // cateService();
-              print("read article click");
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Play_video()));
+              if (type_video == "mp4") {
+                cateService();
+                // cateService();
+                print("read article click");
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Play_video()));
+              } else if (type_video != "mp4") {
+                print("this is url");
+                setState(() {
+                  _url = file_video;
+                });
+                check_link();
+              }
             }));
   }
 
@@ -248,4 +261,16 @@ class _Video_aricleState extends State<Video_aricle> {
     print("HEAD_VIDEO = $head_video");
     print("FILE_VIDEO = $file_video");
   }
+
+  check_link() {
+    if (_url != '') {
+      _launchURL();
+    } else {
+      print("Url id empty");
+    }
+  }
+
+  void _launchURL() async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw "could not launch $_url";
 }
